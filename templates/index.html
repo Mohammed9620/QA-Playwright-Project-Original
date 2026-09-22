@@ -2429,7 +2429,7 @@
     function setStatus(t){statusText.textContent=t;footerText.textContent=t;}
 
     // Form submission / SSE
-    form.addEventListener("submit",(e)=>{
+    form.addEventListener("submit", async (e)=>{
       e.preventDefault();hideError();
       const url=document.getElementById("url").value.trim();
       const scanType=selectEl.value,strategy=getSelectedStrategy();
@@ -2454,8 +2454,24 @@
         const ul=document.getElementById("user-locator").value.trim();
         const pl=document.getElementById("pass-locator").value.trim();
         const ll=document.getElementById("login-locator").value.trim();
-        if(un)params.set("username",un);if(up)params.set("password",up);
-        if(ul)params.set("user_locator",ul);if(pl)params.set("pass_locator",pl);if(ll)params.set("login_locator",ll);
+
+        // Securely register credentials via POST to avoid transmitting password in GET query string
+        try {
+          await fetch("/prepare_scan", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              session_id: sessionId,
+              username: un,
+              password: up,
+              user_locator: ul,
+              pass_locator: pl,
+              login_locator: ll
+            })
+          });
+        } catch(err) {
+          console.error("Failed to prepare secure credentials:", err);
+        }
       }
 
       const evtSrc=new EventSource("/stream_scan?"+params.toString());

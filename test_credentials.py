@@ -1,4 +1,5 @@
 import os
+import pytest
 from dotenv import load_dotenv
 from playwright.sync_api import sync_playwright, Page
 
@@ -6,16 +7,8 @@ from playwright.sync_api import sync_playwright, Page
 # ──────────────────────────────────────────────
 #  Load environment variables from .env file
 # ──────────────────────────────────────────────
-load_dotenv()
-
-TARGET_URL = os.getenv("TARGET_URL")
-
-# Guard: fail early with a clear message if the required variable is missing
-if not TARGET_URL:
-    raise EnvironmentError(
-        "[ERROR] TARGET_URL is not set. "
-        "Please check your .env file or environment before running this module."
-    )
+_env_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(_env_path)
 
 # ──────────────────────────────────────────────
 #  Configurable wordlist
@@ -33,16 +26,17 @@ _DEFAULT_PASSES = [
 ]
 
 WORDLIST_USERS = (
-    os.getenv("WORDLIST_USERS", "").split(",")
+    [u.strip() for u in os.getenv("WORDLIST_USERS", "").split(",") if u.strip()]
     if os.getenv("WORDLIST_USERS")
     else _DEFAULT_USERS
 )
 
 WORDLIST_PASSES = (
-    os.getenv("WORDLIST_PASSES", "").split(",")
+    [p.strip() for p in os.getenv("WORDLIST_PASSES", "").split(",") if p.strip()]
     if os.getenv("WORDLIST_PASSES")
     else _DEFAULT_PASSES
 )
+
 
 
 # ──────────────────────────────────────────────
@@ -96,13 +90,18 @@ def test_credential_bruteforce_probe():
     FAIL criteria: At least one credential pair successfully authenticates
                    (indicates a weak default credential is active).
     """
+    target_url = os.getenv("TARGET_URL")
+    if not target_url:
+        pytest.skip("[SKIP] TARGET_URL is not set.")
+
     successful_pairs = []
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        page    = browser.new_page()
+        context = browser.new_context()
+        page    = context.new_page()
 
-        probe_page = CredentialProbePage(page, url=TARGET_URL)
+        probe_page = CredentialProbePage(page, url=target_url)
         probe_page.navigate()
 
         for username in WORDLIST_USERS:
@@ -110,11 +109,19 @@ def test_credential_bruteforce_probe():
                 print(f"[INFO] Trying: {username} / {'*' * len(password)}")
 
                 probe_page.attempt_login(username, password)
-                page.wait_for_timeout(800)  # brief wait for redirect
+                try:
+                    page.wait_for_url("**/inventory.html", timeout=600)
+                except Exception:
+                    pass
 
                 if probe_page.is_login_successful():
-                    print(f"[WARN] Successful login with: {username} / {password}")
+                    print(f"[WARN] Successful login with: {username} / {'*' * len(password)}")
                     successful_pairs.append((username, password))
+                    context.clear_cookies()
+                    try:
+                        page.evaluate("() => { localStorage.clear(); sessionStorage.clear(); }")
+                    except Exception:
+                        pass
 
                 # Always reset back to login page for the next attempt
                 probe_page.reset_to_login()
@@ -124,10 +131,11 @@ def test_credential_bruteforce_probe():
     # ── Assertion ────────────────────────────────
     assert len(successful_pairs) == 0, (
         f"[FAIL] {len(successful_pairs)} common credential pair(s) granted access: "
-        + ", ".join(f"{u}/{p}" for u, p in successful_pairs)
+        + ", ".join(f"{u} / {'*' * len(p)}" for u, p in successful_pairs)
     )
     print(
         f"[PASS] Credential bruteforce probe complete. "
         f"No common credentials succeeded out of "
         f"{len(WORDLIST_USERS) * len(WORDLIST_PASSES)} attempts."
     )
+

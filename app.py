@@ -6,16 +6,24 @@ import subprocess
 import threading
 import time
 import uuid
-import random
+import secrets
+import shutil
+from collections import OrderedDict
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta, timezone
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, send_file, Response, jsonify, session, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-change-in-production")
+_configured_secret = os.environ.get("SECRET_KEY")
+if not _configured_secret:
+    app.secret_key = os.environ.get("FLASK_SECRET", secrets.token_hex(32))
+else:
+    app.secret_key = _configured_secret
 app.config['SESSION_PERMANENT'] = False
+
 
 @app.before_request
 def check_session_timeout():
@@ -65,11 +73,54 @@ SCAN_LABELS = {
 }
 
 
+DB_PATH = os.path.join(os.path.dirname(__file__), "users.db")
+REPORTS_DIR = os.path.join(os.path.dirname(__file__), "reports")
+os.makedirs(REPORTS_DIR, exist_ok=True)
 REPORT_PATH = os.path.join(os.path.dirname(__file__), "report.html")
 
-# In-memory store for finished scan results keyed by session id
-_scan_results: dict[str, dict] = {}
+# Bounded in-memory store for finished scan results and auth params (LRU eviction)
+class BoundedCache:
+    def __init__(self, maxsize=100):
+        self._cache = OrderedDict()
+        self._lock = threading.Lock()
+        self._maxsize = maxsize
+
+    def set(self, key: str, val: dict):
+        with self._lock:
+            if len(self._cache) >= self._maxsize:
+                self._cache.popitem(last=False)
+            self._cache[key] = val
+
+    def get(self, key: str):
+        with self._lock:
+            return self._cache.get(key)
+
+    def pop(self, key: str, default=None):
+        with self._lock:
+            return self._cache.pop(key, default)
+
+_scan_results = BoundedCache(maxsize=100)
+_scan_creds = BoundedCache(maxsize=50)
 _scan_lock = threading.Lock()
+
+
+def ensure_db_schema():
+    """Ensure database schema includes attempt tracking for brute-force rate-limiting."""
+    try:
+        if os.path.exists(DB_PATH):
+            with sqlite3.connect(DB_PATH) as conn:
+                cur = conn.cursor()
+                cur.execute("PRAGMA table_info(otp_store)")
+                cols = [col[1] for col in cur.fetchall()]
+                if cols and "attempts" not in cols:
+                    cur.execute("ALTER TABLE otp_store ADD COLUMN attempts INTEGER DEFAULT 0")
+                    conn.commit()
+    except Exception as e:
+        print(f"[DB] Schema migration notice: {e}")
+
+
+ensure_db_schema()
+
 
 
 def parse_pytest_summary(output: str) -> dict:
@@ -257,33 +308,50 @@ def login():
             error = "Invalid role selected."
         else:
             try:
-                conn = sqlite3.connect(DB_PATH)
-                conn.row_factory = sqlite3.Row
-                row = conn.execute(
-                    "SELECT id, username, password, role FROM users WHERE (username = ? OR email = ?)",
-                    (username, username),
-                ).fetchone()
-                conn.close()
+                with sqlite3.connect(DB_PATH) as conn:
+                    conn.row_factory = sqlite3.Row
+                    row = conn.execute(
+                        "SELECT id, username, password, role FROM users WHERE (username = ? OR email = ?)",
+                        (username, username),
+                    ).fetchone()
 
                 if row:
                     if selected_role == "admin" and row["role"] == "user":
                         error = "Access Denied: This account does not have Admin privileges."
                     elif selected_role == "user" and row["role"] == "admin":
                         error = "Please use the Admin login section to sign in as an administrator."
-                    elif row["password"] == password:
-                        session["user_id"] = row["id"]
-                        session["username"] = row["username"]
-                        session["role"] = row["role"]
-                        session["last_activity"] = datetime.now(timezone.utc).isoformat()
-                        return redirect(url_for("home"))
                     else:
-                        error = "Invalid username or password."
+                        stored_pw = row["password"]
+                        password_valid = False
+                        if stored_pw.startswith("scrypt:") or stored_pw.startswith("pbkdf2:"):
+                            password_valid = check_password_hash(stored_pw, password)
+                        elif stored_pw == password:
+                            # Transparently upgrade legacy plaintext password
+                            password_valid = True
+                            new_hash = generate_password_hash(password, method="scrypt")
+                            try:
+                                with sqlite3.connect(DB_PATH) as up_conn:
+                                    up_conn.execute("UPDATE users SET password = ? WHERE id = ?", (new_hash, row["id"]))
+                                    up_conn.commit()
+                            except Exception:
+                                pass
+
+                        if password_valid:
+                            session.clear()
+                            session["user_id"] = row["id"]
+                            session["username"] = row["username"]
+                            session["role"] = row["role"]
+                            session["last_activity"] = datetime.now(timezone.utc).isoformat()
+                            return redirect(url_for("home"))
+                        else:
+                            error = "Invalid username or password."
                 else:
                     error = "Invalid username or password."
             except Exception as exc:
                 error = f"Database error: {exc}"
 
     return render_template("login.html", error=error)
+
 
 
 @app.route("/logout")
@@ -319,46 +387,43 @@ def signup():
                 error = "Please enter a valid email address."
             else:
                 try:
-                    conn = sqlite3.connect(DB_PATH)
-                    # Check if email is already taken
-                    user_exists = conn.execute("SELECT 1 FROM users WHERE email = ?", (input_email,)).fetchone()
-                    if user_exists:
-                        error = "Email address is already registered."
-                        conn.close()
-                    else:
-                        # Check existing OTP generated within last 5 minutes
-                        conn.row_factory = sqlite3.Row
-                        row = conn.execute("SELECT otp_code, created_at FROM otp_store WHERE email = ?", (input_email,)).fetchone()
-                        
-                        now = datetime.now(timezone.utc)
-                        otp_code = None
-                        
-                        if row:
-                            try:
-                                created_at = datetime.fromisoformat(row["created_at"])
-                                if now - created_at < timedelta(minutes=5):
-                                    otp_code = row["otp_code"]
-                            except Exception:
-                                pass
-                        
-                        if not otp_code:
-                            otp_code = f"{random.randint(100000, 999999)}"
-                            conn.execute(
-                                "INSERT OR REPLACE INTO otp_store (email, otp_code, created_at) VALUES (?, ?, ?)",
-                                (input_email, otp_code, now.isoformat())
-                            )
-                            conn.commit()
-                        
-                        conn.close()
-                        
-                        if send_otp_email(input_email, otp_code):
-                            session["signup_email"] = input_email
-                            session["signup_step"] = "verify_otp"
-                            step = "verify_otp"
-                            email = input_email
-                            success_msg = "OTP sent successfully! Please check your email."
+                    with sqlite3.connect(DB_PATH) as conn:
+                        # Check if email is already taken
+                        user_exists = conn.execute("SELECT 1 FROM users WHERE email = ?", (input_email,)).fetchone()
+                        if user_exists:
+                            error = "Email address is already registered."
                         else:
-                            error = "Failed to send OTP verification email. Please try again later."
+                            # Check existing OTP generated within last 5 minutes
+                            conn.row_factory = sqlite3.Row
+                            row = conn.execute("SELECT otp_code, created_at FROM otp_store WHERE email = ?", (input_email,)).fetchone()
+
+                            now = datetime.now(timezone.utc)
+                            otp_code = None
+
+                            if row:
+                                try:
+                                    created_at = datetime.fromisoformat(row["created_at"])
+                                    if now - created_at < timedelta(minutes=5):
+                                        otp_code = row["otp_code"]
+                                except Exception:
+                                    pass
+
+                            if not otp_code:
+                                otp_code = f"{secrets.randbelow(900000) + 100000}"
+                                conn.execute(
+                                    "INSERT OR REPLACE INTO otp_store (email, otp_code, created_at, attempts) VALUES (?, ?, ?, 0)",
+                                    (input_email, otp_code, now.isoformat())
+                                )
+                                conn.commit()
+
+                            if send_otp_email(input_email, otp_code):
+                                session["signup_email"] = input_email
+                                session["signup_step"] = "verify_otp"
+                                step = "verify_otp"
+                                email = input_email
+                                success_msg = "OTP sent successfully! Please check your email."
+                            else:
+                                error = "Failed to send OTP verification email. Please try again later."
                 except Exception as exc:
                     error = f"Database error: {exc}"
 
@@ -371,22 +436,32 @@ def signup():
                 error = "Please enter the verification code."
             else:
                 try:
-                    conn = sqlite3.connect(DB_PATH)
-                    conn.row_factory = sqlite3.Row
-                    row = conn.execute("SELECT otp_code, created_at FROM otp_store WHERE email = ?", (email,)).fetchone()
-                    conn.close()
+                    with sqlite3.connect(DB_PATH) as conn:
+                        conn.row_factory = sqlite3.Row
+                        row = conn.execute("SELECT otp_code, created_at, attempts FROM otp_store WHERE email = ?", (email,)).fetchone()
 
-                    if row and row["otp_code"] == otp_input:
-                        now = datetime.now(timezone.utc)
-                        created_at = datetime.fromisoformat(row["created_at"])
-                        if now - created_at < timedelta(minutes=5):
-                            session["signup_step"] = "register"
-                            step = "register"
-                            info = "Email verified successfully! Please choose credentials."
+                        if row:
+                            attempts = row["attempts"] if "attempts" in row.keys() else 0
+                            if attempts >= 5:
+                                conn.execute("DELETE FROM otp_store WHERE email = ?", (email,))
+                                conn.commit()
+                                error = "Too many failed attempts. This OTP has been invalidated; please request a new one."
+                            elif row["otp_code"] == otp_input:
+                                now = datetime.now(timezone.utc)
+                                created_at = datetime.fromisoformat(row["created_at"])
+                                if now - created_at < timedelta(minutes=5):
+                                    session["signup_step"] = "register"
+                                    step = "register"
+                                    info = "Email verified successfully! Please choose credentials."
+                                else:
+                                    error = "OTP expired. Please request a new one."
+                            else:
+                                conn.execute("UPDATE otp_store SET attempts = attempts + 1 WHERE email = ?", (email,))
+                                conn.commit()
+                                remaining = 4 - attempts
+                                error = f"Invalid OTP. {remaining} attempt(s) remaining."
                         else:
-                            error = "OTP expired. Please request a new one."
-                    else:
-                        error = "Invalid OTP. Please check the console log and try again."
+                            error = "No active OTP request found. Please request a new one."
                 except Exception as exc:
                     error = f"Database error: {exc}"
 
@@ -401,34 +476,34 @@ def signup():
                 error = "Please fill in all credential fields."
             else:
                 try:
-                    conn = sqlite3.connect(DB_PATH)
-                    # Check if username is already taken
-                    exists = conn.execute("SELECT 1 FROM users WHERE username = ?", (username,)).fetchone()
-                    if exists:
-                        error = "Username is already taken."
-                        conn.close()
-                    else:
-                        cursor = conn.cursor()
-                        cursor.execute(
-                            "INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, 'user')",
-                            (email, username, password)
-                        )
-                        new_user_id = cursor.lastrowid
-                        conn.commit()
-                        cursor.execute("DELETE FROM otp_store WHERE email = ?", (email,))
-                        conn.commit()
-                        conn.close()
+                    with sqlite3.connect(DB_PATH) as conn:
+                        # Check if username is already taken
+                        exists = conn.execute("SELECT 1 FROM users WHERE username = ?", (username,)).fetchone()
+                        if exists:
+                            error = "Username is already taken."
+                        else:
+                            cursor = conn.cursor()
+                            hashed_pw = generate_password_hash(password, method="scrypt")
+                            cursor.execute(
+                                "INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, 'user')",
+                                (email, username, hashed_pw)
+                            )
+                            new_user_id = cursor.lastrowid
+                            cursor.execute("DELETE FROM otp_store WHERE email = ?", (email,))
+                            conn.commit()
 
-                        session.pop("signup_step", None)
-                        session.pop("signup_email", None)
+                            session.pop("signup_step", None)
+                            session.pop("signup_email", None)
 
-                        session["user_id"] = new_user_id
-                        session["username"] = username
-                        session["role"] = "user"
-                        session["last_activity"] = datetime.now(timezone.utc).isoformat()
-                        return redirect(url_for("home"))
+                            session.clear()
+                            session["user_id"] = new_user_id
+                            session["username"] = username
+                            session["role"] = "user"
+                            session["last_activity"] = datetime.now(timezone.utc).isoformat()
+                            return redirect(url_for("home"))
                 except Exception as exc:
                     error = f"Database error: {exc}"
+
 
     return render_template("signup.html", step=step, email=email, error=error, info=info, success_msg=success_msg)
 
@@ -461,45 +536,42 @@ def create_admin():
                 error = "Please enter a valid email address."
             else:
                 try:
-                    conn = sqlite3.connect(DB_PATH)
-                    user_exists = conn.execute("SELECT 1 FROM users WHERE email = ?", (input_email,)).fetchone()
-                    if user_exists:
-                        error = "Email address is already registered."
-                        conn.close()
-                    else:
-                        # Check existing OTP generated within last 5 minutes
-                        conn.row_factory = sqlite3.Row
-                        row = conn.execute("SELECT otp_code, created_at FROM otp_store WHERE email = ?", (input_email,)).fetchone()
-                        
-                        now = datetime.now(timezone.utc)
-                        otp_code = None
-                        
-                        if row:
-                            try:
-                                created_at = datetime.fromisoformat(row["created_at"])
-                                if now - created_at < timedelta(minutes=5):
-                                    otp_code = row["otp_code"]
-                            except Exception:
-                                pass
-                        
-                        if not otp_code:
-                            otp_code = f"{random.randint(100000, 999999)}"
-                            conn.execute(
-                                "INSERT OR REPLACE INTO otp_store (email, otp_code, created_at) VALUES (?, ?, ?)",
-                                (input_email, otp_code, now.isoformat())
-                            )
-                            conn.commit()
-                        
-                        conn.close()
-                        
-                        if send_otp_email(input_email, otp_code):
-                            session["create_admin_email"] = input_email
-                            session["create_admin_step"] = "verify_otp"
-                            step = "verify_otp"
-                            email = input_email
-                            success_msg = "OTP sent successfully! Please check your email."
+                    with sqlite3.connect(DB_PATH) as conn:
+                        user_exists = conn.execute("SELECT 1 FROM users WHERE email = ?", (input_email,)).fetchone()
+                        if user_exists:
+                            error = "Email address is already registered."
                         else:
-                            error = "Failed to send OTP verification email. Please try again later."
+                            # Check existing OTP generated within last 5 minutes
+                            conn.row_factory = sqlite3.Row
+                            row = conn.execute("SELECT otp_code, created_at FROM otp_store WHERE email = ?", (input_email,)).fetchone()
+
+                            now = datetime.now(timezone.utc)
+                            otp_code = None
+
+                            if row:
+                                try:
+                                    created_at = datetime.fromisoformat(row["created_at"])
+                                    if now - created_at < timedelta(minutes=5):
+                                        otp_code = row["otp_code"]
+                                except Exception:
+                                    pass
+
+                            if not otp_code:
+                                otp_code = f"{secrets.randbelow(900000) + 100000}"
+                                conn.execute(
+                                    "INSERT OR REPLACE INTO otp_store (email, otp_code, created_at, attempts) VALUES (?, ?, ?, 0)",
+                                    (input_email, otp_code, now.isoformat())
+                                )
+                                conn.commit()
+
+                            if send_otp_email(input_email, otp_code):
+                                session["create_admin_email"] = input_email
+                                session["create_admin_step"] = "verify_otp"
+                                step = "verify_otp"
+                                email = input_email
+                                success_msg = "OTP sent successfully! Please check your email."
+                            else:
+                                error = "Failed to send OTP verification email. Please try again later."
                 except Exception as exc:
                     error = f"Database error: {exc}"
 
@@ -512,22 +584,32 @@ def create_admin():
                 error = "Please enter the verification code."
             else:
                 try:
-                    conn = sqlite3.connect(DB_PATH)
-                    conn.row_factory = sqlite3.Row
-                    row = conn.execute("SELECT otp_code, created_at FROM otp_store WHERE email = ?", (email,)).fetchone()
-                    conn.close()
+                    with sqlite3.connect(DB_PATH) as conn:
+                        conn.row_factory = sqlite3.Row
+                        row = conn.execute("SELECT otp_code, created_at, attempts FROM otp_store WHERE email = ?", (email,)).fetchone()
 
-                    if row and row["otp_code"] == otp_input:
-                        now = datetime.now(timezone.utc)
-                        created_at = datetime.fromisoformat(row["created_at"])
-                        if now - created_at < timedelta(minutes=5):
-                            session["create_admin_step"] = "register"
-                            step = "register"
-                            info = "OTP verified! You can now set credentials for the new administrator."
+                        if row:
+                            attempts = row["attempts"] if "attempts" in row.keys() else 0
+                            if attempts >= 5:
+                                conn.execute("DELETE FROM otp_store WHERE email = ?", (email,))
+                                conn.commit()
+                                error = "Too many failed attempts. This OTP has expired. Please request a new one."
+                            elif row["otp_code"] == otp_input:
+                                now = datetime.now(timezone.utc)
+                                created_at = datetime.fromisoformat(row["created_at"])
+                                if now - created_at < timedelta(minutes=5):
+                                    session["create_admin_step"] = "register"
+                                    step = "register"
+                                    info = "OTP verified! You can now set credentials for the new administrator."
+                                else:
+                                    error = "OTP expired. Please request a new one."
+                            else:
+                                conn.execute("UPDATE otp_store SET attempts = attempts + 1 WHERE email = ?", (email,))
+                                conn.commit()
+                                remaining = 4 - attempts
+                                error = f"Invalid OTP. {remaining} attempt(s) remaining."
                         else:
-                            error = "OTP expired. Please request a new one."
-                    else:
-                        error = "Invalid OTP. Please check the console log and try again."
+                            error = "No active OTP found. Please request a new one."
                 except Exception as exc:
                     error = f"Database error: {exc}"
 
@@ -542,52 +624,74 @@ def create_admin():
                 error = "Please fill in all credential fields."
             else:
                 try:
-                    conn = sqlite3.connect(DB_PATH)
-                    exists = conn.execute("SELECT 1 FROM users WHERE username = ?", (username,)).fetchone()
-                    if exists:
-                        error = "Username is already taken."
-                        conn.close()
-                    else:
-                        cursor = conn.cursor()
-                        cursor.execute(
-                            "INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, 'admin')",
-                            (email, username, password)
-                        )
-                        conn.commit()
-                        cursor.execute("DELETE FROM otp_store WHERE email = ?", (email,))
-                        conn.commit()
-                        conn.close()
+                    with sqlite3.connect(DB_PATH) as conn:
+                        exists = conn.execute("SELECT 1 FROM users WHERE username = ?", (username,)).fetchone()
+                        if exists:
+                            error = "Username is already taken."
+                        else:
+                            cursor = conn.cursor()
+                            hashed_pw = generate_password_hash(password, method="scrypt")
+                            cursor.execute(
+                                "INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, 'admin')",
+                                (email, username, hashed_pw)
+                            )
+                            cursor.execute("DELETE FROM otp_store WHERE email = ?", (email,))
+                            conn.commit()
 
-                        session.pop("create_admin_step", None)
-                        session.pop("create_admin_email", None)
+                            session.pop("create_admin_step", None)
+                            session.pop("create_admin_email", None)
 
-                        step = "email"
-                        email = ""
-                        success_msg = f"Successfully created new administrator profile '{username}'."
+                            step = "email"
+                            email = ""
+                            success_msg = f"Successfully created new administrator profile '{username}'."
                 except Exception as exc:
                     error = f"Database error: {exc}"
 
+
     return render_template("create_admin.html", step=step, email=email, error=error, info=info, success_msg=success_msg)
+
+
+@app.route("/prepare_scan", methods=["POST"])
+def prepare_scan():
+    """Securely registers scan authentication parameters in memory before SSE connection."""
+    if "username" not in session:
+        return jsonify({"error": "Unauthorized"}), 401
+
+    data = request.get_json() or {}
+    session_id = data.get("session_id", str(uuid.uuid4()))
+    _scan_creds.set(session_id, {
+        "username": data.get("username", "").strip(),
+        "password": data.get("password", "").strip(),
+        "user_locator": data.get("user_locator", "").strip(),
+        "pass_locator": data.get("pass_locator", "").strip(),
+        "login_locator": data.get("login_locator", "").strip(),
+    })
+    return jsonify({"status": "ok", "session_id": session_id})
 
 
 @app.route("/stream_scan")
 def stream_scan():
     """
     Server-Sent Events endpoint.
-    Query params: url, scan_type, session_id,
-                  scan_strategy, username, password,
-                  user_locator, pass_locator, login_locator
     Streams real-time log lines and progress events, then a final 'done' event.
     """
+    if "username" not in session:
+        def unauth():
+            yield "data: " + json.dumps({"type": "error", "message": "Authentication required. Please log in."}) + "\n\n"
+        return Response(unauth(), mimetype="text/event-stream", status=401)
+
     target_url     = normalize_url(request.args.get("url", ""))
     scan_type      = request.args.get("scan_type", "login").strip()
     session_id     = request.args.get("session_id", str(uuid.uuid4()))
     scan_strategy  = request.args.get("scan_strategy", "external").strip()
-    auth_username  = request.args.get("username", "").strip()
-    auth_password  = request.args.get("password", "").strip()
-    user_locator   = request.args.get("user_locator", "").strip()
-    pass_locator   = request.args.get("pass_locator", "").strip()
-    login_locator  = request.args.get("login_locator", "").strip()
+
+    # Retrieve sensitive credentials from secure temporary server store if prepared
+    prepared = _scan_creds.pop(session_id) or {}
+    auth_username  = prepared.get("username") or request.args.get("username", "").strip()
+    auth_password  = prepared.get("password") or request.args.get("password", "").strip()
+    user_locator   = prepared.get("user_locator") or request.args.get("user_locator", "").strip()
+    pass_locator   = prepared.get("pass_locator") or request.args.get("pass_locator", "").strip()
+    login_locator  = prepared.get("login_locator") or request.args.get("login_locator", "").strip()
 
     if not target_url:
         def err():
@@ -620,6 +724,7 @@ def stream_scan():
         total_failed = 0
         total_error  = 0
         report_generated = False
+        session_report_path = os.path.join(REPORTS_DIR, f"report_{session_id}.html")
 
         # Emit initial preparing test environment milestone
         now = datetime.now()
@@ -652,9 +757,9 @@ def stream_scan():
             }) + "\n\n"
 
             # Build command — only attach the HTML reporter on the last file
-            cmd = ["python", "-m", "pytest", test_file, "-v", "-s"]
+            cmd = ["python", "-u", "-m", "pytest", test_file, "-v", "-s"]
             if is_last:
-                cmd += [f"--html={REPORT_PATH}", "--self-contained-html"]
+                cmd += [f"--html={session_report_path}", "--self-contained-html"]
 
             try:
                 # Use Popen for line-by-line streaming instead of subprocess.run
@@ -695,7 +800,12 @@ def stream_scan():
                 status = "passed" if summary["failed"] == 0 and summary["error"] == 0 else "failed"
                 elapsed_s = round(time.monotonic() - file_start_time, 1)
                 if is_last:
-                    report_generated = os.path.exists(REPORT_PATH)
+                    report_generated = os.path.exists(session_report_path)
+                    if report_generated:
+                        try:
+                            shutil.copyfile(session_report_path, REPORT_PATH)
+                        except Exception:
+                            pass
 
                 # Yield status outcome milestone for the suite
                 now = datetime.now()
@@ -796,6 +906,7 @@ def stream_scan():
             "scan_label":     SCAN_LABELS.get(scan_type, scan_type),
             "target_url":     target_url,
             "report_exists":  report_generated,
+            "session_id":     session_id,
             "summary": {
                 "total":  total_passed + total_failed + total_error,
                 "passed": total_passed,
@@ -803,8 +914,7 @@ def stream_scan():
                 "error":  total_error,
             },
         }
-        with _scan_lock:
-            _scan_results[session_id] = final
+        _scan_results.set(session_id, final)
 
         yield "data: " + json.dumps({
             "type":       "done",
@@ -819,8 +929,9 @@ def stream_scan():
 @app.route("/scan_result/<session_id>")
 def scan_result(session_id):
     """Return the stored scan result for a given session (used as fallback)."""
-    with _scan_lock:
-        data = _scan_results.get(session_id)
+    if "username" not in session:
+        return jsonify({"error": "Unauthorized"}), 401
+    data = _scan_results.get(session_id)
     if not data:
         return jsonify({"error": "No result found for this session."}), 404
     return jsonify(data)
@@ -829,6 +940,8 @@ def scan_result(session_id):
 @app.route("/results")
 def results():
     """Render the results page; data comes from query-string params set by JS."""
+    if "username" not in session:
+        return redirect(url_for("login"))
     summary = {
         "total":  int(request.args.get("total",  0)),
         "passed": int(request.args.get("passed", 0)),
@@ -842,6 +955,7 @@ def results():
         summary=summary,
         report_exists=request.args.get("report_exists", "0") == "1",
     )
+
 
 
 def get_report_theme_css():
@@ -1068,10 +1182,23 @@ a:hover { color:var(--r-text) !important; }
 @app.route("/view_report")
 def view_report():
     """Serve report.html with injected theme CSS (opens in new tab)."""
-    if not os.path.exists(REPORT_PATH):
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    session_id = request.args.get("session_id")
+    target_report = None
+    if session_id:
+        cand = os.path.join(REPORTS_DIR, f"report_{session_id}.html")
+        if os.path.exists(cand):
+            target_report = cand
+
+    if not target_report and os.path.exists(REPORT_PATH):
+        target_report = REPORT_PATH
+
+    if not target_report or not os.path.exists(target_report):
         return "<h2>No report found. Please run a scan first.</h2>", 404
 
-    with open(REPORT_PATH, "r", encoding="utf-8") as f:
+    with open(target_report, "r", encoding="utf-8") as f:
         html = f.read()
 
     # Inject theme CSS and toggle script before </head>
@@ -1084,9 +1211,25 @@ def view_report():
 @app.route("/download_report")
 def download_report():
     """Force-download report.html."""
-    if not os.path.exists(REPORT_PATH):
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    session_id = request.args.get("session_id")
+    target_report = None
+    if session_id:
+        cand = os.path.join(REPORTS_DIR, f"report_{session_id}.html")
+        if os.path.exists(cand):
+            target_report = cand
+
+    if not target_report and os.path.exists(REPORT_PATH):
+        target_report = REPORT_PATH
+
+    if not target_report or not os.path.exists(target_report):
         return "<h2>No report found. Please run a scan first.</h2>", 404
-    return send_file(REPORT_PATH, as_attachment=True, download_name="qa_report.html")
+
+    download_name = f"qa_report_{session_id}.html" if session_id else "qa_report.html"
+    return send_file(target_report, as_attachment=True, download_name=download_name)
+
 
 
 if __name__ == "__main__":

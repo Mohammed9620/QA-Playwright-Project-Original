@@ -1,24 +1,25 @@
 import os
+import re
+import pytest
 from dotenv import load_dotenv
-from playwright.sync_api import sync_playwright, Page
-
-
+from playwright.sync_api import sync_playwright, Page, expect
 
 # ──────────────────────────────────────────────
 #  Load environment variables from .env file
 # ──────────────────────────────────────────────
-load_dotenv()
+_env_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(_env_path)
 
-TARGET_URL = os.getenv("TARGET_URL")
-TEST_USER  = os.getenv("TEST_USER")
-TEST_PASS  = os.getenv("TEST_PASS")
+def get_credentials():
+    target_url = os.getenv("TARGET_URL")
+    test_user  = os.getenv("TEST_USER")
+    test_pass  = os.getenv("TEST_PASS")
+    if not all([target_url, test_user, test_pass]):
+        pytest.skip(
+            "[SKIP] One or more required environment variables are missing (TARGET_URL, TEST_USER, TEST_PASS)."
+        )
+    return target_url, test_user, test_pass
 
-# Guard: fail early with a clear message if any variable is missing
-if not all([TARGET_URL, TEST_USER, TEST_PASS]):
-    raise EnvironmentError(
-        "[ERROR] One or more required environment variables are missing. "
-        "Please check your .env file for: TARGET_URL, TEST_USER, TEST_PASS"
-    )
 
 
 # ──────────────────────────────────────────────
@@ -67,20 +68,20 @@ class LoginPage:
 # ──────────────────────────────────────────────
 def test_login():
     """Verifies that a valid user can log in and reach the inventory page."""
+    target_url, test_user, test_pass = get_credentials()
     with sync_playwright() as p:
-        # Run headless for server compatibility (Step 5 audit)
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
         # Instantiate the page object — URL is injected from .env, not hardcoded
-        login_page = LoginPage(page, url=TARGET_URL)
+        login_page = LoginPage(page, url=target_url)
 
         # Execute the login flow — credentials come from .env
         login_page.navigate()
-        login_page.login(username=TEST_USER, password=TEST_PASS)
+        login_page.login(username=test_user, password=test_pass)
 
-        # Pause so you can see the result
-        page.wait_for_timeout(3000)
+        # Web-first wait for redirect
+        expect(page).to_have_url(re.compile(r".*/inventory\.html"), timeout=8000)
         print(f"[INFO] Final URL: {page.url}")
 
         # ── Assertion ────────────────────────────────
@@ -98,19 +99,23 @@ def test_login():
 # ──────────────────────────────────────────────
 def test_invalid_login():
     """Verifies that invalid credentials are rejected and an error is shown."""
+    target_url, _, _ = get_credentials()
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
         # Reuse the LoginPage class with the same target URL from .env
-        login_page = LoginPage(page, url=TARGET_URL)
+        login_page = LoginPage(page, url=target_url)
 
         # Navigate and attempt login with deliberately wrong credentials
         login_page.navigate()
         login_page.login(username="invalid_user", password="wrong_pass")
 
-        # Pause so you can see the result
-        page.wait_for_timeout(3000)
+        # Auto-retry web-first assertions
+        error_banner = page.locator("[data-test='error']")
+        expect(error_banner).to_be_visible(timeout=5000)
+        expect(error_banner).to_contain_text("Username and password do not match", timeout=5000)
+
         print(f"[INFO] Final URL after invalid login: {page.url}")
 
         # ── Assertions ───────────────────────────────
@@ -119,18 +124,8 @@ def test_invalid_login():
             "[FAIL] Invalid login unexpectedly redirected to inventory page."
         )
 
-        # 2. The error message container must be visible
-        error_banner = page.locator("[data-test='error']")
-        assert error_banner.is_visible(), (
-            "[FAIL] Error message banner was not visible after invalid login."
-        )
-
-        # 3. The error text must mention wrong credentials
         error_text = error_banner.inner_text()
-        assert "Username and password do not match" in error_text, (
-            f"[FAIL] Unexpected error message: '{error_text}'"
-        )
-
         print(f"[PASS] Error banner visible with message: '{error_text}'")
 
         browser.close()
+
