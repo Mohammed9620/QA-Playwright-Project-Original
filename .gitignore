@@ -5,3 +5,6 @@ __pycache__/
 *.pyc
 users.db
 report.html
+reports/
+skills-lock.json
+.agents/
