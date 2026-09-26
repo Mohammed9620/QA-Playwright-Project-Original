@@ -285,8 +285,6 @@ def send_otp_email(target_email, otp_code):
         return False
 
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "users.db")
-
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
