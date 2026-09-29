@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
 
+<html data-theme="dark" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QA Automation Engine — Dashboard & Reports</title>
-  <meta name="description" content="Configure and execute end-to-end automated tests with real-time feedback and comprehensive reporting.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QA Automation Engine — Dashboard &amp; Reports</title>
+<meta content="Configure and execute end-to-end automated tests with real-time feedback and comprehensive reporting." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet"/>
+<style>
     /* ═══════════════════════════════════════════════════════════
        DASHBOARD & REPORTS LAYOUT SYSTEM (DARK PURPLE THEME)
        ═══════════════════════════════════════════════════════════ */
@@ -43,12 +43,7 @@
       background: var(--bg-primary);
     }
 
-    .dash-col {
-      overflow-y: auto;
-      overflow-x: hidden;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border-default) transparent;
-    }
+    
 
     #col-left {
       width: var(--col-left-w, 280px);
@@ -749,7 +744,18 @@
       overflow: hidden;
       background: var(--bg-primary);
     }
-    .reports-layout {
+    #dashboard-view {
+  flex: 1 !important;
+  flex-direction: column !important;
+  height: calc(100vh - 32px) !important;
+  overflow-y: auto !important;
+  scrollbar-width: none;
+}
+#reports-view {
+  flex: 1 !important;
+  height: calc(100vh - 32px) !important;
+}
+.reports-layout {
       display: flex;
       flex-direction: row;
       height: 100%;
@@ -1202,7 +1208,18 @@
     /* Responsive */
     @media (max-width:960px) {
       body { overflow:auto; }
-      .dash-layout, .reports-layout { flex-direction: column; overflow: auto; }
+      .dash-layout, #dashboard-view {
+  flex: 1 !important;
+  flex-direction: column !important;
+  height: calc(100vh - 32px) !important;
+  overflow-y: auto !important;
+  scrollbar-width: none;
+}
+#reports-view {
+  flex: 1 !important;
+  height: calc(100vh - 32px) !important;
+}
+.reports-layout { flex-direction: column; overflow: auto; }
       #col-left, #col-right, .reports-drawer { width: 100% !important; max-width: none; border-right: none; border-bottom: 1px solid var(--border-default); }
       .gutter-col { display: none; }
       .report-metrics-row { flex-direction: column; }
@@ -1213,564 +1230,672 @@
       .strategy-card:active,.btn-action:active,.btn-run:active:not(:disabled) { transform:none; filter:brightness(0.94); }
       .auth-fields,.auth-fields.visible,.auth-fields-inner { transition-duration:0.01s !important; transform:none !important; }
     }
-  </style>
+  
+
+/* ═══════════════════════════════════════════════════════════
+   DASHBOARD OVERRIDES (CRYPTO DASHBOARD STYLE)
+   ═══════════════════════════════════════════════════════════ */
+body {
+  background-color: var(--bg-primary) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  padding: 16px !important;
+  gap: 24px !important;
+}
+
+/* ── Icon Rail (was .topbar) ── */
+.topbar {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 72px !important;
+  height: calc(100vh - 32px) !important;
+  background: var(--bg-cards) !important;
+  border-radius: 24px !important;
+  border: none !important;
+  align-items: center !important;
+  padding: 24px 0 !important;
+  gap: 16px !important;
+  position: static !important;
+  flex-shrink: 0 !important;
+}
+
+.topbar-center-nav {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.topbar-nav-tab,
+.topbar-nav-link {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  display: flex !important;
+  color: var(--text-secondary) !important;
+}
+.topbar-nav-tab.active {
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+  background: rgba(47, 213, 154, 0.1) !important;
+}
+
+/* Hide text in rail tabs */
+.topbar-nav-tab span, .topbar-nav-tab,
+.topbar-nav-tab text,
+.topbar-nav-link span,
+.topbar-nav-link text {
+  display: none !important;
+}
+.topbar-nav-tab svg,
+.topbar-nav-link svg {
+  margin: 0 !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Sidebar Footer area (push to bottom) */
+.theme-toggle {
+  margin-top: auto !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  justify-content: center !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.theme-toggle span { display: none !important; }
+
+.topbar-user {
+  width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  justify-content: center !important;
+  border: none !important;
+  background: transparent !important;
+}
+.topbar-user:hover { background: transparent !important; border-color: transparent !important; }
+.topbar-avatar {
+  width: 44px !important;
+  height: 44px !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+}
+.topbar-username, .topbar-user-chevron { display: none !important; }
+
+/* Hide redundant topbar items */
+.topbar-brand,
+.topbar-spacer {
+  display: none !important;
+}
+
+/* Run status pill in page header */
+#topbar-status {
+  position: absolute !important;
+  top: 32px !important;
+  right: 48px !important;
+  background: var(--bg-cards) !important;
+  border-radius: 999px !important;
+  padding: 8px 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  z-index: 100 !important;
+}
+
+/* ── Grid Layout for Dashboard ── */
+
+
+#dashboard-view {
+  flex: 1 !important;
+  flex-direction: column !important;
+  height: calc(100vh - 32px) !important;
+  overflow-y: auto !important;
+  scrollbar-width: none;
+}
+#reports-view {
+  flex: 1 !important;
+  height: calc(100vh - 32px) !important;
+}
+.reports-layout {
+  display: flex !important;
+  width: 100% !important;
+  gap: 24px !important;
+}
+.reports-drawer {
+  width: 320px !important;
+  background: var(--bg-cards) !important;
+  border-radius: 24px !important;
+  border: none !important;
+  padding: 24px !important;
+}
+.reports-main {
+  flex: 1 !important;
+  background: var(--bg-cards) !important;
+  border-radius: 24px !important;
+  border: none !important;
+  padding: 24px !important;
+}
+
+.dash-layout {
+  display: grid !important;
+  grid-template-columns: 1fr 2fr !important;
+  grid-auto-rows: min-content !important;
+  gap: 24px !important;
+  padding: 0 !important;
+  flex: 1 !important;
+}
+
+.gutter-col { display: none !important; }
+
+/* Grid Assignments */
+#section-config-scan { grid-column: 1 / 2 !important; grid-row: 1 / 2 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
+#trend-card { grid-column: 2 / 3 !important; grid-row: 1 / 2 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
+
+#section-recent-scans { grid-column: 1 / 2 !important; grid-row: 2 / 3 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
+#section-exec-overview { grid-column: 2 / 3 !important; grid-row: 2 / 3 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
+
+#activity-log-card { grid-column: 1 / 2 !important; grid-row: 3 / 4 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
+#section-env-config { grid-column: 2 / 3 !important; grid-row: 3 / 4 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
+
+/* Hide redundant elements */
+#kpi-row,
+#section-gauge-result,
+.sidebar-glow,
+{
+  display: none !important;
+}
+
+/* ── Base Card Styles ── */
+.sidebar-section,
+.trend-card,
+.recent-card,
+.exec-card,
+.activity-card,
+.gauge-card,
+.completion-card {
+  background: var(--bg-cards) !important;
+  border-radius: 24px !important;
+  padding: 24px !important;
+  border: none !important;
+}
+
+.exec-card-header, .recent-header, .activity-header, .gauge-header {
+  border-bottom: none !important;
+}
+
+/* Remove ugly card icons */
+.exec-icon,
+.recent-icon,
+.activity-icon,
+.gauge-icon,
+.sidebar-section-icon {
+  display: none !important;
+}
+
+/* ── "New Scan" Card Inputs ── */
+.field-input {
+  background: #111 !important;
+  border: none !important;
+  border-radius: 12px !important;
+  height: 48px !important;
+}
+.btn-run {
+  height: 44px !important;
+  border-radius: 22px !important;
+  background: #FFF !important;
+  color: #000 !important;
+  font-weight: 600 !important;
+}
+.strategy-cards {
+  display: flex !important;
+  background: #111 !important;
+  border-radius: 22px !important;
+  padding: 4px !important;
+  margin-bottom: 24px !important;
+}
+.strategy-card {
+  border-radius: 18px !important;
+  flex: 1 !important;
+  text-align: center !important;
+}
+.strategy-card.selected {
+  background: #222 !important;
+}
+.strategy-card-desc, .strategy-card-icon { display: none !important; }
+
+.topbar-nav-tab, .topbar-nav-link { font-size: 0 !important; }
+.topbar-user { font-size: 0 !important; }
+.topbar-nav-tab svg, .topbar-nav-link svg { font-size: 20px !important; }
+
+</style>
 </head>
-
 <body>
-  <!-- TOP BAR -->
-  <header class="topbar">
-    <a href="/" class="topbar-brand">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-      QA Automation Engine
-    </a>
-    <span class="topbar-version">v1.0</span>
-    <div class="topbar-spacer"></div>
+<!-- TOP BAR -->
+<header class="topbar">
 
-    <!-- CLIENT-SIDE TAB NAVIGATION -->
-    <nav class="topbar-center-nav" aria-label="Main navigation">
-      <button type="button" class="topbar-nav-tab active" id="nav-tab-dashboard" role="tab" aria-selected="true" aria-controls="dashboard-view">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        Dashboard
-      </button>
-      <button type="button" class="topbar-nav-tab" id="nav-tab-reports" role="tab" aria-selected="false" aria-controls="reports-view">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        Reports
-      </button>
-    </nav>
+<span class="topbar-version">v1.0</span>
 
-    <div class="topbar-spacer"></div>
-    <div class="topbar-status" id="topbar-status">
-      <span class="status-dot" id="status-dot"></span>
-      <span id="status-text">Ready</span>
-    </div>
-    <span id="footer-timer"></span>
-    <button class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
-      <span id="theme-icon">☀️</span>
-    </button>
+<!-- CLIENT-SIDE TAB NAVIGATION -->
+<nav aria-label="Main navigation" class="topbar-center-nav">
+<button aria-controls="dashboard-view" aria-selected="true" class="topbar-nav-tab active" id="nav-tab-dashboard" role="tab" type="button"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></button>
+<button aria-controls="reports-view" aria-selected="false" class="topbar-nav-tab" id="nav-tab-reports" role="tab" type="button"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><line x1="18" x2="18" y1="20" y2="10"></line><line x1="12" x2="12" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="14"></line></svg></button>
+</nav>
+
+<div class="topbar-status" id="topbar-status">
+<span class="status-dot" id="status-dot"></span>
+<span id="status-text">Ready</span>
+</div>
+<span id="footer-timer"></span>
+<button aria-label="Toggle dark/light theme" class="theme-toggle" id="theme-toggle" title="Toggle theme"></button>
     {% if session.get('role') == 'admin' %}
-      <a href="/admin/create_admin" class="topbar-nav-link primary">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Admin
-      </a>
+      <a class="topbar-nav-link primary" href="/admin/create_admin"><svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></a>
     {% endif %}
     {% if session.get('username') %}
     <div class="topbar-user">
-      <div class="topbar-avatar">{{ session.get('username', 'U')[0:2]|upper }}</div>
-      <span class="topbar-username">{{ session.get('username', '') }}</span>
-      <span class="topbar-user-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-    </div>
-    <a href="/logout" class="topbar-nav-link secondary" style="margin-left:4px;">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-      Logout
-    </a>
+<div class="topbar-avatar">{{ session.get('username', 'U')[0:2]|upper }}</div>
+
+
+</div>
+<a class="topbar-nav-link secondary" href="/logout" style="margin-left:4px;"><svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg></a>
     {% endif %}
   </header>
+<div aria-labelledby="nav-tab-dashboard" class="view-pane dash-shell" id="dashboard-view" role="tabpanel" style="display:flex;flex-direction:column;gap:24px;padding:32px;max-width:1440px;margin:0 auto;width:100%;box-sizing:border-box;">
+  
+  <!-- ROW 1 -->
+  <div style="display:grid;grid-template-columns:350px 1fr;gap:24px;width:100%;">
+    <!-- NEW SCAN CARD -->
+    <div class="card-b" id="section-config-scan" style="background:#050505;border-radius:24px;padding:24px;">
+      <div style="font-size:18px;font-weight:500;margin-bottom:24px;">New Scan</div>
+      <form id="scan-form" novalidate="">
+        <!-- TARGET URL -->
+        <div class="field" style="margin-bottom:20px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:rgba(255,255,255,0.56);">
+            <span>Target URL</span>
+          </div>
+          <div style="position:relative;">
+            <input autocomplete="off" id="url" name="url" placeholder="https://example.com" required="" spellcheck="false" type="text" style="width:100%;height:48px;border-radius:14px;background:rgba(255,255,255,0.06);border:none;color:#fff;padding:0 16px;font-size:14px;outline:none;box-sizing:border-box;" />
+          </div>
+        </div>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       VIEW 1: DASHBOARD VIEW (#dashboard-view)
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="dash-shell view-pane" id="dashboard-view" role="tabpanel" aria-labelledby="nav-tab-dashboard">
-    <div class="dash-layout" id="dash-layout">
+        <!-- SCAN TYPE -->
+        <div class="field" style="margin-bottom:20px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:rgba(255,255,255,0.56);">
+            <span>Scan Type</span>
+          </div>
+          <select id="scan_type" name="scan_type" style="width:100%;height:48px;border-radius:14px;background:rgba(255,255,255,0.06);border:none;color:#fff;padding:0 16px;font-size:14px;outline:none;-webkit-appearance:none;appearance:none;box-sizing:border-box;">
+            <option value="login">Login Test</option>
+            <option value="bruteforce">Credential Bruteforce Probe</option>
+            <option value="api">API Health Check</option>
+            <option value="auth">Broken Authentication Check</option>
+            <option value="full">Full Scan</option>
+          </select>
+          <div id="scan-hint" style="display:none;"></div>
+        </div>
 
-      <!-- LEFT SIDEBAR: SCAN CONFIGURATION -->
-      <aside class="sidebar-left dash-col" id="col-left" aria-label="Scan configuration">
+        <!-- SCAN STRATEGY SEGMENTED -->
+        <div class="field" style="margin-bottom:24px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:rgba(255,255,255,0.56);">
+            <span>Strategy</span>
+          </div>
+          <div style="display:flex;background:rgba(255,255,255,0.08);border-radius:999px;padding:3px;position:relative;">
+            <label class="strategy-card" style="flex:1;text-align:center;padding:10px 0;cursor:pointer;position:relative;z-index:2;border-radius:999px;font-size:13px;color:#fff;">
+              <input checked="" name="scan_strategy" type="radio" value="external" style="display:none;"/>
+              External
+            </label>
+            <label class="strategy-card" style="flex:1;text-align:center;padding:10px 0;cursor:pointer;position:relative;z-index:2;border-radius:999px;font-size:13px;color:#fff;">
+              <input name="scan_strategy" type="radio" value="authenticated" style="display:none;"/>
+              Authenticated
+            </label>
+            <div class="strategy-thumb" style="position:absolute;top:3px;left:3px;width:calc(50% - 3px);height:calc(100% - 6px);background:rgba(255,255,255,0.18);border-radius:999px;transition:transform 200ms ease-out;"></div>
+          </div>
+        </div>
+
+        <div class="auth-fields" id="auth-fields" style="display:none;">
+          <input id="auth-username" type="hidden" value="Mohammad" />
+          <input id="auth-password" type="hidden" value="0000" />
+          <input id="user-locator" type="hidden" />
+          <input id="pass-locator" type="hidden" />
+          <input id="login-locator" type="hidden" />
+        </div>
+
+        <div class="error-banner" id="js-error" style="display:none;color:#FF5D6C;font-size:13px;margin-bottom:12px;">
+          <span id="js-error-text"></span>
+        </div>
         
-        <!-- Configure Scan Section -->
-        <div class="sidebar-section" id="section-config-scan">
-          <div class="sidebar-section-header">
-            <div class="sidebar-section-header-left">
-              <div class="sidebar-section-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-              </div>
-              <div>
-                <div class="sidebar-section-title">New Scan</div>
-                <div class="sidebar-section-sub">Configure target and parameters</div>
-              </div>
-            </div>
-            <button type="button" class="card-collapse-btn" data-target="section-config-scan" aria-label="Toggle section" title="Collapse section">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-          </div>
-
-          <div class="card-collapsible-body">
-            <form id="scan-form" novalidate>
-              <div class="field">
-                <label class="field-label" for="url">Target URL</label>
-                <div class="url-field-wrap">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                  <input class="field-input" type="text" id="url" name="url" placeholder="https://example.com" autocomplete="off" spellcheck="false" required>
-                </div>
-              </div>
-              <div class="strategy-group">
-                <span class="strategy-label">Scan Strategy</span>
-                <div class="strategy-cards">
-                  <label class="strategy-card directional-glow selected" id="card-external">
-                    <input type="radio" name="scan_strategy" value="external" checked>
-                    <svg class="strategy-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-                    <h3 class="strategy-card-title">External Scan</h3>
-                    <span class="strategy-card-desc">Black-box. URL only.</span>
-                  </label>
-                  <label class="strategy-card directional-glow" id="card-authenticated">
-                    <input type="radio" name="scan_strategy" value="authenticated">
-                    <svg class="strategy-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                    <h3 class="strategy-card-title">Authenticated</h3>
-                    <span class="strategy-card-desc">Requires credentials.</span>
-                  </label>
-                </div>
-              </div>
-              <div class="auth-fields" id="auth-fields">
-                <div class="auth-fields-wrapper">
-                  <div class="auth-fields-inner directional-glow">
-                    <h4 class="auth-fields-title">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                      Test Credentials
-                    </h4>
-                    <div class="auth-field-row">
-                      <div class="field"><label class="field-label-sm" for="auth-username">Username</label><input class="field-input-sm" type="text" id="auth-username" placeholder="admin" autocomplete="off"></div>
-                      <div class="field"><label class="field-label-sm" for="auth-password">Password</label><input class="field-input-sm" type="password" id="auth-password" placeholder="••••••••" autocomplete="off"></div>
-                    </div>
-                    <h4 class="auth-fields-title mt-1">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                      Element Locators
-                    </h4>
-                    <div class="auth-field-row">
-                      <div class="field"><label class="field-label-sm" for="user-locator">Username Locator</label><input class="field-input-sm" type="text" id="user-locator" placeholder="#user-name" autocomplete="off"></div>
-                      <div class="field"><label class="field-label-sm" for="pass-locator">Password Locator</label><input class="field-input-sm" type="text" id="pass-locator" placeholder="#password" autocomplete="off"></div>
-                    </div>
-                    <div class="field"><label class="field-label-sm" for="login-locator">Login Button Locator</label><input class="field-input-sm" type="text" id="login-locator" placeholder="#login-button" autocomplete="off"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="field" style="margin-top:12px;">
-                <label class="field-label" for="scan_type">Scan Type</label>
-                <select class="scan-select" id="scan_type" name="scan_type">
-                  <option value="login">Login Test</option>
-                  <option value="bruteforce">Credential Bruteforce Probe</option>
-                  <option value="api">API Health Check</option>
-                  <option value="auth">Broken Authentication Check</option>
-                  <option value="full">Full Scan — all of the above</option>
-                </select>
-                <p class="field-hint" id="scan-hint">Runs both positive and negative login tests.</p>
-              </div>
-              <div class="error-banner" id="js-error" role="alert" style="display:none;margin-top:8px;">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <span id="js-error-text"></span>
-              </div>
-              <div style="margin-top:14px;">
-                <div class="run-button-shell" id="run-button-shell">
-                  <span class="run-shell-layer layer-one" aria-hidden="true"></span>
-                  <span class="run-shell-layer layer-two" aria-hidden="true"></span>
-                  <span class="run-shell-layer layer-three" aria-hidden="true"></span>
-                  <span class="run-shell-grain" aria-hidden="true"></span>
-                  <span class="run-shell-edge" aria-hidden="true"></span>
-                  <button type="submit" class="btn-run" id="submit-btn">
-                    <span class="btn-idle-text">
-                      <span class="btn-spinner" id="btn-spinner"></span>
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                      <span id="btn-text">Start Scan</span>
-                    </span>
-                    <span class="btn-hover-text" aria-hidden="true">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                      Start Scan
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
+        <div id="run-button-shell">
+           <button id="submit-btn" type="submit" style="width:100%;height:44px;border-radius:999px;background:#fff;color:#000;font-size:15px;font-weight:600;border:none;cursor:pointer;outline:none;box-sizing:border-box;">
+             <span id="btn-spinner" style="display:none;"></span>
+             <span id="btn-text">Start scan</span>
+           </button>
         </div>
+      </form>
+    </div>
 
-        <!-- Environment & Config Section -->
-        <div class="sidebar-section" id="section-env-config">
-          <div class="sidebar-section-header">
-            <div class="sidebar-section-header-left">
-              <div class="sidebar-section-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-              </div>
-              <div class="sidebar-section-title">Environment & Config</div>
-            </div>
-            <button type="button" class="card-collapse-btn" data-target="section-env-config" aria-label="Toggle section" title="Collapse section">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-          </div>
-          <div class="card-collapsible-body">
-            <div class="env-table">
-              <div class="env-row">
-                <div class="env-key"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-right:4px;vertical-align:-2px;"><circle cx="12" cy="12" r="10"/></svg>Environment</div>
-                <div class="env-val">Production</div><span class="env-badge">Prod</span>
-              </div>
-              <div class="env-row">
-                <div class="env-key"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-right:4px;vertical-align:-2px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Base URL</div>
-                <div class="env-val" id="env-base-url">https://example.com</div><span></span>
-              </div>
-              <div class="env-row">
-                <div class="env-key"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-right:4px;vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Auth Type</div>
-                <div class="env-val" id="env-auth-type">None</div><span></span>
-              </div>
-              <div class="env-row">
-                <div class="env-key"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-right:4px;vertical-align:-2px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Timeout</div>
-                <div class="env-val">30 seconds</div><span></span>
-              </div>
-            </div>
-            <p class="env-note">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              Settings are managed in the test configuration file and runtime environment.
-            </p>
-          </div>
+    <!-- SCAN RESULTS CHART CARD -->
+    <div class="card-b" style="background:#050505;border-radius:24px;padding:32px;display:flex;flex-direction:column;position:relative;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:4px;">Average Pass Rate</div>
+          <div style="font-size:32px;font-weight:500;">98.5%</div>
         </div>
-      </aside>
-
-      <!-- GUTTER LEFT (SPLITTER 1) -->
-      <div class="gutter-col" id="gutter-left" role="separator" aria-orientation="vertical" tabindex="0" title="Drag to resize left column">
-        <div class="gutter-handle"></div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:999px;padding:3px;display:flex;font-size:12px;">
+           <div style="padding:6px 12px;background:rgba(255,255,255,0.18);border-radius:999px;color:#fff;">This Week</div>
+        </div>
       </div>
+      <!-- CHART AREA -->
+      <div id="scan-chart-container" style="flex:1;margin-top:48px;position:relative;border-bottom:1px dashed rgba(255,255,255,0.12);">
+         <svg id="scan-chart-svg" width="100%" height="100%" style="min-height:160px;overflow:visible;">
+            <!-- Grid lines -->
+            <line x1="0" y1="20%" x2="100%" y2="20%" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="0" y1="80%" x2="100%" y2="80%" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+            
+            <!-- Bars will be inserted here by JS -->
+         </svg>
+      </div>
+      <!-- Chart X Axis -->
+      <div id="scan-chart-x-axis" style="display:flex;justify-content:space-between;margin-top:12px;font-size:11px;color:rgba(255,255,255,0.32);">
+         <span>Mon<br/>15</span>
+         <span>Tue<br/>16</span>
+         <span>Wed<br/>17</span>
+         <span>Thu<br/>18</span>
+         <span>Fri<br/>19</span>
+         <span>Sat<br/>20</span>
+         <span>Sun<br/>21</span>
+      </div>
+    </div>
+  </div>
 
-      <!-- CENTER PANE: EXECUTION OVERVIEW & LIVE LOG -->
-      <main class="center-pane dash-col" id="col-center" aria-label="Execution overview and live log">
-        <div class="center-scroll">
-          
-          <!-- Execution Overview Card -->
-          <div class="exec-card directional-glow" id="section-exec-overview">
-            <div class="exec-card-header">
-              <div class="exec-card-title-group">
-                <div class="exec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-                <div>
-                  <div class="exec-title">Execution Overview</div>
-                  <div class="exec-subtitle">Live progress and test milestones.</div>
-                </div>
+  <!-- ROW 2 -->
+  <div style="display:grid;grid-template-columns:350px 1fr;gap:24px;width:100%;">
+    <!-- RECENT SCANS CARD -->
+    <div class="card-b" id="section-recent-scans" style="background:#050505;border-radius:24px;padding:24px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <div style="font-size:18px;font-weight:500;">Recent Scans</div>
+        <button onclick="switchView('reports')" style="background:none;border:none;color:rgba(255,255,255,0.56);font-size:13px;cursor:pointer;padding:0;">See all</button>
+      </div>
+      <div id="recent-scans-list" style="display:flex;flex-direction:column;gap:24px;">
+        <!-- JS fills this -->
+      </div>
+    </div>
+
+    <!-- RUN STATUS CARD -->
+    <div class="card-b" id="section-exec-overview" style="background:#050505;border-radius:24px;padding:24px;">
+      <div style="font-size:18px;font-weight:500;margin-bottom:32px;">Run Status</div>
+      
+      <!-- 5-STEP PROGRESS -->
+      <div style="display:flex;justify-content:space-between;position:relative;margin-bottom:48px;padding:0 24px;">
+         <div style="position:absolute;top:12px;left:48px;right:48px;height:2px;background:rgba(255,255,255,0.08);z-index:0;"></div>
+         <div id="exec-progress-fill" style="position:absolute;top:12px;left:48px;height:2px;background:#2FD59A;z-index:1;width:0%;transition:width 300ms ease;"></div>
+         <div id="exec-progress-pct" style="display:none;">0%</div>
+         
+         <div id="step-init" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
+            <div style="width:24px;height:24px;border-radius:50%;background:#050505;border:2px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;">1</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.56);position:absolute;top:32px;white-space:nowrap;">Initialize</div>
+         </div>
+         <div id="step-discover" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
+            <div style="width:24px;height:24px;border-radius:50%;background:#050505;border:2px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;">2</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.56);position:absolute;top:32px;white-space:nowrap;">Discover</div>
+         </div>
+         <div id="step-scan" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
+            <div style="width:24px;height:24px;border-radius:50%;background:#050505;border:2px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;">3</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.56);position:absolute;top:32px;white-space:nowrap;">Scan</div>
+         </div>
+         <div id="step-analyze" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
+            <div style="width:24px;height:24px;border-radius:50%;background:#050505;border:2px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;">4</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.56);position:absolute;top:32px;white-space:nowrap;">Analyze</div>
+         </div>
+         <div id="step-report" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
+            <div style="width:24px;height:24px;border-radius:50%;background:#050505;border:2px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;">5</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.56);position:absolute;top:32px;white-space:nowrap;">Generate report</div>
+         </div>
+         
+         <div id="step-init-time" style="display:none;"></div>
+         <div id="step-discover-time" style="display:none;"></div>
+         <div id="step-scan-time" style="display:none;"></div>
+         <div id="step-analyze-time" style="display:none;"></div>
+         <div id="step-report-time" style="display:none;"></div>
+      </div>
+      
+      <!-- TILES -->
+      <div id="completion-section" style="display:flex;gap:16px;margin-top:24px;">
+         <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+               <div style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg></div> Total
+            </div>
+            <div id="stat-total" style="font-size:24px;font-weight:500;">0</div>
+            <!-- sparkline placeholder -->
+            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 30 L20 35 L40 20 L60 25 L80 10 L100 15 L100 40 Z" fill="#FFFFFF"></path></svg>
+         </div>
+         <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+               <div style="width:24px;height:24px;border-radius:50%;background:rgba(47,213,154,0.12);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2FD59A" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Passed
+            </div>
+            <div id="stat-passed" style="font-size:24px;font-weight:500;">0</div>
+            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 25 L20 20 L40 30 L60 15 L80 20 L100 5 L100 40 Z" fill="#2FD59A"></path></svg>
+         </div>
+         <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+               <div style="width:24px;height:24px;border-radius:50%;background:rgba(255,93,108,0.12);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FF5D6C" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div> Failed
+            </div>
+            <div id="stat-failed" style="font-size:24px;font-weight:500;">0</div>
+            <div id="stat-errors" style="display:none;">0</div>
+            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 35 L20 38 L40 32 L60 36 L80 30 L100 35 L100 40 Z" fill="#FF5D6C"></path></svg>
+         </div>
+         <div style="width:120px;display:flex;align-items:center;justify-content:center;position:relative;" id="section-gauge-result">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+               <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="4"></circle>
+               <circle id="gauge-fill" cx="50" cy="50" r="40" fill="none" stroke="#2FD59A" stroke-width="4" stroke-dasharray="251.2" stroke-dashoffset="251.2" style="transition:stroke-dashoffset 1s ease; transform:rotate(-90deg); transform-origin:50% 50%;"></circle>
+            </svg>
+            <div id="gauge-pct" style="position:absolute;font-size:18px;font-weight:500;">0%</div>
+            
+            <div style="display:none;">
+              <span id="gauge-total"></span>
+              <span id="gauge-passed"></span>
+              <span id="gauge-failed"></span>
+              <span id="gauge-bar-fill"></span>
+              <span id="gauge-bar-meta"></span>
+            </div>
+         </div>
+      </div>
+      
+      <!-- hidden fields required by JS -->
+      <div style="display:none;">
+         <span id="exec-status-badge"></span>
+         <span id="footer-dot"></span><span id="footer-text"></span>
+         <span id="status-dot"></span><span id="status-text"></span>
+         <span id="footer-timer"></span>
+         <span id="completion-status"></span>
+         <span id="pass-rate-fill"></span><span id="pass-rate-pct"></span>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- ROW 3 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;width:100%;">
+    <!-- ACTIVITY LOG -->
+    <div class="card-b" id="activity-log-card" style="background:#050505;border-radius:24px;padding:24px;">
+       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+         <div style="font-size:18px;font-weight:500;">Activity Log</div>
+         <div>
+            <span id="log-count" style="font-size:12px;color:rgba(255,255,255,0.56);margin-right:12px;">0</span>
+            <button id="log-clear-btn" style="background:none;border:none;color:#fff;font-size:13px;cursor:pointer;">Clear</button>
+            <button id="log-maximize-btn" style="background:none;border:none;color:#fff;cursor:pointer;margin-left:8px;padding:0;">
+               <svg class="icon-maximize" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+               <svg class="icon-minimize" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </button>
+         </div>
+       </div>
+       <div id="log-body" style="background:rgba(255,255,255,0.03);border-radius:12px;padding:16px;height:240px;overflow-y:auto;font-family:monospace;font-size:12px;color:rgba(255,255,255,0.8);">
+          <div id="log-empty" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.32);">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:8px;"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+             No logs yet.<br/>Run a scan to stream live test execution output.
+          </div>
+       </div>
+    </div>
+    
+    <!-- ENV & CONFIG -->
+    <div class="card-b" id="section-env-config" style="background:#050505;border-radius:24px;padding:24px;">
+       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+         <div style="font-size:18px;font-weight:500;">Environment &amp; Config</div>
+         <button class="card-collapse-btn" data-target="section-env-config" style="background:none;border:none;color:#fff;cursor:pointer;padding:0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+         </button>
+       </div>
+       <div class="card-collapsible-body" style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);">
+             <div style="font-size:14px;color:rgba(255,255,255,0.56);">Environment</div>
+             <div style="font-size:14px;display:flex;align-items:center;gap:8px;">Production <span style="font-size:11px;background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:999px;">Prod</span></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);">
+             <div style="font-size:14px;color:rgba(255,255,255,0.56);">Base URL</div>
+             <div id="env-base-url" style="font-size:14px;">https://example.com</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);">
+             <div style="font-size:14px;color:rgba(255,255,255,0.56);">Auth Type</div>
+             <div id="env-auth-type" style="font-size:14px;">None</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);">
+             <div style="font-size:14px;color:rgba(255,255,255,0.56);">Timeout</div>
+             <div style="font-size:14px;">30 seconds</div>
+          </div>
+       </div>
+    </div>
+  </div>
+  
+  <div id="timeline-section" style="display:none;">
+     <div id="timeline"></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+       VIEW 2: DEDICATED REPORTS VIEW (#reports-view)
+       ═══════════════════════════════════════════════════════════ -->
+<div aria-labelledby="nav-tab-reports" class="reports-shell view-pane" id="reports-view" role="tabpanel" style="display:none;width:100%;height:100vh;overflow:hidden;">
+  <div style="display:flex;height:100%;width:100%;">
+    <!-- LEFT DRAWER: SCAN HISTORY -->
+    <aside aria-label="Scan history" style="width:350px;border-right:1px solid rgba(255,255,255,0.08);background:#14100E;display:flex;flex-direction:column;height:100%;">
+      <div style="padding:24px;border-bottom:1px solid rgba(255,255,255,0.08);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <div style="font-size:18px;font-weight:500;">Scan History</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="history-count-badge" id="history-count-badge" style="background:rgba(255,255,255,0.1);border-radius:999px;padding:2px 8px;font-size:12px;">0</span>
+            <button aria-label="Clear scan history" id="history-clear-btn" style="background:none;border:none;color:rgba(255,255,255,0.56);cursor:pointer;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+          </div>
+        </div>
+        <div style="position:relative;">
+          <svg width="16" height="16" fill="none" stroke="rgba(255,255,255,0.56)" stroke-width="2" viewBox="0 0 24 24" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+          <input id="history-search-input" placeholder="Search past runs..." type="text" style="width:100%;height:40px;background:rgba(255,255,255,0.06);border:none;border-radius:12px;padding-left:36px;color:#fff;font-size:13px;outline:none;" />
+        </div>
+      </div>
+      <div id="reports-history-list" role="list" style="flex:1;overflow-y:auto;padding:16px;">
+        <div id="history-empty-state" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.32);text-align:center;font-size:13px;gap:8px;">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+          No scan history recorded yet.
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT AREA -->
+    <main style="flex:1;padding:32px;overflow-y:auto;display:flex;flex-direction:column;gap:24px;max-width:1440px;margin:0 auto;box-sizing:border-box;">
+      
+      <!-- TOP CARDS ROW -->
+      <div style="display:grid;grid-template-columns:1fr 350px;gap:24px;">
+        <!-- OVERVIEW CARD -->
+        <div class="card-b" style="background:#050505;border-radius:24px;padding:32px;display:flex;flex-direction:column;justify-content:center;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                <h2 id="report-view-title" style="font-size:24px;font-weight:600;margin:0;">Test Execution Report</h2>
+                <span id="report-view-badge" class="recent-badge completed" style="background:rgba(47,213,154,0.1);color:#2FD59A;padding:4px 10px;border-radius:999px;font-size:12px;">Completed</span>
               </div>
-              <div class="exec-meta">
-                <div class="exec-status-badge" id="exec-status-badge">
-                  <span class="status-dot" id="footer-dot"></span>
-                  <span id="footer-text">Ready</span>
-                </div>
-                <button type="button" class="card-collapse-btn" data-target="section-exec-overview" aria-label="Toggle execution overview" title="Collapse section">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
+              <div style="font-size:13px;color:rgba(255,255,255,0.56);display:flex;align-items:center;gap:8px;">
+                <span id="report-view-url">https://example.com</span>
+                <span>&bull;</span>
+                <span id="report-view-time">&mdash;</span>
+                <span>&bull;</span>
+                <span id="report-view-strategy">External</span>
               </div>
             </div>
-
-            <div class="card-collapsible-body">
-              <div class="step-progress-track" id="step-progress-track">
-                <div class="step-item" id="step-init">
-                  <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-                  <span class="step-label">Initialize</span>
-                  <span class="step-time" id="step-init-time">—</span>
-                </div>
-                <div class="step-item" id="step-discover">
-                  <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-                  <span class="step-label">Discover</span>
-                  <span class="step-time" id="step-discover-time">—</span>
-                </div>
-                <div class="step-item" id="step-scan">
-                  <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div>
-                  <span class="step-label">Scan</span>
-                  <span class="step-time" id="step-scan-time">—</span>
-                </div>
-                <div class="step-item" id="step-analyze">
-                  <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-                  <span class="step-label">Analyze</span>
-                  <span class="step-time" id="step-analyze-time">Pending</span>
-                </div>
-                <div class="step-item" id="step-report">
-                  <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-                  <span class="step-label">Generate Report</span>
-                  <span class="step-time" id="step-report-time">Pending</span>
-                </div>
-              </div>
-              <div class="exec-progress-wrap">
-                <div class="exec-progress-track"><div class="exec-progress-fill" id="exec-progress-fill"></div></div>
-                <span class="exec-progress-pct" id="exec-progress-pct">0%</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-section" id="timeline-section">
-            <div class="timeline" id="timeline"></div>
-          </div>
-
-          <!-- Completion section (Cleaned up: No redundant action buttons) -->
-          <div class="completion-section" id="completion-section">
-            <div class="completion-card directional-glow">
-              <div class="completion-status" id="completion-status"></div>
-              <div class="stat-row" id="stat-row">
-                <div class="stat-box"><div class="stat-num total"  id="stat-total">0</div><div class="stat-label">Total</div></div>
-                <div class="stat-box"><div class="stat-num passed" id="stat-passed">0</div><div class="stat-label">Passed</div></div>
-                <div class="stat-box"><div class="stat-num failed" id="stat-failed">0</div><div class="stat-label">Failed</div></div>
-                <div class="stat-box"><div class="stat-num errors" id="stat-errors">0</div><div class="stat-label">Errors</div></div>
-              </div>
-              <div class="pass-rate-wrap" id="pass-rate-wrap">
-                <div class="pass-rate-header"><span>Pass Rate</span><span id="pass-rate-pct">0%</span></div>
-                <div class="pass-rate-track"><div class="pass-rate-fill good" id="pass-rate-fill"></div></div>
-              </div>
-              <a href="javascript:void(0)" onclick="switchView('reports')" class="completion-view-link">
-                View detailed execution breakdown in Reports tab →
+            <div style="display:flex;gap:12px;">
+              <a href="/download_report" download id="report-download-btn" style="height:40px;padding:0 16px;border-radius:999px;background:#fff;color:#000;display:flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;font-weight:500;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg> Download
               </a>
-            </div>
-          </div>
-
-          <!-- Activity log card (Vertically resizable & maximizable) -->
-          <div class="activity-card" id="activity-log-card">
-            <div class="activity-header">
-              <div class="activity-title-group">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-blue);"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                <div>
-                  <div class="activity-title">Activity Log</div>
-                  <div class="activity-sub">Live execution output stream.</div>
-                </div>
-              </div>
-              <div class="activity-actions">
-                <span class="log-count" id="log-count">0</span>
-                <button class="log-clear-btn" id="log-clear-btn">Clear</button>
-                <button type="button" class="card-action-btn" id="log-maximize-btn" aria-label="Maximize log view" title="Toggle full height">
-                  <svg class="icon-maximize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                  <svg class="icon-minimize" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                </button>
-                <button type="button" class="card-collapse-btn" data-target="activity-log-card" aria-label="Toggle activity log" title="Collapse section">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-              </div>
-            </div>
-            <div class="log-body card-collapsible-body" id="log-body">
-              <div class="log-empty" id="log-empty">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                <span>No logs yet.<br>Run a scan to stream live test execution output.</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </main>
-
-      <!-- GUTTER RIGHT (SPLITTER 2) -->
-      <div class="gutter-col" id="gutter-right" role="separator" aria-orientation="vertical" tabindex="0" title="Drag to resize right column">
-        <div class="gutter-handle"></div>
-      </div>
-
-      <!-- RIGHT SIDEBAR: METRICS & RECENT RUNS -->
-      <aside class="sidebar-right dash-col" id="col-right" aria-label="Scan results and history">
-        <svg width="0" height="0" style="position:absolute;">
-          <defs>
-            <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#9b6ac4"/>
-              <stop offset="100%" stop-color="#c084fc"/>
-            </linearGradient>
-          </defs>
-        </svg>
-
-        <!-- Scan Result Gauge Card -->
-        <div class="gauge-card" id="section-gauge-result">
-          <div class="gauge-header">
-            <div class="gauge-header-left">
-              <div class="gauge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
-              <div><div class="gauge-title">Scan Result</div><div class="gauge-sub">Current run outcome</div></div>
-            </div>
-            <button type="button" class="card-collapse-btn" data-target="section-gauge-result" aria-label="Toggle scan result" title="Collapse section">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-          </div>
-          <div class="card-collapsible-body">
-            <div class="gauge-ring-wrap">
-              <div class="gauge-svg-wrap">
-                <svg class="gauge-svg" width="84" height="84" viewBox="0 0 90 90">
-                  <circle class="gauge-track" cx="45" cy="45" r="35"/>
-                  <circle class="gauge-fill" id="gauge-fill" cx="45" cy="45" r="35"/>
-                </svg>
-                <div class="gauge-center">
-                  <span class="gauge-pct" id="gauge-pct">—</span>
-                  <span class="gauge-pct-label">Pass Rate</span>
-                </div>
-              </div>
-              <div class="gauge-legend">
-                <div class="gauge-legend-row"><span class="gauge-legend-key"><span class="gauge-legend-dot total"></span>Total Tests</span><span class="gauge-legend-val" id="gauge-total">—</span></div>
-                <div class="gauge-legend-row"><span class="gauge-legend-key"><span class="gauge-legend-dot passed"></span>Passed</span><span class="gauge-legend-val" id="gauge-passed">—</span></div>
-                <div class="gauge-legend-row"><span class="gauge-legend-key"><span class="gauge-legend-dot failed"></span>Failed</span><span class="gauge-legend-val" id="gauge-failed">—</span></div>
-                <div class="gauge-legend-row"><span class="gauge-legend-key"><span class="gauge-legend-dot skipped"></span>Skipped</span><span class="gauge-legend-val">0</span></div>
-              </div>
-            </div>
-            <div class="gauge-bar-track"><div class="gauge-bar-fill" id="gauge-bar-fill"></div></div>
-            <div class="gauge-bar-meta" id="gauge-bar-meta">Run a scan to see results</div>
-          </div>
-        </div>
-
-        <!-- Recent Scans Card -->
-        <div class="recent-card" id="section-recent-scans">
-          <div class="recent-header">
-            <div class="recent-header-left">
-              <div class="recent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-              <span class="recent-title">Recent Scans</span>
-            </div>
-            <div class="card-actions-group">
-              <button type="button" class="recent-view-all" onclick="switchView('reports')">View All</button>
-              <button type="button" class="card-collapse-btn" data-target="section-recent-scans" aria-label="Toggle recent scans" title="Collapse section">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              <a href="/view_report" target="_blank" rel="noopener" id="report-external-btn" style="height:40px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.1);color:#fff;display:flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;font-weight:500;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> Open
+              </a>
+              <button id="report-refresh-btn" style="height:40px;width:40px;border-radius:50%;background:rgba(255,255,255,0.06);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
               </button>
             </div>
           </div>
-          <div class="card-collapsible-body">
-            <div class="recent-list" id="recent-scans-list">
-              <div style="font-size:11px;color:var(--text-tertiary);padding:8px 0;text-align:center;">No recent scans yet.</div>
-            </div>
+          
+          <div style="display:flex;gap:16px;margin-top:32px;">
+             <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+                <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;">Total Tests</div>
+                <div id="report-stat-total" style="font-size:24px;font-weight:500;">0</div>
+             </div>
+             <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+                <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;">Passed</div>
+                <div id="report-stat-passed" style="font-size:24px;font-weight:500;color:#2FD59A;">0</div>
+             </div>
+             <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+                <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;">Failed</div>
+                <div id="report-stat-failed" style="font-size:24px;font-weight:500;color:#FF5D6C;">0</div>
+             </div>
+             <div style="display:none;" id="report-stat-errors">0</div>
           </div>
         </div>
 
-      </aside>
+        <!-- GAUGE CARD -->
+        <div class="card-b" style="background:#050505;border-radius:24px;padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
+           <svg width="120" height="120" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="4"></circle>
+              <circle id="report-gauge-fill" cx="50" cy="50" r="40" fill="none" stroke="#2FD59A" stroke-width="4" stroke-dasharray="251.2" stroke-dashoffset="251.2" style="transition:stroke-dashoffset 1s ease; transform:rotate(-90deg); transform-origin:50% 50%;"></circle>
+           </svg>
+           <div style="position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+             <span id="report-gauge-pct" style="font-size:24px;font-weight:500;">&mdash;</span>
+             <span style="font-size:10px;color:rgba(255,255,255,0.56);">Pass Rate</span>
+           </div>
+           
+           <div style="display:none;">
+             <span id="report-gauge-headline"></span>
+             <span id="report-gauge-sub"></span>
+           </div>
+        </div>
+      </div>
 
-    </div>
+      <!-- IFRAME CARD -->
+      <div class="card-b" style="flex:1;background:#050505;border-radius:24px;display:flex;flex-direction:column;overflow:hidden;">
+        <div style="padding:16px 24px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="3"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
+          Interactive HTML Report Viewer
+        </div>
+        <div style="flex:1;position:relative;">
+          <iframe id="report-iframe" src="/view_report" style="width:100%;height:100%;border:none;display:block;" title="Test Execution HTML Report"></iframe>
+          <div id="report-iframe-fallback" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:#050505;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.56);gap:12px;">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <div style="font-size:14px;">No report generated yet. Run a scan to view results.</div>
+            <button onclick="switchView('dashboard')" style="background:#fff;color:#000;border:none;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;">Go to Dashboard</button>
+          </div>
+        </div>
+      </div>
+      
+    </main>
   </div>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       VIEW 2: DEDICATED REPORTS VIEW (#reports-view)
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="reports-shell view-pane" id="reports-view" style="display:none;" role="tabpanel" aria-labelledby="nav-tab-reports">
-    <div class="reports-layout">
-
-      <!-- LEFT DRAWER: SCAN HISTORY -->
-      <aside class="reports-drawer" aria-label="Scan history">
-        <div class="reports-drawer-header">
-          <div class="reports-drawer-title-group">
-            <svg class="reports-drawer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <div>
-              <div class="reports-drawer-title">Scan History</div>
-              <div class="reports-drawer-sub">Chronological run log</div>
-            </div>
-          </div>
-          <div style="display:flex; align-items:center; gap:6px;">
-            <span class="history-count-badge" id="history-count-badge">0</span>
-            <button type="button" class="card-action-btn" id="history-clear-btn" title="Clear History" aria-label="Clear scan history">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="history-search-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="history-search-input" class="history-search-input" placeholder="Search past runs...">
-        </div>
-
-        <div class="reports-history-list" id="reports-history-list" role="list">
-          <!-- Filled dynamically by JavaScript -->
-          <div class="history-empty-state" id="history-empty-state">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <span>No scan history recorded yet.<br>Scans run from the Dashboard will appear here.</span>
-          </div>
-        </div>
-      </aside>
-
-      <!-- RIGHT AREA: REPORT DETAILS & EMBEDDED VIEWER -->
-      <main class="reports-main" aria-label="Report viewer and metrics">
-        <div class="reports-main-scroll">
-
-          <!-- REPORT TOP OVERVIEW CARD -->
-          <div class="report-overview-card directional-glow">
-            <div class="report-overview-header">
-              <div class="report-overview-left">
-                <div class="report-overview-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                </div>
-                <div>
-                  <div class="report-overview-title-row">
-                    <h2 class="report-overview-title" id="report-view-title">Test Execution Report</h2>
-                    <span class="recent-badge completed" id="report-view-badge">Completed</span>
-                  </div>
-                  <div class="report-overview-meta">
-                    <span id="report-view-url" class="report-meta-url">https://example.com</span>
-                    <span class="report-meta-sep">•</span>
-                    <span id="report-view-time" class="report-meta-time">—</span>
-                    <span class="report-meta-sep">•</span>
-                    <span id="report-view-strategy" class="report-meta-strategy">External</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="report-overview-actions">
-                <a href="/download_report" id="report-download-btn" class="btn-action primary" download title="Download HTML report">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Download Report
-                </a>
-                <a href="/view_report" id="report-external-btn" target="_blank" rel="noopener" class="btn-action secondary" title="Open report in separate tab">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-                  Open in New Tab
-                </a>
-                <button type="button" id="report-refresh-btn" class="btn-action ghost" title="Reload embedded report">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-                  Refresh
-                </button>
-              </div>
-            </div>
-
-            <!-- METRIC CARDS & CIRCULAR GAUGE ROW -->
-            <div class="report-metrics-row">
-              <div class="report-stat-grid">
-                <div class="stat-box">
-                  <div class="stat-num total" id="report-stat-total">0</div>
-                  <div class="stat-label">Total Tests</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-num passed" id="report-stat-passed">0</div>
-                  <div class="stat-label">Passed</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-num failed" id="report-stat-failed">0</div>
-                  <div class="stat-label">Failed</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-num errors" id="report-stat-errors">0</div>
-                  <div class="stat-label">Errors</div>
-                </div>
-              </div>
-
-              <!-- CIRCULAR PASS RATE GAUGE -->
-              <div class="report-gauge-card">
-                <div class="gauge-ring-wrap" style="margin-bottom:0;">
-                  <div class="gauge-svg-wrap" style="width:76px; height:76px;">
-                    <svg class="gauge-svg" width="76" height="76" viewBox="0 0 90 90">
-                      <circle class="gauge-track" cx="45" cy="45" r="35"/>
-                      <circle class="gauge-fill" id="report-gauge-fill" cx="45" cy="45" r="35"/>
-                    </svg>
-                    <div class="gauge-center">
-                      <span class="gauge-pct" id="report-gauge-pct" style="font-size:16px;">—</span>
-                      <span class="gauge-pct-label" style="font-size:8px;">Pass Rate</span>
-                    </div>
-                  </div>
-                  <div class="report-gauge-meta">
-                    <div class="report-gauge-headline" id="report-gauge-headline">Pass Rate Status</div>
-                    <div class="report-gauge-sub" id="report-gauge-sub">Selected run analytics</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- EMBEDDED IFRAME VIEWER CARD -->
-          <div class="report-frame-card directional-glow">
-            <div class="report-frame-header">
-              <div class="report-frame-title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                <span>Interactive HTML Report Viewer</span>
-              </div>
-              <span class="report-frame-url-tag">/view_report</span>
-            </div>
-            <div class="report-frame-body">
-              <iframe id="report-iframe" class="report-iframe" src="/view_report" title="Test Execution HTML Report"></iframe>
-              <div class="report-iframe-fallback" id="report-iframe-fallback" style="display:none;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                <h3>No report generated yet</h3>
-                <p>Run an automated test scan from the Dashboard to generate detailed HTML execution reports and view them here.</p>
-                <button type="button" class="btn-action primary" onclick="switchView('dashboard')" style="margin-top:10px;">
-                  Go to Dashboard
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </main>
-
-    </div>
-  </div>
-
-  <script>
+</div>
+<script>
     // ═══════════════════════════════════════════════════════════
     // 1. THEME TOGGLE  (single source of truth — syncs iframe)
     // ═══════════════════════════════════════════════════════════
@@ -1962,27 +2087,329 @@
       // Sync recent scans key for backward compatibility
       localStorage.setItem(RECENT_KEY, JSON.stringify(history.slice(0, 6)));
       renderRecentScans();
-      renderReportsHistory();
+    }
+
+    function renderChart() {
+      const svg = document.getElementById("scan-chart-svg");
+      if (!svg) return;
+      const history = getScanHistory();
+      
+      // We want to show up to 7 bars
+      const scans = history.slice(0, 7).reverse();
+      
+      // Calculate overall pass rate for "This Week"
+      let tTotal = 0; let tPass = 0;
+      scans.forEach(s => {
+          if (s.summary) {
+              tTotal += s.summary.total;
+              tPass += s.summary.passed;
+          }
+      });
+      const avgRate = tTotal > 0 ? Math.round((tPass/tTotal)*100) : 0;
+      const avgRateEl = svg.closest(".card-b").querySelector("div[style*='font-size:32px']");
+      if (avgRateEl) avgRateEl.textContent = avgRate + "%";
+      
+      // Clear existing bars
+      svg.querySelectorAll('.chart-bar-group, .chart-tooltip').forEach(e => e.remove());
+      
+      if (scans.length === 0) return;
+      
+      // We have 100% width and 100% height (SVG coordinates are flexible but let's use fixed coords for ease, 
+      // SVG width="100%" height="160"). Let's dynamically create bars.
+      svg.setAttribute("viewBox", "0 0 700 160");
+      
+      const width = 700;
+      const height = 160;
+      const maxVal = Math.max(...scans.map(s => s.summary ? s.summary.total : 0), 10);
+      const gap = width / 7;
+      
+      scans.forEach((scan, i) => {
+         const cx = (i * gap) + (gap / 2);
+         const total = scan.summary ? scan.summary.total : 0;
+         const passed = scan.summary ? scan.summary.passed : 0;
+         const failed = scan.summary ? scan.summary.failed : 0;
+         
+         const totalH = (total / maxVal) * (height * 0.8);
+         const passedH = total > 0 ? (passed / total) * totalH : 0;
+         const failedH = total > 0 ? (failed / total) * totalH : 0;
+         
+         const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+         g.setAttribute("class", "chart-bar-group");
+         g.style.cursor = "pointer";
+         
+         // Hover target area
+         const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+         hoverRect.setAttribute("x", cx - 20);
+         hoverRect.setAttribute("y", 0);
+         hoverRect.setAttribute("width", 40);
+         hoverRect.setAttribute("height", height);
+         hoverRect.setAttribute("fill", "transparent");
+         g.appendChild(hoverRect);
+         
+         // Passed bar
+         if (passedH > 0) {
+             const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             pRect.setAttribute("x", cx - 4);
+             pRect.setAttribute("y", height - passedH);
+             pRect.setAttribute("width", 8);
+             pRect.setAttribute("height", passedH);
+             pRect.setAttribute("fill", "#2FD59A");
+             pRect.setAttribute("rx", "4");
+             g.appendChild(pRect);
+         }
+         
+         // Failed cap
+         if (failedH > 0) {
+             const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             fRect.setAttribute("x", cx - 4);
+             fRect.setAttribute("y", height - totalH);
+             fRect.setAttribute("width", 8);
+             fRect.setAttribute("height", failedH);
+             fRect.setAttribute("fill", "#FF5D6C");
+             fRect.setAttribute("rx", "4");
+             g.appendChild(fRect);
+         }
+         
+         // Tooltip logic
+         g.addEventListener("mouseenter", () => {
+             const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             tbg.setAttribute("class", "chart-tooltip");
+             tbg.setAttribute("x", cx - 60);
+             tbg.setAttribute("y", height - totalH - 40);
+             tbg.setAttribute("width", 120);
+             tbg.setAttribute("height", 30);
+             tbg.setAttribute("fill", "#ffffff");
+             tbg.setAttribute("rx", "15");
+             
+             const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
+             ttext.setAttribute("class", "chart-tooltip");
+             ttext.setAttribute("x", cx);
+             ttext.setAttribute("y", height - totalH - 20);
+             ttext.setAttribute("fill", "#000000");
+             ttext.setAttribute("font-size", "12");
+             ttext.setAttribute("font-weight", "600");
+             ttext.setAttribute("text-anchor", "middle");
+             ttext.textContent = passed + " of " + total + " passed";
+             
+             const tdot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+             tdot.setAttribute("class", "chart-tooltip");
+             tdot.setAttribute("cx", cx);
+             tdot.setAttribute("cy", height - totalH);
+             tdot.setAttribute("r", "4");
+             tdot.setAttribute("fill", "#ffffff");
+             
+             svg.appendChild(tbg);
+             svg.appendChild(ttext);
+             svg.appendChild(tdot);
+         });
+         
+         g.addEventListener("mouseleave", () => {
+             svg.querySelectorAll('.chart-tooltip').forEach(e => e.remove());
+         });
+         
+         svg.appendChild(g);
+      });
+      
+      // Update X axis labels
+      const xAxis = document.getElementById("scan-chart-x-axis");
+      if (xAxis) {
+         xAxis.innerHTML = "";
+         for(let i = 0; i < 7; i++) {
+             const span = document.createElement("span");
+             const scan = scans[i];
+             if (scan && scan.date) {
+                 const d = new Date(scan.timestamp);
+                 const day = d.toLocaleDateString("en-US", { weekday: 'short' });
+                 const num = d.getDate();
+                 span.innerHTML = day + "<br/>" + num;
+             } else {
+                 span.innerHTML = "-<br/>-";
+             }
+             span.style.textAlign = "center";
+             xAxis.appendChild(span);
+         }
+      }
+    }
+
+    renderChart();
     }
 
     function renderRecentScans() {
       const list = document.getElementById("recent-scans-list");
       const scans = getScanHistory().slice(0, 6);
       if (!scans.length) {
-        list.innerHTML = `<div style="font-size:11px;color:var(--text-tertiary);padding:8px 0;text-align:center;">No recent scans yet.</div>`;
+        list.innerHTML = `<div style="font-size:11px;color:rgba(255,255,255,0.32);padding:8px 0;text-align:center;">No recent scans yet.</div>`;
         return;
       }
-      list.innerHTML = scans.map((s, idx) => `
-        <div class="recent-item" onclick="openReportByIndex(${idx})">
-          <div class="recent-item-body">
-            <div class="recent-item-name">${escapeHtml(s.label || s.url)}</div>
-            <div class="recent-item-date">${s.date || ""}</div>
+      list.innerHTML = scans.map((s, idx) => {
+          const pass = s.summary ? s.summary.passed : 0;
+          const total = s.summary ? s.summary.total : 0;
+          const passRate = total > 0 ? ((pass/total)*100).toFixed(2) : 0;
+          const isOk = s.status === 'completed';
+          const color = isOk ? "#2FD59A" : "#FF5D6C";
+          const icon = isOk ? `<circle cx="12" cy="12" r="10" fill="none" stroke="${color}" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>` : `<circle cx="12" cy="12" r="10" fill="none" stroke="${color}" stroke-width="2"></circle><path d="M15 9l-6 6M9 9l6 6" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>`;
+          
+          return `
+        <div class="recent-item" onclick="openReportByIndex(${idx})" style="display:flex;align-items:center;gap:16px;cursor:pointer;">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;">
+             <svg width="20" height="20" viewBox="0 0 24 24">${icon}</svg>
           </div>
-          <span class="recent-badge ${s.status === 'completed' ? 'completed' : 'failed'}">${s.status === 'completed' ? 'Completed' : 'Failed'}</span>
-          <svg class="recent-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>`).join("");
+          <div style="flex:1;">
+            <div style="font-size:14px;color:#fff;font-weight:500;margin-bottom:2px;">${escapeHtml(s.label || s.url)}</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.32);">${s.date || ""}</div>
+          </div>
+          <div style="text-align:right;">
+             <div style="font-size:14px;color:${color};font-weight:500;">${isOk ? 'Passed' : 'Failed'}</div>
+             <div style="font-size:11px;color:rgba(255,255,255,0.32);">${pass} of ${total} tests</div>
+          </div>
+        </div>`;
+      }).join("");
     }
     renderRecentScans();
+
+    function renderChart() {
+      const svg = document.getElementById("scan-chart-svg");
+      if (!svg) return;
+      const history = getScanHistory();
+      
+      // We want to show up to 7 bars
+      const scans = history.slice(0, 7).reverse();
+      
+      // Calculate overall pass rate for "This Week"
+      let tTotal = 0; let tPass = 0;
+      scans.forEach(s => {
+          if (s.summary) {
+              tTotal += s.summary.total;
+              tPass += s.summary.passed;
+          }
+      });
+      const avgRate = tTotal > 0 ? Math.round((tPass/tTotal)*100) : 0;
+      const avgRateEl = svg.closest(".card-b").querySelector("div[style*='font-size:32px']");
+      if (avgRateEl) avgRateEl.textContent = avgRate + "%";
+      
+      // Clear existing bars
+      svg.querySelectorAll('.chart-bar-group, .chart-tooltip').forEach(e => e.remove());
+      
+      if (scans.length === 0) return;
+      
+      // We have 100% width and 100% height (SVG coordinates are flexible but let's use fixed coords for ease, 
+      // SVG width="100%" height="160"). Let's dynamically create bars.
+      svg.setAttribute("viewBox", "0 0 700 160");
+      
+      const width = 700;
+      const height = 160;
+      const maxVal = Math.max(...scans.map(s => s.summary ? s.summary.total : 0), 10);
+      const gap = width / 7;
+      
+      scans.forEach((scan, i) => {
+         const cx = (i * gap) + (gap / 2);
+         const total = scan.summary ? scan.summary.total : 0;
+         const passed = scan.summary ? scan.summary.passed : 0;
+         const failed = scan.summary ? scan.summary.failed : 0;
+         
+         const totalH = (total / maxVal) * (height * 0.8);
+         const passedH = total > 0 ? (passed / total) * totalH : 0;
+         const failedH = total > 0 ? (failed / total) * totalH : 0;
+         
+         const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+         g.setAttribute("class", "chart-bar-group");
+         g.style.cursor = "pointer";
+         
+         // Hover target area
+         const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+         hoverRect.setAttribute("x", cx - 20);
+         hoverRect.setAttribute("y", 0);
+         hoverRect.setAttribute("width", 40);
+         hoverRect.setAttribute("height", height);
+         hoverRect.setAttribute("fill", "transparent");
+         g.appendChild(hoverRect);
+         
+         // Passed bar
+         if (passedH > 0) {
+             const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             pRect.setAttribute("x", cx - 4);
+             pRect.setAttribute("y", height - passedH);
+             pRect.setAttribute("width", 8);
+             pRect.setAttribute("height", passedH);
+             pRect.setAttribute("fill", "#2FD59A");
+             pRect.setAttribute("rx", "4");
+             g.appendChild(pRect);
+         }
+         
+         // Failed cap
+         if (failedH > 0) {
+             const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             fRect.setAttribute("x", cx - 4);
+             fRect.setAttribute("y", height - totalH);
+             fRect.setAttribute("width", 8);
+             fRect.setAttribute("height", failedH);
+             fRect.setAttribute("fill", "#FF5D6C");
+             fRect.setAttribute("rx", "4");
+             g.appendChild(fRect);
+         }
+         
+         // Tooltip logic
+         g.addEventListener("mouseenter", () => {
+             const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             tbg.setAttribute("class", "chart-tooltip");
+             tbg.setAttribute("x", cx - 60);
+             tbg.setAttribute("y", height - totalH - 40);
+             tbg.setAttribute("width", 120);
+             tbg.setAttribute("height", 30);
+             tbg.setAttribute("fill", "#ffffff");
+             tbg.setAttribute("rx", "15");
+             
+             const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
+             ttext.setAttribute("class", "chart-tooltip");
+             ttext.setAttribute("x", cx);
+             ttext.setAttribute("y", height - totalH - 20);
+             ttext.setAttribute("fill", "#000000");
+             ttext.setAttribute("font-size", "12");
+             ttext.setAttribute("font-weight", "600");
+             ttext.setAttribute("text-anchor", "middle");
+             ttext.textContent = passed + " of " + total + " passed";
+             
+             const tdot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+             tdot.setAttribute("class", "chart-tooltip");
+             tdot.setAttribute("cx", cx);
+             tdot.setAttribute("cy", height - totalH);
+             tdot.setAttribute("r", "4");
+             tdot.setAttribute("fill", "#ffffff");
+             
+             svg.appendChild(tbg);
+             svg.appendChild(ttext);
+             svg.appendChild(tdot);
+         });
+         
+         g.addEventListener("mouseleave", () => {
+             svg.querySelectorAll('.chart-tooltip').forEach(e => e.remove());
+         });
+         
+         svg.appendChild(g);
+      });
+      
+      // Update X axis labels
+      const xAxis = document.getElementById("scan-chart-x-axis");
+      if (xAxis) {
+         xAxis.innerHTML = "";
+         for(let i = 0; i < 7; i++) {
+             const span = document.createElement("span");
+             const scan = scans[i];
+             if (scan && scan.date) {
+                 const d = new Date(scan.timestamp);
+                 const day = d.toLocaleDateString("en-US", { weekday: 'short' });
+                 const num = d.getDate();
+                 span.innerHTML = day + "<br/>" + num;
+             } else {
+                 span.innerHTML = "-<br/>-";
+             }
+             span.style.textAlign = "center";
+             xAxis.appendChild(span);
+         }
+      }
+    }
+
+    renderChart();
 
     let activeSelectedScanId = null;
 
@@ -2110,6 +2537,150 @@
         localStorage.removeItem(RECENT_KEY);
         activeSelectedScanId = null;
         renderRecentScans();
+
+    function renderChart() {
+      const svg = document.getElementById("scan-chart-svg");
+      if (!svg) return;
+      const history = getScanHistory();
+      
+      // We want to show up to 7 bars
+      const scans = history.slice(0, 7).reverse();
+      
+      // Calculate overall pass rate for "This Week"
+      let tTotal = 0; let tPass = 0;
+      scans.forEach(s => {
+          if (s.summary) {
+              tTotal += s.summary.total;
+              tPass += s.summary.passed;
+          }
+      });
+      const avgRate = tTotal > 0 ? Math.round((tPass/tTotal)*100) : 0;
+      const avgRateEl = svg.closest(".card-b").querySelector("div[style*='font-size:32px']");
+      if (avgRateEl) avgRateEl.textContent = avgRate + "%";
+      
+      // Clear existing bars
+      svg.querySelectorAll('.chart-bar-group, .chart-tooltip').forEach(e => e.remove());
+      
+      if (scans.length === 0) return;
+      
+      // We have 100% width and 100% height (SVG coordinates are flexible but let's use fixed coords for ease, 
+      // SVG width="100%" height="160"). Let's dynamically create bars.
+      svg.setAttribute("viewBox", "0 0 700 160");
+      
+      const width = 700;
+      const height = 160;
+      const maxVal = Math.max(...scans.map(s => s.summary ? s.summary.total : 0), 10);
+      const gap = width / 7;
+      
+      scans.forEach((scan, i) => {
+         const cx = (i * gap) + (gap / 2);
+         const total = scan.summary ? scan.summary.total : 0;
+         const passed = scan.summary ? scan.summary.passed : 0;
+         const failed = scan.summary ? scan.summary.failed : 0;
+         
+         const totalH = (total / maxVal) * (height * 0.8);
+         const passedH = total > 0 ? (passed / total) * totalH : 0;
+         const failedH = total > 0 ? (failed / total) * totalH : 0;
+         
+         const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+         g.setAttribute("class", "chart-bar-group");
+         g.style.cursor = "pointer";
+         
+         // Hover target area
+         const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+         hoverRect.setAttribute("x", cx - 20);
+         hoverRect.setAttribute("y", 0);
+         hoverRect.setAttribute("width", 40);
+         hoverRect.setAttribute("height", height);
+         hoverRect.setAttribute("fill", "transparent");
+         g.appendChild(hoverRect);
+         
+         // Passed bar
+         if (passedH > 0) {
+             const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             pRect.setAttribute("x", cx - 4);
+             pRect.setAttribute("y", height - passedH);
+             pRect.setAttribute("width", 8);
+             pRect.setAttribute("height", passedH);
+             pRect.setAttribute("fill", "#2FD59A");
+             pRect.setAttribute("rx", "4");
+             g.appendChild(pRect);
+         }
+         
+         // Failed cap
+         if (failedH > 0) {
+             const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             fRect.setAttribute("x", cx - 4);
+             fRect.setAttribute("y", height - totalH);
+             fRect.setAttribute("width", 8);
+             fRect.setAttribute("height", failedH);
+             fRect.setAttribute("fill", "#FF5D6C");
+             fRect.setAttribute("rx", "4");
+             g.appendChild(fRect);
+         }
+         
+         // Tooltip logic
+         g.addEventListener("mouseenter", () => {
+             const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             tbg.setAttribute("class", "chart-tooltip");
+             tbg.setAttribute("x", cx - 60);
+             tbg.setAttribute("y", height - totalH - 40);
+             tbg.setAttribute("width", 120);
+             tbg.setAttribute("height", 30);
+             tbg.setAttribute("fill", "#ffffff");
+             tbg.setAttribute("rx", "15");
+             
+             const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
+             ttext.setAttribute("class", "chart-tooltip");
+             ttext.setAttribute("x", cx);
+             ttext.setAttribute("y", height - totalH - 20);
+             ttext.setAttribute("fill", "#000000");
+             ttext.setAttribute("font-size", "12");
+             ttext.setAttribute("font-weight", "600");
+             ttext.setAttribute("text-anchor", "middle");
+             ttext.textContent = passed + " of " + total + " passed";
+             
+             const tdot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+             tdot.setAttribute("class", "chart-tooltip");
+             tdot.setAttribute("cx", cx);
+             tdot.setAttribute("cy", height - totalH);
+             tdot.setAttribute("r", "4");
+             tdot.setAttribute("fill", "#ffffff");
+             
+             svg.appendChild(tbg);
+             svg.appendChild(ttext);
+             svg.appendChild(tdot);
+         });
+         
+         g.addEventListener("mouseleave", () => {
+             svg.querySelectorAll('.chart-tooltip').forEach(e => e.remove());
+         });
+         
+         svg.appendChild(g);
+      });
+      
+      // Update X axis labels
+      const xAxis = document.getElementById("scan-chart-x-axis");
+      if (xAxis) {
+         xAxis.innerHTML = "";
+         for(let i = 0; i < 7; i++) {
+             const span = document.createElement("span");
+             const scan = scans[i];
+             if (scan && scan.date) {
+                 const d = new Date(scan.timestamp);
+                 const day = d.toLocaleDateString("en-US", { weekday: 'short' });
+                 const num = d.getDate();
+                 span.innerHTML = day + "<br/>" + num;
+             } else {
+                 span.innerHTML = "-<br/>-";
+             }
+             span.style.textAlign = "center";
+             xAxis.appendChild(span);
+         }
+      }
+    }
+
+    renderChart();
         loadReportsView();
       }
     });
