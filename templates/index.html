@@ -850,7 +850,7 @@
       overflow-y: auto;
       padding: 8px 10px;
       display: flex;
-      flex-direction: row; background: var(--bg-primary);
+      flex-direction: column;
       gap: 5px;
       scrollbar-width: thin;
       scrollbar-color: var(--border-default) transparent;
@@ -862,8 +862,9 @@
       padding: 10px 12px;
       cursor: pointer;
       display: flex;
-      flex-direction: row; background: var(--bg-primary);
+      flex-direction: column;
       gap: 6px;
+      margin-bottom: 8px;
       transition: background var(--duration-fast) var(--ease-out),
                   border-color var(--duration-fast) var(--ease-out),
                   transform var(--duration-fast) var(--ease-out);
@@ -918,7 +919,7 @@
     /* Empty state */
     .history-empty-state {
       display: flex;
-      flex-direction: row; background: var(--bg-primary);
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 36px 16px;
@@ -940,7 +941,7 @@
     .reports-main {
       flex: 1;
       display: flex;
-      flex-direction: row; background: var(--bg-primary);
+      flex-direction: column;
       overflow: hidden;
       background: var(--bg-primary);
     }
@@ -949,7 +950,7 @@
       overflow-y: auto;
       padding: 18px 22px;
       display: flex;
-      flex-direction: row; background: var(--bg-primary);
+      flex-direction: column;
       gap: 16px;
       scrollbar-width: thin;
       scrollbar-color: var(--border-default) transparent;
@@ -1545,13 +1546,45 @@ body {
           <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:var(--text-secondary);">
             <span>Scan Type</span>
           </div>
-          <select id="scan_type" name="scan_type" style="width:100%;height:48px;border-radius:14px;background:var(--control-bg);border:none;color:var(--text-primary);padding:0 16px;font-size:14px;outline:none;-webkit-appearance:none;appearance:none;box-sizing:border-box;">
-            <option value="login">Login Test</option>
-            <option value="bruteforce">Credential Bruteforce Probe</option>
-            <option value="api">API Health Check</option>
-            <option value="auth">Broken Authentication Check</option>
-            <option value="full">Full Scan</option>
-          </select>
+          <!-- Custom Dropdown Wrapper -->
+          <div class="custom-select-wrapper" id="scan-type-custom-dropdown">
+            <button type="button" class="custom-select-trigger" id="scan-type-trigger" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-controls="scan-type-options" aria-label="Scan Type">
+              <span id="scan-type-selected-label">Login Test</span>
+              <svg class="custom-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="custom-select-popover" id="scan-type-options" role="listbox" aria-label="Scan Type Options">
+              <div class="custom-select-option is-selected" role="option" data-value="login" aria-selected="true" tabindex="-1">
+                <span>Login Test</span>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="custom-select-option" role="option" data-value="bruteforce" aria-selected="false" tabindex="-1">
+                <span>Credential Bruteforce Probe</span>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="custom-select-option" role="option" data-value="api" aria-selected="false" tabindex="-1">
+                <span>API Health Check</span>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="custom-select-option" role="option" data-value="auth" aria-selected="false" tabindex="-1">
+                <span>Broken Authentication Check</span>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="custom-select-option" role="option" data-value="full" aria-selected="false" tabindex="-1">
+                <span>Full Scan</span>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+            </div>
+            <!-- Visually hidden native select to keep existing JS & Playwright page.select_option("#scan_type", ...) working perfectly -->
+            <select id="scan_type" name="scan_type" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;opacity:0;pointer-events:none;" tabindex="-1" aria-hidden="true">
+              <option value="login" selected>Login Test</option>
+              <option value="bruteforce">Credential Bruteforce Probe</option>
+              <option value="api">API Health Check</option>
+              <option value="auth">Broken Authentication Check</option>
+              <option value="full">Full Scan</option>
+            </select>
+          </div>
           <div id="scan-hint" style="display:none;"></div>
         </div>
 
@@ -1560,17 +1593,18 @@ body {
           <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:var(--text-secondary);">
             <span>Strategy</span>
           </div>
-          <div class="segmented-control" style="margin-bottom: 24px;">
-            <label class="segmented-label active">
-              <input checked name="scan_strategy" type="radio" value="external"/>
+          <div class="segmented-control" id="strategy-control" role="radiogroup" aria-label="Scan Strategy" style="margin-bottom: 24px;">
+            <label class="segmented-label active" role="radio" aria-checked="true" tabindex="0" data-value="external">
+              <input checked name="scan_strategy" type="radio" value="external" tabindex="-1"/>
               External
             </label>
-            <label class="segmented-label">
-              <input name="scan_strategy" type="radio" value="authenticated"/>
+            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="authenticated">
+              <input name="scan_strategy" type="radio" value="authenticated" tabindex="-1"/>
               Authenticated
             </label>
             <div class="segmented-thumb"></div>
           </div>
+        </div>
 
         <div class="auth-fields" id="auth-fields" style="display:none;">
           <input id="auth-username" type="hidden" value="Mohammad" />
@@ -1600,17 +1634,17 @@ body {
           <div style="font-size:13px;color:var(--text-secondary);margin-bottom:4px;">Average Pass Rate</div>
           <div style="font-size:32px;font-weight:500;">98.5%</div>
         </div>
-        <div class="segmented-control cols-3" style="width: 180px;">
-            <label class="segmented-label active" style="font-size:12px; padding:6px 12px;">
-              <input checked name="chart_range" type="radio" value="7d"/>
+        <div class="segmented-control cols-3" id="chart-range-control" role="radiogroup" aria-label="Chart Range" style="width: 180px;">
+            <label class="segmented-label active" role="radio" aria-checked="true" tabindex="0" data-value="7d" style="font-size:12px; padding:6px 12px;">
+              <input checked name="chart_range" type="radio" value="7d" tabindex="-1"/>
               7d
             </label>
-            <label class="segmented-label" style="font-size:12px; padding:6px 12px;">
-              <input name="chart_range" type="radio" value="30d"/>
+            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="30d" style="font-size:12px; padding:6px 12px;">
+              <input name="chart_range" type="radio" value="30d" tabindex="-1"/>
               30d
             </label>
-            <label class="segmented-label" style="font-size:12px; padding:6px 12px;">
-              <input name="chart_range" type="radio" value="all"/>
+            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="all" style="font-size:12px; padding:6px 12px;">
+              <input name="chart_range" type="radio" value="all" tabindex="-1"/>
               All
             </label>
             <div class="segmented-thumb"></div>
@@ -1668,25 +1702,25 @@ body {
          <div id="exec-progress-fill" style="position:absolute;top:12px;left:48px;height:2px;background:var(--success);z-index:1;width:0%;transition:width 300ms ease;"></div>
          <div id="exec-progress-pct" style="display:none;">0%</div>
          
-         <div id="step-init" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-cards);border:2px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-size:10px;">1</div>
-            <div style="font-size:12px;color:var(--text-secondary);position:absolute;top:32px;white-space:nowrap;">Initialize</div>
+         <div class="step-item" id="step-init">
+            <div class="step-circle">1</div>
+            <div class="step-label">Initialize</div>
          </div>
-         <div id="step-discover" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-cards);border:2px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-size:10px;">2</div>
-            <div style="font-size:12px;color:var(--text-secondary);position:absolute;top:32px;white-space:nowrap;">Discover</div>
+         <div class="step-item" id="step-discover">
+            <div class="step-circle">2</div>
+            <div class="step-label">Discover</div>
          </div>
-         <div id="step-scan" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-cards);border:2px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-size:10px;">3</div>
-            <div style="font-size:12px;color:var(--text-secondary);position:absolute;top:32px;white-space:nowrap;">Scan</div>
+         <div class="step-item" id="step-scan">
+            <div class="step-circle">3</div>
+            <div class="step-label">Scan</div>
          </div>
-         <div id="step-analyze" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-cards);border:2px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-size:10px;">4</div>
-            <div style="font-size:12px;color:var(--text-secondary);position:absolute;top:32px;white-space:nowrap;">Analyze</div>
+         <div class="step-item" id="step-analyze">
+            <div class="step-circle">4</div>
+            <div class="step-label">Analyze</div>
          </div>
-         <div id="step-report" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-cards);border:2px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-size:10px;">5</div>
-            <div style="font-size:12px;color:var(--text-secondary);position:absolute;top:32px;white-space:nowrap;">Generate report</div>
+         <div class="step-item" id="step-report">
+            <div class="step-circle">5</div>
+            <div class="step-label">Generate report</div>
          </div>
          
          <div id="step-init-time" style="display:none;"></div>
@@ -1977,7 +2011,7 @@ body {
     const viewDashboard = document.getElementById("dashboard-view");
     const viewReports   = document.getElementById("reports-view");
 
-    function switchView(viewName) {
+    function switchView(viewName, updateHash = true) {
       if (viewName === "reports") {
         viewDashboard.style.display = "none";
         viewReports.style.display = "flex";
@@ -1986,6 +2020,9 @@ body {
         tabReports.classList.add("active");
         tabReports.setAttribute("aria-selected", "true");
         loadReportsView();
+        if (updateHash && window.location.hash !== "#reports") {
+          history.replaceState(null, "", "#reports");
+        }
       } else {
         viewReports.style.display = "none";
         viewDashboard.style.display = "flex";
@@ -1993,11 +2030,25 @@ body {
         tabReports.setAttribute("aria-selected", "false");
         tabDashboard.classList.add("active");
         tabDashboard.setAttribute("aria-selected", "true");
+        if (updateHash && window.location.hash === "#reports") {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
       }
     }
 
     tabDashboard.addEventListener("click", () => switchView("dashboard"));
     tabReports.addEventListener("click", () => switchView("reports"));
+
+    function initViewFromHash() {
+      if (window.location.hash === "#reports") {
+        switchView("reports", false);
+      } else {
+        switchView("dashboard", false);
+      }
+    }
+    window.addEventListener("hashchange", initViewFromHash);
+    document.addEventListener("DOMContentLoaded", initViewFromHash);
+    initViewFromHash();
 
     // ═══════════════════════════════════════════════════════════
     // 3. HORIZONTAL COLUMN SPLITTERS (DRAGGABLE GUTTERS)
@@ -2120,177 +2171,8 @@ body {
       renderRecentScans();
     }
 
-    function renderChart(range = '7d') {
-      const svg = document.getElementById("scan-chart-svg");
-      if (!svg) return;
-      const allHistory = getScanHistory();
-      
-      const now = new Date().getTime();
-      let scans = allHistory.filter(s => {
-          if (range === 'all') return true;
-          const days = range === '30d' ? 30 : 7;
-          return (now - new Date(s.timestamp).getTime()) <= days * 24 * 60 * 60 * 1000;
-      });
-      scans = scans.reverse(); // chronological order
-      
-      // Calculate overall pass rate
-      let tTotal = 0; let tPass = 0;
-      scans.forEach(s => {
-          if (s.summary) {
-              tTotal += s.summary.total;
-              tPass += s.summary.passed;
-          }
-      });
-      const avgRate = tTotal > 0 ? Math.round((tPass/tTotal)*100) : 0;
-      const avgRateEl = svg.closest(".card-b").querySelector("div[style*='font-size:32px']");
-      if (avgRateEl) avgRateEl.textContent = avgRate + "%";
-      
-      // Clear existing bars
-      svg.querySelectorAll('.chart-bar-group, .chart-tooltip').forEach(e => e.remove());
-      
-      // Update X axis labels
-      const xAxis = document.getElementById("scan-chart-x-axis");
-      if (xAxis) xAxis.innerHTML = "";
-      
-      if (scans.length === 0) return;
-      
-      svg.setAttribute("viewBox", "0 0 700 160");
-      const width = 700;
-      const height = 160;
-      const gap = width / Math.max(scans.length, 1);
-      
-      // Date formatting for axis: group by date
-      const dateCounts = {};
-      scans.forEach(s => {
-          const d = new Date(s.timestamp).toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
-          dateCounts[d] = (dateCounts[d] || 0) + 1;
-      });
-      
-      scans.forEach((scan, i) => {
-         const cx = (i * gap) + (gap / 2);
-         const total = scan.summary ? scan.summary.total : 0;
-         const passed = scan.summary ? scan.summary.passed : 0;
-         const failed = scan.summary ? scan.summary.failed : 0;
-         
-         const passedRate = total > 0 ? (passed / total) : 0;
-         const failedRate = total > 0 ? (failed / total) : 0;
-         
-         const passedH = passedRate * height;
-         const failedH = failedRate * height;
-         
-         const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-         g.setAttribute("class", "chart-bar-group");
-         g.style.cursor = "pointer";
-         
-         const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-         hoverRect.setAttribute("x", cx - (gap/2));
-         hoverRect.setAttribute("y", 0);
-         hoverRect.setAttribute("width", gap);
-         hoverRect.setAttribute("height", height);
-         hoverRect.setAttribute("fill", "transparent");
-         g.appendChild(hoverRect);
-         
-         if (passedH > 0) {
-             const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-             pRect.setAttribute("x", cx - 4);
-             pRect.setAttribute("y", height - passedH);
-             pRect.setAttribute("width", 8);
-             pRect.setAttribute("height", passedH);
-             pRect.setAttribute("fill", "var(--success)");
-             if (failedH === 0) pRect.setAttribute("rx", "4"); // rounded top if no failed cap
-             g.appendChild(pRect);
-         }
-         
-         if (failedH > 0) {
-             const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-             fRect.setAttribute("x", cx - 4);
-             fRect.setAttribute("y", height - passedH - failedH);
-             fRect.setAttribute("width", 8);
-             fRect.setAttribute("height", failedH);
-             fRect.setAttribute("fill", "var(--danger)");
-             fRect.setAttribute("rx", "4");
-             g.appendChild(fRect);
-         }
-         
-         const d = new Date(scan.timestamp);
-         const dateStr = d.toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
-         let labelText = dateStr;
-         if (dateCounts[dateStr] > 1) {
-             labelText += "<br/>" + d.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
-         }
-         
-         if (xAxis) {
-             const span = document.createElement("span");
-             span.innerHTML = labelText;
-             span.style.textAlign = "center";
-             span.style.flex = "1";
-             span.style.fontSize = "11px";
-             xAxis.appendChild(span);
-         }
-         
-         g.addEventListener("mouseenter", () => {
-             const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-             tbg.setAttribute("class", "chart-tooltip");
-             tbg.setAttribute("x", cx - 60);
-             const tipY = height - passedH - failedH - 40;
-             tbg.setAttribute("y", tipY);
-             tbg.setAttribute("width", 120);
-             tbg.setAttribute("height", 45);
-             tbg.setAttribute("fill", "var(--text-primary)");
-             tbg.setAttribute("rx", "8");
-             
-             const tdate = document.createElementNS("http://www.w3.org/2000/svg", "text");
-             tdate.setAttribute("class", "chart-tooltip");
-             tdate.setAttribute("x", cx);
-             tdate.setAttribute("y", tipY + 15);
-             tdate.setAttribute("fill", "var(--bg-cards)");
-             tdate.setAttribute("font-size", "10");
-             tdate.setAttribute("text-anchor", "middle");
-             tdate.textContent = d.toLocaleString("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' });
 
-             const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
-             ttext.setAttribute("class", "chart-tooltip");
-             ttext.setAttribute("x", cx);
-             ttext.setAttribute("y", tipY + 32);
-             ttext.setAttribute("fill", "var(--bg-cards)");
-             ttext.setAttribute("font-size", "12");
-             ttext.setAttribute("font-weight", "600");
-             ttext.setAttribute("text-anchor", "middle");
-             ttext.textContent = passed + " of " + total + " passed";
-             
-             svg.appendChild(tbg);
-             svg.appendChild(tdate);
-             svg.appendChild(ttext);
-         });
-         
-         g.addEventListener("mouseleave", () => {
-             svg.querySelectorAll('.chart-tooltip').forEach(e => e.remove());
-         });
-         
-         svg.appendChild(g);
-      });
-    }
-
-    
-document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
-    radio.addEventListener('change', (e) => {
-        // Update thumb
-        const thumb = e.target.closest('.segmented-control').querySelector('.segmented-thumb');
-        thumb.style.transform = `translateX(${idx * 100}%)`;
-        // Update active class
-        e.target.closest('.segmented-control').querySelectorAll('.segmented-label').forEach(lbl => lbl.classList.remove('active'));
-        e.target.closest('.segmented-label').classList.add('active');
-        
-        // Re-render chart with new range
-        if (typeof renderChart === 'function') {
-            renderChart(e.target.value);
-        }
-    });
-});
-
-    renderChart();
-
-    function renderRecentScans() {
+    function renderRecentScans(highlightId = null) {
       const list = document.getElementById("recent-scans-list");
       const scans = getScanHistory().slice(0, 6);
       if (!scans.length) {
@@ -2304,9 +2186,10 @@ document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
           const isOk = s.status === 'completed';
           const color = isOk ? "var(--success)" : "var(--danger)";
           const icon = isOk ? `<circle cx="12" cy="12" r="10" fill="none" stroke="${color}" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>` : `<circle cx="12" cy="12" r="10" fill="none" stroke="${color}" stroke-width="2"></circle><path d="M15 9l-6 6M9 9l6 6" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>`;
+          const isHl = highlightId && (s.id === highlightId || idx === 0);
           
           return `
-        <div class="recent-item" onclick="openReportByIndex(${idx})" style="display:flex;align-items:center;gap:16px;cursor:pointer;">
+        <div class="recent-item ${isHl ? 'highlight' : ''}" onclick="openReportByIndex(${idx})" style="display:flex;align-items:center;gap:16px;cursor:pointer;padding:8px 12px;border-radius:14px;transition:background 150ms ease;">
           <div style="width:40px;height:40px;border-radius:50%;background:var(--control-icon-bg);display:flex;align-items:center;justify-content:center;">
              <svg width="20" height="20" viewBox="0 0 24 24">${icon}</svg>
           </div>
@@ -2602,164 +2485,13 @@ document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
         localStorage.removeItem(RECENT_KEY);
         activeSelectedScanId = null;
         renderRecentScans();
-
-    function renderChart(range = '7d') {
-      const svg = document.getElementById("scan-chart-svg");
-      if (!svg) return;
-      const allHistory = getScanHistory();
-      
-      const now = new Date().getTime();
-      let scans = allHistory.filter(s => {
-          if (range === 'all') return true;
-          const days = range === '30d' ? 30 : 7;
-          return (now - new Date(s.timestamp).getTime()) <= days * 24 * 60 * 60 * 1000;
-      });
-      scans = scans.reverse(); // chronological order
-      
-      // Calculate overall pass rate
-      let tTotal = 0; let tPass = 0;
-      scans.forEach(s => {
-          if (s.summary) {
-              tTotal += s.summary.total;
-              tPass += s.summary.passed;
-          }
-      });
-      const avgRate = tTotal > 0 ? Math.round((tPass/tTotal)*100) : 0;
-      const avgRateEl = svg.closest(".card-b").querySelector("div[style*='font-size:32px']");
-      if (avgRateEl) avgRateEl.textContent = avgRate + "%";
-      
-      // Clear existing bars
-      svg.querySelectorAll('.chart-bar-group, .chart-tooltip').forEach(e => e.remove());
-      
-      // Update X axis labels
-      const xAxis = document.getElementById("scan-chart-x-axis");
-      if (xAxis) xAxis.innerHTML = "";
-      
-      if (scans.length === 0) return;
-      
-      svg.setAttribute("viewBox", "0 0 700 160");
-      const width = 700;
-      const height = 160;
-      const gap = width / Math.max(scans.length, 1);
-      
-      // Date formatting for axis: group by date
-      const dateCounts = {};
-      scans.forEach(s => {
-          const d = new Date(s.timestamp).toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
-          dateCounts[d] = (dateCounts[d] || 0) + 1;
-      });
-      
-      scans.forEach((scan, i) => {
-         const cx = (i * gap) + (gap / 2);
-         const total = scan.summary ? scan.summary.total : 0;
-         const passed = scan.summary ? scan.summary.passed : 0;
-         const failed = scan.summary ? scan.summary.failed : 0;
-         
-         const passedRate = total > 0 ? (passed / total) : 0;
-         const failedRate = total > 0 ? (failed / total) : 0;
-         
-         const passedH = passedRate * height;
-         const failedH = failedRate * height;
-         
-         const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-         g.setAttribute("class", "chart-bar-group");
-         g.style.cursor = "pointer";
-         
-         const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-         hoverRect.setAttribute("x", cx - (gap/2));
-         hoverRect.setAttribute("y", 0);
-         hoverRect.setAttribute("width", gap);
-         hoverRect.setAttribute("height", height);
-         hoverRect.setAttribute("fill", "transparent");
-         g.appendChild(hoverRect);
-         
-         if (passedH > 0) {
-             const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-             pRect.setAttribute("x", cx - 4);
-             pRect.setAttribute("y", height - passedH);
-             pRect.setAttribute("width", 8);
-             pRect.setAttribute("height", passedH);
-             pRect.setAttribute("fill", "var(--success)");
-             if (failedH === 0) pRect.setAttribute("rx", "4"); // rounded top if no failed cap
-             g.appendChild(pRect);
-         }
-         
-         if (failedH > 0) {
-             const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-             fRect.setAttribute("x", cx - 4);
-             fRect.setAttribute("y", height - passedH - failedH);
-             fRect.setAttribute("width", 8);
-             fRect.setAttribute("height", failedH);
-             fRect.setAttribute("fill", "var(--danger)");
-             fRect.setAttribute("rx", "4");
-             g.appendChild(fRect);
-         }
-         
-         const d = new Date(scan.timestamp);
-         const dateStr = d.toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
-         let labelText = dateStr;
-         if (dateCounts[dateStr] > 1) {
-             labelText += "<br/>" + d.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
-         }
-         
-         if (xAxis) {
-             const span = document.createElement("span");
-             span.innerHTML = labelText;
-             span.style.textAlign = "center";
-             span.style.flex = "1";
-             span.style.fontSize = "11px";
-             xAxis.appendChild(span);
-         }
-         
-         g.addEventListener("mouseenter", () => {
-             const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-             tbg.setAttribute("class", "chart-tooltip");
-             tbg.setAttribute("x", cx - 60);
-             const tipY = height - passedH - failedH - 40;
-             tbg.setAttribute("y", tipY);
-             tbg.setAttribute("width", 120);
-             tbg.setAttribute("height", 45);
-             tbg.setAttribute("fill", "var(--text-primary)");
-             tbg.setAttribute("rx", "8");
-             
-             const tdate = document.createElementNS("http://www.w3.org/2000/svg", "text");
-             tdate.setAttribute("class", "chart-tooltip");
-             tdate.setAttribute("x", cx);
-             tdate.setAttribute("y", tipY + 15);
-             tdate.setAttribute("fill", "var(--bg-cards)");
-             tdate.setAttribute("font-size", "10");
-             tdate.setAttribute("text-anchor", "middle");
-             tdate.textContent = d.toLocaleString("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' });
-
-             const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
-             ttext.setAttribute("class", "chart-tooltip");
-             ttext.setAttribute("x", cx);
-             ttext.setAttribute("y", tipY + 32);
-             ttext.setAttribute("fill", "var(--bg-cards)");
-             ttext.setAttribute("font-size", "12");
-             ttext.setAttribute("font-weight", "600");
-             ttext.setAttribute("text-anchor", "middle");
-             ttext.textContent = passed + " of " + total + " passed";
-             
-             svg.appendChild(tbg);
-             svg.appendChild(tdate);
-             svg.appendChild(ttext);
-         });
-         
-         g.addEventListener("mouseleave", () => {
-             svg.querySelectorAll('.chart-tooltip').forEach(e => e.remove());
-         });
-         
-         svg.appendChild(g);
-      });
-    }
-
-    renderChart();
+        renderChart();
         loadReportsView();
       }
     });
 
     // Report refresh button
+
     document.getElementById("report-refresh-btn").addEventListener("click", () => {
       const iframe = document.getElementById("report-iframe");
       if (iframe) iframe.src = "/view_report?t=" + Date.now();
@@ -2773,24 +2505,8 @@ document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
     const envAuthType = document.getElementById("env-auth-type");
     urlInput.addEventListener("input", () => { envBaseUrl.textContent = urlInput.value || "https://example.com"; });
 
-    const strategyRadios = document.querySelectorAll('input[name="scan_strategy"]');
-    const strategyCards  = document.querySelectorAll(".strategy-card");
     const authFields     = document.getElementById("auth-fields");
     const STRATEGY_DEFAULT_SCAN = { external: "api", authenticated: "login" };
-
-    strategyRadios.forEach(radio => {
-      radio.addEventListener("change", () => {
-        strategyCards.forEach(c => c.classList.remove("selected"));
-        const parentCard = radio.closest(".strategy-card");
-        if (parentCard) parentCard.classList.add("selected");
-        const isAuth = radio.value === "authenticated";
-        if (isAuth) authFields.classList.add("visible"); else authFields.classList.remove("visible");
-        envAuthType.textContent = isAuth ? "Credentials" : "None";
-        const rec = STRATEGY_DEFAULT_SCAN[radio.value];
-        if (rec && selectEl.value !== rec) { selectEl.value = rec; hintEl.textContent = HINTS[rec] || ""; }
-      });
-    });
-    function getSelectedStrategy() { const c = document.querySelector('input[name="scan_strategy"]:checked'); return c ? c.value : "external"; }
 
     const HINTS = {
       login:      "Runs both positive and negative login tests.",
@@ -2801,7 +2517,207 @@ document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
     };
     const selectEl = document.getElementById("scan_type");
     const hintEl   = document.getElementById("scan-hint");
-    selectEl.addEventListener("change", () => { hintEl.textContent = HINTS[selectEl.value] || ""; });
+
+    function getSelectedStrategy() {
+      const c = document.querySelector('input[name="scan_strategy"]:checked');
+      return c ? c.value : "external";
+    }
+
+    // Segmented control helper for instant first-click state change and sliding thumb
+    function initSegmentedControl(controlEl, onChange) {
+      if (!controlEl) return;
+      const labels = Array.from(controlEl.querySelectorAll(".segmented-label"));
+      const thumb = controlEl.querySelector(".segmented-thumb");
+
+      function updateThumb(activeLabel) {
+        if (!thumb || !activeLabel) return;
+        const cl = controlEl.getBoundingClientRect();
+        const rl = activeLabel.getBoundingClientRect();
+        const left = rl.left - cl.left;
+        const width = rl.width;
+        thumb.style.transform = `translateX(${left}px)`;
+        thumb.style.width = `${width}px`;
+      }
+
+      labels.forEach(label => {
+        function activate() {
+          labels.forEach(l => {
+            l.classList.remove("active");
+            l.setAttribute("aria-checked", "false");
+            const r = l.querySelector('input[type="radio"]');
+            if (r) r.checked = false;
+          });
+          label.classList.add("active");
+          label.setAttribute("aria-checked", "true");
+          const radio = label.querySelector('input[type="radio"]');
+          if (radio) {
+            radio.checked = true;
+            radio.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+          updateThumb(label);
+          if (onChange) onChange(radio ? radio.value : label.dataset.value);
+        }
+
+        label.addEventListener("click", activate);
+        label.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            activate();
+          }
+        });
+      });
+
+      const currentActive = controlEl.querySelector(".segmented-label.active") || labels[0];
+      if (currentActive) {
+        requestAnimationFrame(() => updateThumb(currentActive));
+      }
+      window.addEventListener("resize", () => {
+        const cur = controlEl.querySelector(".segmented-label.active");
+        if (cur) updateThumb(cur);
+      });
+    }
+
+    // Initialize Strategy Segmented Control
+    initSegmentedControl(document.getElementById("strategy-control"), (val) => {
+      const isAuth = val === "authenticated";
+      if (isAuth) {
+        authFields.style.display = "block";
+        authFields.classList.add("visible");
+      } else {
+        authFields.style.display = "none";
+        authFields.classList.remove("visible");
+      }
+      envAuthType.textContent = isAuth ? "Credentials" : "None";
+      const rec = STRATEGY_DEFAULT_SCAN[val];
+      if (rec && selectEl.value !== rec) {
+        selectEl.value = rec;
+        selectEl.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    });
+
+    // Initialize Chart Range Segmented Control
+    initSegmentedControl(document.getElementById("chart-range-control"), (val) => {
+      renderChart(val);
+    });
+
+    // Custom Select Dropdown Implementation
+    function initCustomSelect() {
+      const wrapper = document.getElementById("scan-type-custom-dropdown");
+      if (!wrapper) return;
+      const trigger = document.getElementById("scan-type-trigger");
+      const popover = document.getElementById("scan-type-options");
+      const labelEl = document.getElementById("scan-type-selected-label");
+      const options = Array.from(popover.querySelectorAll(".custom-select-option"));
+      let isOpen = false;
+      let focusedIndex = options.findIndex(o => o.classList.contains("is-selected"));
+
+      function open() {
+        isOpen = true;
+        trigger.classList.add("is-open");
+        trigger.setAttribute("aria-expanded", "true");
+        popover.classList.add("is-open");
+        updateFocus(options.findIndex(o => o.classList.contains("is-selected")));
+      }
+
+      function close() {
+        isOpen = false;
+        trigger.classList.remove("is-open");
+        trigger.setAttribute("aria-expanded", "false");
+        popover.classList.remove("is-open");
+        options.forEach(o => o.classList.remove("is-focused"));
+      }
+
+      function selectOption(opt) {
+        const val = opt.dataset.value;
+        options.forEach(o => {
+          const isSel = o === opt;
+          o.classList.toggle("is-selected", isSel);
+          o.setAttribute("aria-selected", isSel ? "true" : "false");
+        });
+        labelEl.textContent = opt.querySelector("span").textContent;
+        if (selectEl.value !== val) {
+          selectEl.value = val;
+          selectEl.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+        close();
+        trigger.focus();
+      }
+
+      function updateFocus(idx) {
+        if (idx < 0) idx = 0;
+        if (idx >= options.length) idx = options.length - 1;
+        focusedIndex = idx;
+        options.forEach((o, i) => {
+          o.classList.toggle("is-focused", i === idx);
+        });
+        if (options[idx]) options[idx].scrollIntoView({ block: "nearest" });
+      }
+
+      trigger.addEventListener("click", () => {
+        if (isOpen) close(); else open();
+      });
+
+      options.forEach((opt, idx) => {
+        opt.addEventListener("click", (e) => {
+          e.stopPropagation();
+          selectOption(opt);
+        });
+        opt.addEventListener("mouseenter", () => {
+          updateFocus(idx);
+        });
+      });
+
+      trigger.addEventListener("keydown", (e) => {
+        if (!isOpen) {
+          if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            open();
+          }
+          return;
+        }
+
+        if (e.key === "Escape") {
+          e.preventDefault();
+          close();
+          trigger.focus();
+        } else if (e.key === "ArrowDown") {
+          e.preventDefault();
+          updateFocus(focusedIndex + 1);
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          updateFocus(focusedIndex - 1);
+        } else if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          if (focusedIndex >= 0 && focusedIndex < options.length) {
+            selectOption(options[focusedIndex]);
+          }
+        } else if (e.key === "Tab") {
+          close();
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!wrapper.contains(e.target)) {
+          close();
+        }
+      });
+
+      // Synchronize with native select change (e.g. from Playwright page.select_option)
+      selectEl.addEventListener("change", () => {
+        const val = selectEl.value;
+        hintEl.textContent = HINTS[val] || "";
+        const targetOpt = options.find(o => o.dataset.value === val);
+        if (targetOpt) {
+          options.forEach(o => {
+            const isSel = o === targetOpt;
+            o.classList.toggle("is-selected", isSel);
+            o.setAttribute("aria-selected", isSel ? "true" : "false");
+          });
+          labelEl.textContent = targetOpt.querySelector("span").textContent;
+        }
+      });
+    }
+    initCustomSelect();
 
     // DOM refs
     const form          = document.getElementById("scan-form");
@@ -2849,13 +2765,41 @@ document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
     }
 
     const STEPS = ["init","discover","scan","analyze","report"];
+    const STEP_NUMBERS = { init: "1", discover: "2", scan: "3", analyze: "4", report: "5" };
+    const CHECK_SVG = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+    const FAIL_SVG = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+
     function setStepState(id, state, time) {
       const el = document.getElementById("step-" + id);
       if (!el) return;
       el.classList.remove("done","running","failed");
-      if (state) el.classList.add(state);
+      const circle = el.querySelector(".step-circle");
+      if (state) {
+        el.classList.add(state);
+        if (circle) {
+          if (state === "done") circle.innerHTML = CHECK_SVG;
+          else if (state === "failed") circle.innerHTML = FAIL_SVG;
+          else circle.textContent = STEP_NUMBERS[id] || "";
+        }
+      } else {
+        if (circle) circle.textContent = STEP_NUMBERS[id] || "";
+      }
       const t = document.getElementById("step-" + id + "-time");
       if (t && time !== undefined) t.textContent = time;
+
+      window.__stepper_history = window.__stepper_history || [];
+      const currentPattern = STEPS.map(s => {
+        const elS = document.getElementById("step-" + s);
+        if (!elS) return "idle";
+        if (elS.classList.contains("done")) return "done";
+        if (elS.classList.contains("running")) return "running";
+        if (elS.classList.contains("failed")) return "failed";
+        return "idle";
+      }).join(" -> ");
+      const last = window.__stepper_history[window.__stepper_history.length - 1];
+      if (!last || last.state !== currentPattern) {
+        window.__stepper_history.push({ time: Date.now(), state: currentPattern });
+      }
     }
     function resetSteps() {
       STEPS.forEach(s => setStepState(s, "", "—"));
@@ -2863,8 +2807,13 @@ document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
       document.getElementById("step-report-time").textContent  = "Pending";
     }
     function updateExecProgress(pct) {
-      document.getElementById("exec-progress-fill").style.transform = `scaleX(${pct / 100})`;
-      document.getElementById("exec-progress-pct").textContent = Math.round(pct) + "%";
+      const fill = document.getElementById("exec-progress-fill");
+      if (fill) {
+        fill.style.transform = "none";
+        fill.style.width = `calc((100% - 96px) * ${Math.max(0, Math.min(100, pct)) / 100})`;
+      }
+      const pctEl = document.getElementById("exec-progress-pct");
+      if (pctEl) pctEl.textContent = Math.round(pct) + "%";
     }
 
     function createProgressController(fillEl, textEl) {
@@ -2961,33 +2910,39 @@ document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
       logLineCount=0;logCount.textContent="0";currentLogFile=null;
     });
 
-    function appendLogLine(timestamp,line,file){
-      if(!line||!line.startsWith("Status: ")) return;
-      if(file&&file!==currentLogFile){
-        currentLogFile=file;
-        const sep=document.createElement("div");sep.className="log-file-sep";
-        sep.textContent=file==="summary"?"Scan Completed":file;
+    function appendLogLine(timestamp, line, file) {
+      if (!line) return;
+      if (file && file !== currentLogFile) {
+        currentLogFile = file;
+        const sep = document.createElement("div");
+        sep.className = "log-file-sep";
+        sep.textContent = file === "summary" ? "Scan Completed" : file;
         logBody.appendChild(sep);
       }
-      logEmpty.style.display="none";
-      let message=line.substring(8).trim(),levelLabel="INFO",level="info";
-      const em=message.match(/^([\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|✅|❌|⚠️)/u);
-      if(em){
-        const icon=em[1];message=message.substring(icon.length).trim();
-        if(message.startsWith(":")||message.startsWith("-"))message=message.substring(1).trim();
-        if(icon==="✅"){level="pass";levelLabel="PASS";}
-        else if(icon==="❌"){level="fail";levelLabel="FAIL";}
-        else if(icon==="⚠️"){level="warn";levelLabel="WARN";}
+      logEmpty.style.display = "none";
+      let message = line.startsWith("Status: ") ? line.substring(8).trim() : line.trim();
+      let levelLabel = "INFO", level = "info";
+      const em = message.match(/^([\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|✅|❌|⚠️)/u);
+      if (em) {
+        const icon = em[1];
+        message = message.substring(icon.length).trim();
+        if (message.startsWith(":") || message.startsWith("-")) message = message.substring(1).trim();
+        if (icon === "✅") { level = "pass"; levelLabel = "PASS"; }
+        else if (icon === "❌") { level = "fail"; levelLabel = "FAIL"; }
+        else if (icon === "⚠️") { level = "warn"; levelLabel = "WARN"; }
       } else {
-        if(/pass/i.test(message)){level="pass";levelLabel="PASS";}
-        else if(/fail|error/i.test(message)){level="fail";levelLabel="FAIL";}
-        else if(/warn/i.test(message)){level="warn";levelLabel="WARN";}
+        if (/pass/i.test(message)) { level = "pass"; levelLabel = "PASS"; }
+        else if (/fail|error/i.test(message)) { level = "fail"; levelLabel = "FAIL"; }
+        else if (/warn/i.test(message)) { level = "warn"; levelLabel = "WARN"; }
       }
-      const div=document.createElement("div");div.className=`log-line level-${level}`;
-      div.innerHTML=`<span class="log-timestamp">${timestamp}</span><span class="log-level-dot"></span><span class="log-level-label">${levelLabel}</span><span class="log-text">${escapeHtml(message)}</span>`;
+      const div = document.createElement("div");
+      div.className = `log-line level-${level}`;
+      const ts = timestamp || new Date().toTimeString().slice(0, 8);
+      div.innerHTML = `<span class="log-timestamp">${ts}</span><span class="log-level-dot"></span><span class="log-level-label">${levelLabel}</span><span class="log-text">${escapeHtml(message)}</span>`;
       logBody.appendChild(div);
-      logLineCount++;logCount.textContent=logLineCount;
-      if(autoScroll)logBody.scrollTop=logBody.scrollHeight;
+      logLineCount++;
+      logCount.textContent = logLineCount;
+      if (autoScroll) logBody.scrollTop = logBody.scrollHeight;
     }
 
     function escapeHtml(str){const d=document.createElement("div");d.textContent=str;return d.innerHTML;}
@@ -3084,7 +3039,15 @@ document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
       timeline.innerHTML="";timelineSec.classList.remove("visible");completionSec.classList.remove("visible");
       logBody.innerHTML="";logBody.appendChild(logEmpty);logEmpty.style.display="flex";
       logLineCount=0;logCount.textContent="0";currentLogFile=null;filesCompleted=0;
-      resetSteps();updateExecProgress(0);
+      resetSteps();updateExecProgress(10);
+      setStepState("init", "running", "");
+
+      // Smooth scroll execution overview into view
+      const execSection = document.getElementById("section-exec-overview");
+      if (execSection) {
+        execSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
       gaugePct.textContent="—";gaugeTotal.textContent="—";gaugePassed.textContent="—";
       gaugeFailed.textContent="—";gaugeBarFill.style.transform="scaleX(0)";
       gaugeBarMeta.textContent="Scan in progress...";
@@ -3138,22 +3101,37 @@ document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
           timelineSec.classList.add("visible");
           setStepState("init","done",new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"}));
           setStepState("discover","running","");
-          updateExecProgress(5);
+          updateExecProgress(25);
           if(pendingFiles.length>0){markTimelineRunning(pendingFiles[0]);setStatus(`Running: ${data.files[0].label}`);}
           return;
         }
 
-        if(data.type==="log"){appendLogLine(data.timestamp,data.line,data.file);return;}
+        if(data.type==="log"){
+          appendLogLine(data.timestamp,data.line,data.file);
+          const disc = document.getElementById("step-discover");
+          if (disc && disc.classList.contains("running") && data.file && data.file !== "system") {
+            setStepState("discover", "done", "");
+            setStepState("scan", "running", "");
+            updateExecProgress(40);
+          }
+          return;
+        }
 
         if(data.type==="progress"){
           updateTimelineItem(data.file,data.status,data.passed,data.failed,data.elapsed_s);
           filesCompleted++;
           const idx=pendingFiles.indexOf(data.file);
           if(idx!==-1){setCircuitTraceState(idx,data.status);setCircuitTraceState(idx+1,"running");}
-          const pct=Math.round((filesCompleted/totalFiles)*80)+10;
+          const pct = Math.min(85, Math.round((filesCompleted / totalFiles) * 45) + 40);
           updateExecProgress(pct);
           setStepState("discover","done","");
-          setStepState("scan",filesCompleted<totalFiles?"running":"done","");
+          if(filesCompleted < totalFiles){
+            setStepState("scan", "running", "");
+          } else {
+            setStepState("scan", "done", "");
+            setStepState("analyze", "running", "");
+            updateExecProgress(90);
+          }
           if(idx!==-1&&idx+1<pendingFiles.length){
             const nf=pendingFiles[idx+1];markTimelineRunning(nf);
             const ni=document.getElementById("tl-"+nf.replace(/[^a-z0-9]/gi,"_"));
@@ -3165,7 +3143,8 @@ document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
         if(data.type==="done"){
           evtSrc.close();setLoading(false);stopTimer();
           const s=data.summary,allOk=s.failed===0&&s.error===0,finalState=allOk?"passed":"failed";
-          setStepState("scan","done","");setStepState("analyze","done","");
+          setStepState("scan","done","");
+          setStepState("analyze","done","");
           setStepState("report",allOk?"done":"failed","");
           updateExecProgress(100);
           setCircuitTraceState(pendingFiles.length,finalState);

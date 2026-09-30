@@ -154,15 +154,36 @@
 
       <!-- Steps Indicator -->
       <div class="steps-indicator">
+        {% if step in ['email', 'verify_otp', 'register'] %}
+        <div class="step-dot {% if step == 'email' or step == 'verify_otp' or step == 'register' %}active{% endif %} {% if step != 'email' %}completed{% endif %}"></div>
+        <div class="step-dot {% if step == 'verify_otp' or step == 'register' %}active{% endif %} {% if step == 'register' %}completed{% endif %}"></div>
+        <div class="step-dot {% if step == 'register' %}active{% endif %}"></div>
+        {% else %}
         <div class="step-dot {% if step == 'verify_admin' or step == 'create_admin' %}active{% endif %} {% if step == 'create_admin' %}completed{% endif %}"></div>
         <div class="step-dot {% if step == 'create_admin' %}active{% endif %}"></div>
+        {% endif %}
       </div>
 
       <!-- Card surface -->
       <div class="admin-surface">
 
         <!-- Step Titles -->
-        {% if step == 'verify_admin' %}
+        {% if step == 'email' %}
+          <h2 class="card-section-title">
+            <span>Step 1: Contact Details</span>
+            <span class="card-step-label">Email Verify</span>
+          </h2>
+        {% elif step == 'verify_otp' %}
+          <h2 class="card-section-title">
+            <span>Step 2: Security Validation</span>
+            <span class="card-step-label">OTP Verification</span>
+          </h2>
+        {% elif step == 'register' %}
+          <h2 class="card-section-title">
+            <span>Step 3: Setup Administrator</span>
+            <span class="card-step-label">Credentials</span>
+          </h2>
+        {% elif step == 'verify_admin' %}
           <h2 class="card-section-title">
             <span>Security</span>
             <span class="card-step-label">Authentication</span>
@@ -184,6 +205,15 @@
           </div>
         {% endif %}
 
+        {% if info %}
+          <div class="info-banner" style="background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.25); border-radius:12px; padding:10px 14px; margin-bottom:16px; font-size:13px; color:var(--text-primary); display:flex; align-items:center; gap:8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <span>{{ info }}</span>
+          </div>
+        {% endif %}
+
         {% if success_msg %}
           <div class="success-banner">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -194,7 +224,102 @@
         {% endif %}
 
         <!-- Forms -->
-        {% if step == 'verify_admin' %}
+        {% if step == 'email' %}
+          <form method="POST" action="/admin/create_admin">
+            <input type="hidden" name="action" value="send_otp">
+            <div class="field">
+              <label class="field-label" for="email">Admin Email Address</label>
+              <input
+                class="field-input"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="admin@example.com"
+                autocomplete="email"
+                required
+                autofocus
+              >
+              <p class="field-info">A 6-digit verification code will be sent to authorize creating an admin.</p>
+            </div>
+            <button type="submit" class="btn-submit">
+              Get Verification Code
+            </button>
+          </form>
+
+        {% elif step == 'verify_otp' %}
+          <form method="POST" action="/admin/create_admin">
+            <input type="hidden" name="action" value="verify_otp">
+            <div class="field">
+              <label class="field-label" for="otp_code">OTP Code</label>
+              <input
+                class="field-input"
+                type="text"
+                id="otp_code"
+                name="otp_code"
+                placeholder="000000"
+                autocomplete="one-time-code"
+                maxlength="6"
+                required
+                autofocus
+              >
+              <p class="field-info">Enter the 6-digit code printed in the backend console log.</p>
+            </div>
+            <button type="submit" class="btn-submit">
+              Verify Code
+            </button>
+          </form>
+
+          <form method="POST" action="/admin/create_admin" style="margin-top:16px; text-align:center;">
+            <input type="hidden" name="action" value="send_otp">
+            <input type="hidden" name="email" value="{{ email }}">
+            <span style="font-size:12px; color:var(--text-tertiary);">Didn't get the code? </span>
+            <button type="submit" class="btn-link" style="background:none; border:none; color:var(--text-accent); font-size:12px; cursor:pointer; text-decoration:underline;">Resend OTP</button>
+          </form>
+
+          <form method="POST" action="/admin/create_admin" style="margin-top:8px; text-align:center;">
+            <input type="hidden" name="action" value="restart">
+            <button type="submit" class="btn-link" style="background:none; border:none; color:var(--text-tertiary); font-size:12px; cursor:pointer;">Use different email</button>
+          </form>
+
+        {% elif step == 'register' %}
+          <form method="POST" action="/admin/create_admin">
+            <input type="hidden" name="action" value="register">
+            <div class="field">
+              <label class="field-label">Verified Email</label>
+              <input class="field-input" type="text" value="{{ email }}" disabled>
+            </div>
+            <div class="field">
+              <label class="field-label" for="username">New Admin Username</label>
+              <input
+                class="field-input"
+                type="text"
+                id="username"
+                name="username"
+                placeholder="admin_jane"
+                autocomplete="off"
+                required
+                autofocus
+              >
+            </div>
+            <div class="field">
+              <label class="field-label" for="password">New Admin Password</label>
+              <input
+                class="field-input"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                autocomplete="new-password"
+                required
+              >
+              <p class="field-info">Must be at least 8 characters.</p>
+            </div>
+            <button type="submit" class="btn-submit">
+              Create Admin User
+            </button>
+          </form>
+
+        {% elif step == 'verify_admin' %}
           <form method="POST" action="/admin/create_admin">
             <input type="hidden" name="action" value="verify">
             <div class="field">

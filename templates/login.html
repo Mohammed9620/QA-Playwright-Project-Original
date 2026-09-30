@@ -67,21 +67,29 @@
     .tabs-container {
       position: relative;
       display: flex;
-      background: var(--control-icon-bg);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 999px;
       padding: 3px;
+      margin-top: 4px;
       margin-bottom: 24px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    [data-theme="light"] .tabs-container {
+      background: rgba(0, 0, 0, 0.06);
     }
     .tab-indicator {
       position: absolute;
       top: 3px; bottom: 3px; left: 0;
-      background: var(--control-secondary-bg);
+      background: rgba(255, 255, 255, 0.18);
       border-radius: 999px;
       transition: transform 200ms ease-out, width 200ms ease-out;
       z-index: 1;
       pointer-events: none;
     }
-    [data-theme="light"] .tab-indicator { background: rgba(0, 0, 0, 0.08); }
+    [data-theme="light"] .tab-indicator {
+      background: rgba(0, 0, 0, 0.12);
+    }
     .tab-btn {
       flex: 1;
       position: relative;
@@ -95,10 +103,22 @@
       font-size: 14px;
       font-weight: 500;
       font-family: var(--font);
-      transition: color 200ms ease-out;
+      transition: color 200ms ease-out, transform 100ms ease-out;
+      user-select: none;
+      -webkit-user-select: none;
+      outline: none;
     }
-    .tab-btn.active { color: var(--text-primary); font-weight: 600; }
-    .tab-btn:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -2px; }
+    .tab-btn:active {
+      transform: scale(0.97);
+    }
+    .tab-btn.active {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .tab-btn:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: -2px;
+    }
 
     /* ── Form group ── */
     .form-group {
@@ -163,10 +183,10 @@
     </div>
 
     <div class="login-surface">
-      <div class="segmented-control">
-        <div class="segmented-thumb" id="tab-indicator"></div>
-        <button type="button" class="segmented-label active" id="user-tab">Login as User</button>
-        <button type="button" class="segmented-label" id="admin-tab">Login as Admin</button>
+      <div class="tabs-container" role="tablist" aria-label="Role selection">
+        <div class="tab-indicator" id="tab-indicator"></div>
+        <button type="button" class="tab-btn active" id="user-tab" role="tab" aria-selected="true" tabindex="0">Login as User</button>
+        <button type="button" class="tab-btn" id="admin-tab" role="tab" aria-selected="false" tabindex="-1">Login as Admin</button>
       </div>
 
       {% if error %}
@@ -211,22 +231,28 @@
 
   <script>
     function switchTab(role) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const btns = document.querySelectorAll('.tab-btn');
+      btns.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+        btn.setAttribute('tabindex', '-1');
+      });
       const activeBtn = document.getElementById(role + '-tab');
       if (activeBtn) {
         activeBtn.classList.add('active');
+        activeBtn.setAttribute('aria-selected', 'true');
+        activeBtn.setAttribute('tabindex', '0');
         const indicator = document.getElementById('tab-indicator');
         if (indicator) {
-          indicator.style.transform = `translateX(${activeBtn.offsetLeft - 3}px)`;
+          indicator.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
           indicator.style.width = `${activeBtn.offsetWidth}px`;
         }
       }
       const usernameInput = document.querySelector('input[name="username"]');
-      document.getElementById('role-hidden-input').value = role;
-      if (role === 'admin') {
-        if (usernameInput) usernameInput.placeholder = 'Admin Username';
-      } else {
-        if (usernameInput) usernameInput.placeholder = 'Username or Email';
+      const hiddenInput = document.getElementById('role-hidden-input');
+      if (hiddenInput) hiddenInput.value = role;
+      if (usernameInput) {
+        usernameInput.placeholder = (role === 'admin') ? 'Admin Username' : 'Username or Email';
       }
     }
 
