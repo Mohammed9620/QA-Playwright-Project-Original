@@ -36,6 +36,15 @@
   
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, system-ui;
   --mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --bg-hover: rgba(255, 255, 255, 0.04);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.25);
+  --overlay-light: rgba(255, 255, 255, 0.62);
+  --accent-blue: #2FD59A; /* using success color for active state */
+  --avatar-bg: #FFFFFF;
+  --avatar-text: #000000;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -46,9 +55,15 @@
   --bg-cards: #FFFFFF;
   --bg-glow: transparent;
   
-  --text-primary: #1C1210;
-  --text-secondary: rgba(0, 0, 0, 0.56);
-  --text-tertiary: rgba(0, 0, 0, 0.32);
+  --text-primary: #1C1C1E;
+  --overlay-fill: #000000;
+  --text-success: #0B6B46; /* accessible */
+  --text-danger: #C72A39; /* accessible */
+  --text-warning: #934E00; /* accessible */
+  --text-accent: #005BB5; /* accessible */
+  --text-on-accent: #FFFFFF;
+  --text-secondary: rgba(28, 28, 30, 0.56);
+  --text-tertiary: rgba(28, 28, 30, 0.32);
   
   --success: #12A36F;
   --danger: #E03B4B;
@@ -58,10 +73,19 @@
   --btn-primary-text: #FFFFFF;
   
   --control-bg: rgba(0, 0, 0, 0.06);
-  --control-secondary-bg: rgba(0, 0, 0, 0.10);
+  --control-secondary-bg: #FFFFFF; /* white thumb */
   --control-icon-bg: rgba(0, 0, 0, 0.08);
   --focus-ring: rgba(0, 0, 0, 0.7);
   color-scheme: light;
+
+  --bg-hover: rgba(0, 0, 0, 0.04);
+  --border-subtle: rgba(0, 0, 0, 0.05);
+  --border-default: rgba(0, 0, 0, 0.12);
+  --border-strong: rgba(0, 0, 0, 0.25);
+  --overlay-light: rgba(0, 0, 0, 0.62);
+  --accent-blue: #12A36F;
+  --avatar-bg: #000000;
+  --avatar-text: #FFFFFF;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -269,4 +293,74 @@ body {
   border-radius: 14px;
   margin-bottom: 16px;
   font-size: 13px;
+}
+
+.segmented-control {
+  display: flex;
+  background: var(--control-bg);
+  border-radius: 999px;
+  padding: 3px;
+  position: relative;
+}
+.segmented-label {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 200ms;
+}
+.segmented-label input[type="radio"] {
+  display: none;
+}
+.segmented-label:hover {
+  color: var(--text-primary);
+}
+.segmented-label.active {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.segmented-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  background: var(--control-secondary-bg);
+  border-radius: 999px;
+  transition: transform 200ms ease-out;
+  z-index: 1;
+  pointer-events: none;
+}
+/* For 3-item segmented controls like Chart Range */
+.segmented-control.cols-3 .segmented-thumb {
+  width: calc(33.333% - 2px);
+}
+
+.rail-icon {
+  transition: background 200ms, color 200ms;
+}
+.rail-icon:hover {
+  background: var(--bg-hover) !important;
+  color: var(--text-primary) !important;
+}
+.rail-icon.logout-icon:hover {
+  color: var(--danger) !important;
+}
+.rail-icon:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+button.testing, button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed !important;
 }

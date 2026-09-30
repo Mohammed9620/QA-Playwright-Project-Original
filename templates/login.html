@@ -75,7 +75,7 @@
     .tab-indicator {
       position: absolute;
       top: 3px; bottom: 3px; left: 0;
-      background: rgba(255, 255, 255, 0.18);
+      background: var(--control-secondary-bg);
       border-radius: 999px;
       transition: transform 200ms ease-out, width 200ms ease-out;
       z-index: 1;
@@ -163,10 +163,10 @@
     </div>
 
     <div class="login-surface">
-      <div class="tabs-container">
-        <div class="tab-indicator" id="tab-indicator"></div>
-        <button type="button" class="tab-btn active" id="user-tab">Login as User</button>
-        <button type="button" class="tab-btn" id="admin-tab">Login as Admin</button>
+      <div class="segmented-control">
+        <div class="segmented-thumb" id="tab-indicator"></div>
+        <button type="button" class="segmented-label active" id="user-tab">Login as User</button>
+        <button type="button" class="segmented-label" id="admin-tab">Login as Admin</button>
       </div>
 
       {% if error %}

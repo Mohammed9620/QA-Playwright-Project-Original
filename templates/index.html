@@ -152,7 +152,7 @@
     .card-collapse-btn:hover,
     .card-action-btn:hover {
       color: var(--text-primary);
-      background: rgba(255,255,255,0.06);
+      background: var(--control-bg);
       border-color: var(--border-muted);
     }
     .card-collapse-btn:active,
@@ -209,7 +209,7 @@
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .sidebar-section-icon svg { width: 13px; height: 13px; color: var(--accent-blue); }
+    .sidebar-section-icon svg { width: 13px; height: 13px; color: var(--text-accent); }
     .sidebar-section-title { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.2; }
     .sidebar-section-sub   { font-size: 11px; color: var(--text-tertiary); margin-top: 1px; }
 
@@ -237,7 +237,7 @@
       transition: border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
     }
     .scan-select:focus {
-      border-color: var(--accent-blue);
+      border-color: var(--text-accent);
       box-shadow: 0 0 0 2px rgba(155,106,196,0.18);
     }
     .field-hint { font-size: 11px; color: var(--text-tertiary); margin-top: 5px; line-height: 1.4; }
@@ -266,11 +266,11 @@
     .strategy-card:not(.selected):hover { opacity: 0.8; border-color: var(--border-muted); }
     .strategy-card.selected {
       opacity: 1;
-      border-color: var(--accent-blue);
+      border-color: var(--text-accent);
       background: rgba(155,106,196,0.08);
       box-shadow: 0 0 0 1px rgba(155,106,196,0.2);
     }
-    .strategy-card.selected .strategy-card-icon  { color: var(--accent-blue); }
+    .strategy-card.selected .strategy-card-icon  { color: var(--text-accent); }
     .strategy-card.selected .strategy-card-title { color: var(--text-primary); }
     .strategy-card:active { transform: scale(0.97); }
 
@@ -312,7 +312,7 @@
       transition: border-color var(--duration-fast) var(--ease-out),
                   box-shadow var(--duration-fast) var(--ease-out);
     }
-    .field-input-sm:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 2px rgba(155,106,196,0.18); }
+    .field-input-sm:focus { border-color: var(--text-accent); box-shadow: 0 0 0 2px rgba(155,106,196,0.18); }
 
     /* Env table */
     .env-table { display: flex; flex-direction: row; background: var(--bg-primary); gap: 2px; }
@@ -324,7 +324,7 @@
     .env-row:last-child { border-bottom: none; }
     .env-key { font-size: 11px; color: var(--text-tertiary); }
     .env-val { font-size: 11px; font-family: var(--mono); color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .env-badge { font-size: 9px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: rgba(155,106,196,0.15); color: var(--accent-blue); white-space: nowrap; }
+    .env-badge { font-size: 9px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: rgba(155,106,196,0.15); color: var(--text-accent); white-space: nowrap; }
     .env-note { font-size: 10px; color: var(--text-tertiary); margin-top: 10px; line-height: 1.5; display: flex; gap: 6px; align-items: flex-start; }
     .env-note svg { width: 11px; height: 11px; flex-shrink: 0; margin-top: 2px; }
 
@@ -352,7 +352,7 @@
       background: conic-gradient(from var(--edge-angle), transparent 0deg 310deg,
         rgba(155,106,196,0.1) 322deg, rgba(155,106,196,0.6) 338deg,
         rgba(155,106,196,0.3) 352deg, transparent 360deg);
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask: linear-gradient(var(--bg-cards) 0 0) content-box, linear-gradient(var(--bg-cards) 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude;
       opacity: 0; transition: opacity 500ms var(--ease-out);
     }
@@ -367,7 +367,7 @@
     .btn-run {
       position: relative; width: 100%; height: 100%;
       background: var(--accent-blue); border: none;
-      border-radius: inherit; color: #fff;
+      border-radius: inherit; color: var(--text-primary);
       font-family: var(--font); font-size: 13px; font-weight: 600;
       cursor: pointer; overflow: hidden; padding: 0;
       transition: filter var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
@@ -391,7 +391,7 @@
     .btn-run:not(:disabled):hover .btn-hover-text { transform: translateX(0); opacity: 1; }
     .btn-spinner {
       display: none; width: 13px; height: 13px;
-      border: 2px solid rgba(255,255,255,0.25); border-top-color: #fff;
+      border: 2px solid var(--border-strong); border-top-color: var(--text-primary);
       border-radius: 50%; animation: spin 0.8s linear infinite;
     }
     .btn-run.testing .btn-spinner { display: flex; }
@@ -421,7 +421,7 @@
       background: rgba(155,106,196,0.12); border: 1px solid rgba(155,106,196,0.2);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .exec-icon svg { width: 15px; height: 15px; color: var(--accent-blue); }
+    .exec-icon svg { width: 15px; height: 15px; color: var(--text-accent); }
     .exec-title    { font-size: 13px; font-weight: 600; color: var(--text-primary); }
     .exec-subtitle { font-size: 11px; color: var(--text-tertiary); margin-top: 1px; }
     .exec-meta { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-tertiary); }
@@ -429,10 +429,10 @@
       display: flex; align-items: center; gap: 5px;
       font-size: 11px; font-weight: 600;
       padding: 3px 8px; border-radius: 20px;
-      background: rgba(155,106,196,0.12); color: var(--accent-blue);
+      background: rgba(155,106,196,0.12); color: var(--text-accent);
     }
-    .exec-status-badge.running  { background: rgba(234,179,8,0.12); color: var(--warning); }
-    .exec-status-badge.done-ok  { background: rgba(34,197,94,0.12); color: var(--success); }
+    .exec-status-badge.running  { background: rgba(234,179,8,0.12); color: var(--text-warning); }
+    .exec-status-badge.done-ok  { background: rgba(34,197,94,0.12); color: var(--text-success); }
     .exec-status-badge.done-fail{ background: rgba(239,68,68,0.12);  color: var(--danger); }
     .exec-status-badge .status-dot { width: 6px; height: 6px; }
 
@@ -460,14 +460,14 @@
                   box-shadow var(--duration-normal) var(--ease-out);
     }
     .step-circle svg { width: 13px; height: 13px; color: var(--text-tertiary); transition: color var(--duration-normal) var(--ease-out); }
-    .step-item.done .step-circle    { border-color: var(--success); background: rgba(34,197,94,0.12); }
-    .step-item.done .step-circle svg{ color: var(--success); }
+    .step-item.done .step-circle    { border-color: var(--text-success); background: rgba(34,197,94,0.12); }
+    .step-item.done .step-circle svg{ color: var(--text-success); }
     .step-item.running .step-circle {
-      border-color: var(--accent-blue); background: rgba(155,106,196,0.12);
+      border-color: var(--text-accent); background: rgba(155,106,196,0.12);
       box-shadow: 0 0 0 4px rgba(155,106,196,0.15);
       animation: step-pulse 28s ease-in-out infinite;
     }
-    .step-item.running .step-circle svg { color: var(--accent-blue); }
+    .step-item.running .step-circle svg { color: var(--text-accent); }
     .step-item.failed .step-circle     { border-color: var(--danger); background: rgba(239,68,68,0.12); }
     .step-item.failed .step-circle svg { color: var(--danger); }
     @keyframes step-pulse {
@@ -498,26 +498,26 @@
     .completion-section.visible { display:block; }
     .completion-card { background:var(--bg-secondary); border:1px solid var(--border-default); border-radius:var(--radius-lg); padding:16px; text-align:center; }
     .completion-status { font-size:14px; font-weight:600; margin-bottom:14px; }
-    .completion-status.ok   { color:var(--success); }
-    .completion-status.warn { color:var(--danger); }
+    .completion-status.ok   { color:var(--text-success); }
+    .completion-status.warn { color:var(--text-danger); }
     .stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:14px; }
     .stat-box { background:var(--bg-tertiary); border:1px solid var(--border-muted); border-radius:var(--radius-sm); padding:8px 6px; text-align:center; }
     .stat-num { font-size:18px; font-weight:700; font-family:var(--mono); line-height:1; letter-spacing:-0.02em; }
     .stat-num.total  { color:var(--accent-blue); }
-    .stat-num.passed { color:var(--success); }
-    .stat-num.failed { color:var(--danger); }
-    .stat-num.errors { color:var(--warning); }
+    .stat-num.passed { color:var(--text-success); }
+    .stat-num.failed { color:var(--text-danger); }
+    .stat-num.errors { color:var(--text-warning); }
     .stat-label { font-size:9px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-tertiary); margin-top:3px; }
     .pass-rate-wrap { margin-bottom:10px; }
     .pass-rate-header { display:flex; justify-content:space-between; font-size:11px; color:var(--text-secondary); margin-bottom:5px; }
     .pass-rate-track { height:5px; background:var(--bg-tertiary); border-radius:3px; overflow:hidden; }
     .pass-rate-fill { position:relative; width:100%; height:100%; border-radius:3px; transform:scaleX(0); transform-origin:left center; will-change:transform; }
-    .pass-rate-fill::after { content:""; position:absolute; top:0; right:0; width:8px; height:100%; border-radius:inherit; background:rgba(255,255,255,0.62); box-shadow:0 0 7px currentColor; opacity:0.72; }
-    .pass-rate-fill.good { background:var(--success); color:var(--success); }
-    .pass-rate-fill.bad  { background:var(--danger);  color:var(--danger); }
+    .pass-rate-fill::after { content:""; position:absolute; top:0; right:0; width:8px; height:100%; border-radius:inherit; background:var(--overlay-light); box-shadow:0 0 7px currentColor; opacity:0.72; }
+    .pass-rate-fill.good { background:var(--success); color:var(--text-success); }
+    .pass-rate-fill.bad  { background:var(--danger);  color:var(--text-danger); }
     .completion-view-link {
       display: inline-flex; align-items: center; gap: 5px;
-      font-size: 11px; color: var(--accent-blue); text-decoration: none;
+      font-size: 11px; color: var(--text-accent); text-decoration: none;
       margin-top: 4px; cursor: pointer; transition: color var(--duration-fast) var(--ease-out);
     }
     .completion-view-link:hover { color: #c084fc; text-decoration: underline; }
@@ -562,14 +562,14 @@
 
     .activity-view-btn {
       display: flex; align-items: center; gap: 4px;
-      font-size: 11px; font-weight: 500; color: var(--accent-blue);
+      font-size: 11px; font-weight: 500; color: var(--text-accent);
       background: none; border: 1px solid rgba(155,106,196,0.25);
       border-radius: var(--radius-sm); padding: 3px 8px;
       cursor: pointer; text-decoration: none;
       transition: border-color var(--duration-fast) var(--ease-out),
                   background var(--duration-fast) var(--ease-out);
     }
-    .activity-view-btn:hover { background: rgba(155,106,196,0.08); border-color: var(--accent-blue); }
+    .activity-view-btn:hover { background: rgba(155,106,196,0.08); border-color: var(--text-accent); }
     .activity-view-btn svg { width: 11px; height: 11px; }
 
     /* Log body */
@@ -590,10 +590,10 @@
     .log-level-label{ flex-shrink: 0; font-size: 10px; font-weight: 600; font-family: var(--mono); color: var(--text-tertiary); width: 34px; user-select: none; }
     .log-text { flex: 1; min-width: 0; overflow-wrap: break-word; word-break: break-word; color: var(--text-secondary); font-size: 11px; }
     .log-line.level-pass .log-level-dot   { background: var(--success); }
-    .log-line.level-pass .log-level-label { color: var(--success); }
+    .log-line.level-pass .log-level-label { color: var(--text-success); }
     .log-line.level-pass .log-text        { color: var(--text-primary); }
     .log-line.level-warn .log-level-dot   { background: var(--warning); }
-    .log-line.level-warn .log-level-label { color: var(--warning); }
+    .log-line.level-warn .log-level-label { color: var(--text-warning); }
     .log-line.level-warn .log-text        { color: var(--text-primary); }
     .log-line.level-fail .log-level-dot, .log-line.level-error .log-level-dot   { background: var(--danger); }
     .log-line.level-fail .log-level-label,.log-line.level-error .log-level-label{ color: var(--danger); }
@@ -603,7 +603,7 @@
       font-size: 9px; font-weight: 600; letter-spacing: 0.07em;
       color: var(--text-tertiary); text-transform: uppercase; opacity: 0.6;
     }
-    .log-file-sep::after { content:""; flex:1; height:1px; background:rgba(255,255,255,0.05); }
+    .log-file-sep::after { content:""; flex:1; height:1px; background:var(--border-subtle); }
     .log-count { font-size: 10px; font-weight: 500; color: var(--text-tertiary); background: var(--bg-tertiary); padding: 1px 6px; border-radius: 8px; font-family: var(--mono); }
     .log-clear-btn {
       background: none; border: 1px solid var(--border-default);
@@ -617,7 +617,7 @@
     .timeline { background: var(--bg-primary); border: 1px solid var(--border-muted); border-radius: var(--radius-md); overflow: hidden; }
     .tl-row {
       display: none; align-items: flex-start; gap: 10px;
-      padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 12px 14px; border-bottom: 1px solid var(--border-subtle);
       flex-wrap: wrap; row-gap: 0;
       transition: background 200ms ease;
     }
@@ -647,12 +647,12 @@
     .timeline-detail   { margin-top:2px; font-size:10px; color:var(--text-tertiary); font-family:var(--mono); display:flex; gap:6px; flex-wrap:wrap; }
     .timeline-detail-stats { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .timeline-badge { flex-shrink:0; font-size:9px; font-weight:600; padding:2px 7px; border-radius:10px; text-transform:uppercase; letter-spacing:0.04em; white-space:nowrap; }
-    .timeline-badge.waiting { background:rgba(255,255,255,0.06); color:var(--text-tertiary); }
+    .timeline-badge.waiting { background:var(--control-bg); color:var(--text-tertiary); }
     .timeline-badge.running { background:rgba(155,106,196,0.15); color:var(--accent-blue); }
-    .timeline-badge.passed  { background:var(--success-muted);   color:var(--success); }
-    .timeline-badge.failed  { background:var(--danger-muted);    color:var(--danger); }
-    .timeline-badge.error   { background:var(--danger-muted);    color:var(--danger); }
-    .timeline-badge.timeout { background:rgba(234,179,8,0.15);   color:var(--warning); }
+    .timeline-badge.passed  { background:var(--success-muted);   color:var(--text-success); }
+    .timeline-badge.failed  { background:var(--danger-muted);    color:var(--text-danger); }
+    .timeline-badge.error   { background:var(--danger-muted);    color:var(--text-danger); }
+    .timeline-badge.timeout { background:rgba(234,179,8,0.15);   color:var(--text-warning); }
     .tl-running-meta { display:none; align-items:center; gap:6px; margin-top:3px; font-size:10px; }
     .tl-row.running .tl-running-meta { display:flex; }
     @keyframes shimmer-text { 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
@@ -664,7 +664,7 @@
       background-clip:text; animation:shimmer-text 8s linear infinite;
     }
     .tl-elapsed { font-family:var(--mono); font-size:10px; color:var(--text-tertiary); min-width:32px; }
-    .tl-progress { position:relative; overflow:hidden; height:2px; width:100%; margin-top:8px; background:rgba(255,255,255,0.06); opacity:0; transition:opacity 200ms ease; }
+    .tl-progress { position:relative; overflow:hidden; height:2px; width:100%; margin-top:8px; background:var(--control-bg); opacity:0; transition:opacity 200ms ease; }
     .tl-progress.running,.tl-progress.passed,.tl-progress.failed { opacity:1; }
     @keyframes progress-slide { 0%{transform:translateX(-100%);} 100%{transform:translateX(400%);} }
     .tl-progress-bar { position:absolute; left:0; top:0; height:100%; width:25%; background:linear-gradient(90deg,transparent,var(--accent-blue),#c084fc,var(--accent-blue),transparent); animation:progress-slide 6s ease-in-out infinite; display:none; }
@@ -723,14 +723,14 @@
       display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:var(--radius-sm);
       cursor: pointer; transition:background var(--duration-fast) var(--ease-out);
     }
-    .recent-item:hover { background:rgba(255,255,255,0.04); }
+    .recent-item:hover { background:var(--bg-hover); }
     .recent-item-body { flex:1; min-width:0; }
     .recent-item-name { font-size:11px; font-weight:500; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .recent-item-date { font-size:10px; color:var(--text-tertiary); margin-top:1px; }
     .recent-badge { font-size:9px; font-weight:600; padding:2px 6px; border-radius:10px; white-space:nowrap; letter-spacing:0.02em; }
-    .recent-badge.running   { background:rgba(234,179,8,0.12); color:var(--warning); }
-    .recent-badge.completed { background:var(--success-muted); color:var(--success); }
-    .recent-badge.failed    { background:var(--danger-muted);  color:var(--danger); }
+    .recent-badge.running   { background:rgba(234,179,8,0.12); color:var(--text-warning); }
+    .recent-badge.completed { background:var(--success-muted); color:var(--text-success); }
+    .recent-badge.failed    { background:var(--danger-muted);  color:var(--text-danger); }
     .recent-item-arrow { color:var(--text-tertiary); }
 
     /* ═══════════════════════════════════════════════════════════
@@ -791,7 +791,7 @@
     .reports-drawer-icon {
       width: 16px;
       height: 16px;
-      color: var(--accent-blue);
+      color: var(--text-accent);
     }
     .reports-drawer-title {
       font-size: 13px;
@@ -806,7 +806,7 @@
       font-size: 10px;
       font-family: var(--mono);
       font-weight: 600;
-      color: var(--accent-blue);
+      color: var(--text-accent);
       background: rgba(155,106,196,0.15);
       padding: 1px 7px;
       border-radius: 10px;
@@ -841,7 +841,7 @@
       transition: border-color var(--duration-fast) var(--ease-out);
     }
     .history-search-input:focus {
-      border-color: var(--accent-blue);
+      border-color: var(--text-accent);
       box-shadow: 0 0 0 2px rgba(155,106,196,0.18);
     }
 
@@ -869,12 +869,12 @@
                   transform var(--duration-fast) var(--ease-out);
     }
     .reports-history-item:hover {
-      background: rgba(255,255,255,0.04);
+      background: var(--bg-hover);
       border-color: var(--border-default);
     }
     .reports-history-item.is-active {
       background: rgba(155,106,196,0.12);
-      border-color: var(--accent-blue);
+      border-color: var(--text-accent);
       box-shadow: 0 0 0 1px rgba(155,106,196,0.3);
     }
     .reports-history-item-top {
@@ -912,7 +912,7 @@
       font-size: 9px;
       padding: 1px 6px;
       border-radius: 4px;
-      background: rgba(255,255,255,0.05);
+      background: var(--border-subtle);
     }
 
     /* Empty state */
@@ -987,7 +987,7 @@
       justify-content: center;
       flex-shrink: 0;
     }
-    .report-overview-icon svg { width: 18px; height: 18px; color: var(--accent-blue); }
+    .report-overview-icon svg { width: 18px; height: 18px; color: var(--text-accent); }
     .report-overview-title-row {
       display: flex;
       align-items: center;
@@ -1008,7 +1008,7 @@
     }
     .report-meta-url {
       font-family: var(--mono);
-      color: var(--accent-blue);
+      color: var(--text-accent);
     }
     .report-meta-sep { opacity: 0.4; }
 
@@ -1083,7 +1083,7 @@
       align-items: center;
       gap: 6px;
     }
-    .report-frame-title svg { width: 13px; height: 13px; color: var(--accent-blue); }
+    .report-frame-title svg { width: 13px; height: 13px; color: var(--text-accent); }
     .report-frame-url-tag {
       font-family: var(--mono);
       font-size: 10px;
@@ -1155,7 +1155,7 @@
     .btn-action svg { width: 12px; height: 12px; }
     .btn-action.primary {
       background: var(--accent-blue);
-      color: #fff;
+      color: var(--text-primary);
       border-color: transparent;
     }
     .btn-action.primary:hover { filter: brightness(1.1); box-shadow: 0 0 10px rgba(155,106,196,0.4); }
@@ -1185,8 +1185,8 @@
       font-family: var(--font);
       transition:background var(--duration-fast) var(--ease-out),color var(--duration-fast) var(--ease-out);
     }
-    .topbar-nav-tab:hover  { color:var(--text-primary); background:rgba(255,255,255,0.04); }
-    .topbar-nav-tab.active { background:var(--accent-blue); color:#fff; }
+    .topbar-nav-tab:hover  { color:var(--text-primary); background:var(--bg-hover); }
+    .topbar-nav-tab.active { background:var(--accent-blue); color:var(--text-on-accent); }
     .topbar-nav-tab svg { width:13px; height:13px; }
     .topbar-user {
       display:flex; align-items:center; gap:6px; padding:4px 8px;
@@ -1199,7 +1199,7 @@
       width:24px; height:24px; border-radius:50%;
       background:linear-gradient(135deg,var(--accent-blue),#7c3aed);
       display:flex; align-items:center; justify-content:center;
-      font-size:10px; font-weight:700; color:#fff; flex-shrink:0;
+      font-size:10px; font-weight:700; color:var(--text-primary); flex-shrink:0;
     }
     .topbar-username { font-size:12px; font-weight:500; color:var(--text-primary); }
     .topbar-user-chevron svg { width:12px; height:12px; color:var(--text-tertiary); }
@@ -1278,13 +1278,13 @@ body {
   align-items: center !important;
   padding: 0 !important;
   background: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid var(--border-default) !important;
   display: flex !important;
   color: var(--text-secondary) !important;
 }
 .topbar-nav-tab.active {
-  border-color: var(--success) !important;
-  color: var(--success) !important;
+  border-color: var(--text-success) !important;
+  color: var(--text-success) !important;
   background: rgba(47, 213, 154, 0.1) !important;
 }
 
@@ -1310,7 +1310,7 @@ body {
   border-radius: 50% !important;
   padding: 0 !important;
   justify-content: center !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid var(--border-default) !important;
   display: flex !important;
   align-items: center !important;
 }
@@ -1434,7 +1434,7 @@ body {
 
 /* ── "New Scan" Card Inputs ── */
 .field-input {
-  background: #111 !important;
+  background: var(--bg-cards) !important;
   border: none !important;
   border-radius: 12px !important;
   height: 48px !important;
@@ -1443,12 +1443,12 @@ body {
   height: 44px !important;
   border-radius: 22px !important;
   background: #FFF !important;
-  color: #000 !important;
+  color: var(--bg-cards) !important;
   font-weight: 600 !important;
 }
 .strategy-cards {
   display: flex !important;
-  background: #111 !important;
+  background: var(--bg-cards) !important;
   border-radius: 22px !important;
   padding: 4px !important;
   margin-bottom: 24px !important;
@@ -1471,55 +1471,53 @@ body {
 
 <style>
   #nav-tab-dashboard.active, #nav-tab-reports.active {
-    border-color: #2FD59A !important;
-    color: #2FD59A !important;
+    border-color: var(--text-success) !important;
+    color: var(--text-success) !important;
     background: rgba(47,213,154,0.12) !important;
   }
 </style>
 </head>
 <body>
-<nav id="left-rail" style="width:72px; background:#000; border-radius:24px; margin:16px 0 16px 16px; display:flex; flex-direction:column; align-items:center; padding:24px 0; gap:16px;">
-  <div style="width:40px; height:40px; border-radius:12px; background:#fff; display:flex; align-items:center; justify-content:center; color:#000; font-weight:700; margin-bottom:24px; flex-shrink:0;">
+<nav id="left-rail" style="width:72px; background:var(--bg-cards); border-radius:24px; margin:16px 0 16px 16px; display:flex; flex-direction:column; align-items:center; padding:24px 0; gap:16px;">
+  <div style="width:40px; height:40px; border-radius:12px; background:var(--avatar-bg); display:flex; align-items:center; justify-content:center; color:var(--bg-cards); font-weight:700; margin-bottom:24px; flex-shrink:0;">
     QA
   </div>
   
-  <button id="nav-tab-dashboard" title="Dashboard" class="active" onclick="switchView('dashboard')" style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); background:none; color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+  <button id="nav-tab-dashboard" title="Dashboard" class="rail-icon active" onclick="switchView('dashboard')" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-primary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
   </button>
 
-  <button id="nav-tab-reports" title="Reports" onclick="switchView('reports')" style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); background:none; color:rgba(255,255,255,0.56); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+  <button id="nav-tab-reports" title="Reports" class="rail-icon" onclick="switchView('reports')" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
   </button>
 
   {% if session.get('role') == 'admin' %}
-  <a href="/admin/create_admin" title="Admin" style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); background:none; color:rgba(255,255,255,0.56); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; text-decoration:none; flex-shrink:0;">
+  <a href="/admin/create_admin" title="Admin" class="rail-icon" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; text-decoration:none; flex-shrink:0;">
     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
   </a>
   {% endif %}
 
   <div style="flex:1;"></div>
 
-  <button id="theme-toggle" title="Toggle theme" style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); background:none; color:rgba(255,255,255,0.56); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+  <button id="theme-toggle" title="Toggle theme" class="rail-icon" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
     <span id="theme-icon">☀️</span>
   </button>
 
   {% if session.get('username') %}
-  <div style="position:relative; cursor:pointer; flex-shrink:0;">
-    <div style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; font-weight:600;">
+  <a href="/logout" title="Log out" class="rail-icon logout-icon" style="width:40px; height:40px; border-radius:50%; background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; text-decoration:none; margin-bottom: 8px;">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+    </a>
+    <div style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:var(--control-icon-bg); display:flex; align-items:center; justify-content:center; color:var(--text-primary); font-size:14px; font-weight:600; flex-shrink:0;" title="User: {{ session.get('username') }}">
       {{ session.get('username', 'U')[0:2]|upper }}
     </div>
-    <a href="/logout" title="Logout" style="position:absolute; bottom:0; right:-8px; width:20px; height:20px; border-radius:50%; background:#FF5D6C; color:#fff; display:flex; align-items:center; justify-content:center; text-decoration:none;">
-      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-    </a>
-  </div>
   {% endif %}
 </nav>
 
 <main id="main-content" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
   <!-- PAGE HEADER -->
   <header style="height:72px; padding:0 32px; display:flex; align-items:center; justify-content:flex-end; flex-shrink:0;">
-    <div class="topbar-status" id="topbar-status" style="background:rgba(255,255,255,0.08); border-radius:999px; padding:6px 16px; display:flex; align-items:center; gap:8px; font-size:13px; color:#fff;">
-      <span class="status-dot" id="status-dot" style="width:8px; height:8px; border-radius:50%; background:#2FD59A;"></span>
+    <div class="topbar-status" id="topbar-status" style="background:var(--control-icon-bg); border-radius:999px; padding:6px 16px; display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-primary);">
+      <span class="status-dot" id="status-dot" style="width:8px; height:8px; border-radius:50%; background:var(--success);"></span>
       <span id="status-text">Ready</span>
     </div>
   </header>
@@ -1529,25 +1527,25 @@ body {
   <!-- ROW 1 -->
   <div style="display:grid;grid-template-columns:350px 1fr;gap:24px;width:100%;">
     <!-- NEW SCAN CARD -->
-    <div class="card-b" id="section-config-scan" style="background:#050505;border-radius:24px;padding:24px;">
+    <div class="card-b" id="section-config-scan" style="background:var(--bg-cards);border-radius:24px;padding:24px;">
       <div style="font-size:18px;font-weight:500;margin-bottom:24px;">New Scan</div>
       <form id="scan-form" novalidate="">
         <!-- TARGET URL -->
         <div class="field" style="margin-bottom:20px;">
-          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:rgba(255,255,255,0.56);">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:var(--text-secondary);">
             <span>Target URL</span>
           </div>
           <div style="position:relative;">
-            <input autocomplete="off" id="url" name="url" placeholder="https://example.com" required="" spellcheck="false" type="text" style="width:100%;height:48px;border-radius:14px;background:rgba(255,255,255,0.06);border:none;color:#fff;padding:0 16px;font-size:14px;outline:none;box-sizing:border-box;" />
+            <input autocomplete="off" id="url" name="url" placeholder="https://example.com" required="" spellcheck="false" type="text" style="width:100%;height:48px;border-radius:14px;background:var(--control-bg);border:none;color:var(--text-primary);padding:0 16px;font-size:14px;outline:none;box-sizing:border-box;" />
           </div>
         </div>
 
         <!-- SCAN TYPE -->
         <div class="field" style="margin-bottom:20px;">
-          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:rgba(255,255,255,0.56);">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:var(--text-secondary);">
             <span>Scan Type</span>
           </div>
-          <select id="scan_type" name="scan_type" style="width:100%;height:48px;border-radius:14px;background:rgba(255,255,255,0.06);border:none;color:#fff;padding:0 16px;font-size:14px;outline:none;-webkit-appearance:none;appearance:none;box-sizing:border-box;">
+          <select id="scan_type" name="scan_type" style="width:100%;height:48px;border-radius:14px;background:var(--control-bg);border:none;color:var(--text-primary);padding:0 16px;font-size:14px;outline:none;-webkit-appearance:none;appearance:none;box-sizing:border-box;">
             <option value="login">Login Test</option>
             <option value="bruteforce">Credential Bruteforce Probe</option>
             <option value="api">API Health Check</option>
@@ -1559,21 +1557,20 @@ body {
 
         <!-- SCAN STRATEGY SEGMENTED -->
         <div class="field" style="margin-bottom:24px;">
-          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:rgba(255,255,255,0.56);">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:var(--text-secondary);">
             <span>Strategy</span>
           </div>
-          <div style="display:flex;background:rgba(255,255,255,0.08);border-radius:999px;padding:3px;position:relative;">
-            <label class="strategy-card" style="flex:1;text-align:center;padding:10px 0;cursor:pointer;position:relative;z-index:2;border-radius:999px;font-size:13px;color:#fff;">
-              <input checked="" name="scan_strategy" type="radio" value="external" style="display:none;"/>
+          <div class="segmented-control" style="margin-bottom: 24px;">
+            <label class="segmented-label active">
+              <input checked name="scan_strategy" type="radio" value="external"/>
               External
             </label>
-            <label class="strategy-card" style="flex:1;text-align:center;padding:10px 0;cursor:pointer;position:relative;z-index:2;border-radius:999px;font-size:13px;color:#fff;">
-              <input name="scan_strategy" type="radio" value="authenticated" style="display:none;"/>
+            <label class="segmented-label">
+              <input name="scan_strategy" type="radio" value="authenticated"/>
               Authenticated
             </label>
-            <div class="strategy-thumb" style="position:absolute;top:3px;left:3px;width:calc(50% - 3px);height:calc(100% - 6px);background:rgba(255,255,255,0.18);border-radius:999px;transition:transform 200ms ease-out;"></div>
+            <div class="segmented-thumb"></div>
           </div>
-        </div>
 
         <div class="auth-fields" id="auth-fields" style="display:none;">
           <input id="auth-username" type="hidden" value="Mohammad" />
@@ -1583,12 +1580,12 @@ body {
           <input id="login-locator" type="hidden" />
         </div>
 
-        <div class="error-banner" id="js-error" style="display:none;color:#FF5D6C;font-size:13px;margin-bottom:12px;">
+        <div class="error-banner" id="js-error" style="display:none;color:var(--text-danger);font-size:13px;margin-bottom:12px;">
           <span id="js-error-text"></span>
         </div>
         
         <div id="run-button-shell">
-           <button id="submit-btn" type="submit" style="width:100%;height:44px;border-radius:999px;background:#fff;color:#000;font-size:15px;font-weight:600;border:none;cursor:pointer;outline:none;box-sizing:border-box;">
+           <button id="submit-btn" type="submit" style="width:100%;height:44px;border-radius:999px;background:var(--avatar-bg);color:var(--bg-cards);font-size:15px;font-weight:600;border:none;cursor:pointer;outline:none;box-sizing:border-box;">
              <span id="btn-spinner" style="display:none;"></span>
              <span id="btn-text">Start scan</span>
            </button>
@@ -1597,29 +1594,46 @@ body {
     </div>
 
     <!-- SCAN RESULTS CHART CARD -->
-    <div class="card-b" style="background:#050505;border-radius:24px;padding:32px;display:flex;flex-direction:column;position:relative;">
+    <div class="card-b" style="background:var(--bg-cards);border-radius:24px;padding:32px;display:flex;flex-direction:column;position:relative;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;">
         <div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:4px;">Average Pass Rate</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:4px;">Average Pass Rate</div>
           <div style="font-size:32px;font-weight:500;">98.5%</div>
         </div>
-        <div style="background:rgba(255,255,255,0.08);border-radius:999px;padding:3px;display:flex;font-size:12px;">
-           <div style="padding:6px 12px;background:rgba(255,255,255,0.18);border-radius:999px;color:#fff;">This Week</div>
-        </div>
+        <div class="segmented-control cols-3" style="width: 180px;">
+            <label class="segmented-label active" style="font-size:12px; padding:6px 12px;">
+              <input checked name="chart_range" type="radio" value="7d"/>
+              7d
+            </label>
+            <label class="segmented-label" style="font-size:12px; padding:6px 12px;">
+              <input name="chart_range" type="radio" value="30d"/>
+              30d
+            </label>
+            <label class="segmented-label" style="font-size:12px; padding:6px 12px;">
+              <input name="chart_range" type="radio" value="all"/>
+              All
+            </label>
+            <div class="segmented-thumb"></div>
+         </div>
       </div>
       <!-- CHART AREA -->
-      <div id="scan-chart-container" style="flex:1;margin-top:48px;position:relative;border-bottom:1px dashed rgba(255,255,255,0.12);">
+      <div id="scan-chart-container" style="flex:1;margin-top:48px;position:relative;border-bottom:1px dashed var(--border-default);">
          <svg id="scan-chart-svg" width="100%" height="100%" style="min-height:160px;overflow:visible;">
             <!-- Grid lines -->
-            <line x1="0" y1="20%" x2="100%" y2="20%" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
-            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
-            <line x1="0" y1="80%" x2="100%" y2="80%" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+            <text x="-25" y="5" fill="var(--text-tertiary)" font-size="10">100</text>
+            <line x1="0" y1="0%" x2="100%" y2="0%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
+            
+            <text x="-20" y="53%" fill="var(--text-tertiary)" font-size="10">50</text>
+            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
+            
+            <text x="-15" y="100%" fill="var(--text-tertiary)" font-size="10">0</text>
+            <line x1="0" y1="100%" x2="100%" y2="100%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
             
             <!-- Bars will be inserted here by JS -->
          </svg>
       </div>
       <!-- Chart X Axis -->
-      <div id="scan-chart-x-axis" style="display:flex;justify-content:space-between;margin-top:12px;font-size:11px;color:rgba(255,255,255,0.32);">
+      <div id="scan-chart-x-axis" style="display:flex;justify-content:space-between;margin-top:12px;font-size:11px;color:var(--text-tertiary);">
          <span>Mon<br/>15</span>
          <span>Tue<br/>16</span>
          <span>Wed<br/>17</span>
@@ -1634,10 +1648,10 @@ body {
   <!-- ROW 2 -->
   <div style="display:grid;grid-template-columns:350px 1fr;gap:24px;width:100%;">
     <!-- RECENT SCANS CARD -->
-    <div class="card-b" id="section-recent-scans" style="background:#050505;border-radius:24px;padding:24px;">
+    <div class="card-b" id="section-recent-scans" style="background:var(--bg-cards);border-radius:24px;padding:24px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
         <div style="font-size:18px;font-weight:500;">Recent Scans</div>
-        <button onclick="switchView('reports')" style="background:none;border:none;color:rgba(255,255,255,0.56);font-size:13px;cursor:pointer;padding:0;">See all</button>
+        <button onclick="switchView('reports')" style="background:none;border:none;color:var(--text-secondary);font-size:13px;cursor:pointer;padding:0;">See all</button>
       </div>
       <div id="recent-scans-list" style="display:flex;flex-direction:column;gap:24px;">
         <!-- JS fills this -->
@@ -1645,34 +1659,34 @@ body {
     </div>
 
     <!-- RUN STATUS CARD -->
-    <div class="card-b" id="section-exec-overview" style="background:#050505;border-radius:24px;padding:24px;">
+    <div class="card-b" id="section-exec-overview" style="background:var(--bg-cards);border-radius:24px;padding:24px;">
       <div style="font-size:18px;font-weight:500;margin-bottom:32px;">Run Status</div>
       
       <!-- 5-STEP PROGRESS -->
       <div style="display:flex;justify-content:space-between;position:relative;margin-bottom:48px;padding:0 24px;">
-         <div style="position:absolute;top:12px;left:48px;right:48px;height:2px;background:rgba(255,255,255,0.08);z-index:0;"></div>
-         <div id="exec-progress-fill" style="position:absolute;top:12px;left:48px;height:2px;background:#2FD59A;z-index:1;width:0%;transition:width 300ms ease;"></div>
+         <div style="position:absolute;top:12px;left:48px;right:48px;height:2px;background:var(--control-icon-bg);z-index:0;"></div>
+         <div id="exec-progress-fill" style="position:absolute;top:12px;left:48px;height:2px;background:var(--success);z-index:1;width:0%;transition:width 300ms ease;"></div>
          <div id="exec-progress-pct" style="display:none;">0%</div>
          
          <div id="step-init" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:#050505;border:2px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;">1</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.56);position:absolute;top:32px;white-space:nowrap;">Initialize</div>
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-cards);border:2px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-size:10px;">1</div>
+            <div style="font-size:12px;color:var(--text-secondary);position:absolute;top:32px;white-space:nowrap;">Initialize</div>
          </div>
          <div id="step-discover" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:#050505;border:2px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;">2</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.56);position:absolute;top:32px;white-space:nowrap;">Discover</div>
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-cards);border:2px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-size:10px;">2</div>
+            <div style="font-size:12px;color:var(--text-secondary);position:absolute;top:32px;white-space:nowrap;">Discover</div>
          </div>
          <div id="step-scan" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:#050505;border:2px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;">3</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.56);position:absolute;top:32px;white-space:nowrap;">Scan</div>
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-cards);border:2px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-size:10px;">3</div>
+            <div style="font-size:12px;color:var(--text-secondary);position:absolute;top:32px;white-space:nowrap;">Scan</div>
          </div>
          <div id="step-analyze" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:#050505;border:2px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;">4</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.56);position:absolute;top:32px;white-space:nowrap;">Analyze</div>
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-cards);border:2px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-size:10px;">4</div>
+            <div style="font-size:12px;color:var(--text-secondary);position:absolute;top:32px;white-space:nowrap;">Analyze</div>
          </div>
          <div id="step-report" style="display:flex;flex-direction:column;align-items:center;z-index:2;gap:8px;">
-            <div style="width:24px;height:24px;border-radius:50%;background:#050505;border:2px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:10px;">5</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.56);position:absolute;top:32px;white-space:nowrap;">Generate report</div>
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--bg-cards);border:2px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-size:10px;">5</div>
+            <div style="font-size:12px;color:var(--text-secondary);position:absolute;top:32px;white-space:nowrap;">Generate report</div>
          </div>
          
          <div id="step-init-time" style="display:none;"></div>
@@ -1684,33 +1698,33 @@ body {
       
       <!-- TILES -->
       <div id="completion-section" style="display:flex;gap:16px;margin-top:24px;">
-         <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-            <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
-               <div style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg></div> Total
+         <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+            <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+               <div style="width:24px;height:24px;border-radius:50%;background:var(--control-icon-bg);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg></div> Total
             </div>
             <div id="stat-total" style="font-size:24px;font-weight:500;">0</div>
             <!-- sparkline placeholder -->
-            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 30 L20 35 L40 20 L60 25 L80 10 L100 15 L100 40 Z" fill="#FFFFFF"></path></svg>
+            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 30 L20 35 L40 20 L60 25 L80 10 L100 15 L100 40 Z" fill="var(--overlay-fill)"></path></svg>
          </div>
-         <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-            <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
-               <div style="width:24px;height:24px;border-radius:50%;background:rgba(47,213,154,0.12);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2FD59A" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Passed
+         <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+            <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+               <div style="width:24px;height:24px;border-radius:50%;background:rgba(47,213,154,0.12);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Passed
             </div>
             <div id="stat-passed" style="font-size:24px;font-weight:500;">0</div>
-            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 25 L20 20 L40 30 L60 15 L80 20 L100 5 L100 40 Z" fill="#2FD59A"></path></svg>
+            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 25 L20 20 L40 30 L60 15 L80 20 L100 5 L100 40 Z" fill="var(--success)"></path></svg>
          </div>
-         <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-            <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
-               <div style="width:24px;height:24px;border-radius:50%;background:rgba(255,93,108,0.12);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FF5D6C" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div> Failed
+         <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+            <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+               <div style="width:24px;height:24px;border-radius:50%;background:rgba(255,93,108,0.12);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div> Failed
             </div>
             <div id="stat-failed" style="font-size:24px;font-weight:500;">0</div>
             <div id="stat-errors" style="display:none;">0</div>
-            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 35 L20 38 L40 32 L60 36 L80 30 L100 35 L100 40 Z" fill="#FF5D6C"></path></svg>
+            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 35 L20 38 L40 32 L60 36 L80 30 L100 35 L100 40 Z" fill="var(--danger)"></path></svg>
          </div>
          <div style="width:120px;display:flex;align-items:center;justify-content:center;position:relative;" id="section-gauge-result">
             <svg width="100" height="100" viewBox="0 0 100 100">
-               <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="4"></circle>
-               <circle id="gauge-fill" cx="50" cy="50" r="40" fill="none" stroke="#2FD59A" stroke-width="4" stroke-dasharray="251.2" stroke-dashoffset="251.2" style="transition:stroke-dashoffset 1s ease; transform:rotate(-90deg); transform-origin:50% 50%;"></circle>
+               <circle cx="50" cy="50" r="40" fill="none" stroke="var(--control-icon-bg)" stroke-width="4"></circle>
+               <circle id="gauge-fill" cx="50" cy="50" r="40" fill="none" stroke="var(--success)" stroke-width="4" stroke-dasharray="251.2" stroke-dashoffset="251.2" style="transition:stroke-dashoffset 1s ease; transform:rotate(-90deg); transform-origin:50% 50%;"></circle>
             </svg>
             <div id="gauge-pct" style="position:absolute;font-size:18px;font-weight:500;">0%</div>
             
@@ -1740,20 +1754,20 @@ body {
   <!-- ROW 3 -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;width:100%;">
     <!-- ACTIVITY LOG -->
-    <div class="card-b" id="activity-log-card" style="background:#050505;border-radius:24px;padding:24px;">
+    <div class="card-b" id="activity-log-card" style="background:var(--bg-cards);border-radius:24px;padding:24px;">
        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
          <div style="font-size:18px;font-weight:500;">Activity Log</div>
          <div>
-            <span id="log-count" style="font-size:12px;color:rgba(255,255,255,0.56);margin-right:12px;">0</span>
-            <button id="log-clear-btn" style="background:none;border:none;color:#fff;font-size:13px;cursor:pointer;">Clear</button>
-            <button id="log-maximize-btn" style="background:none;border:none;color:#fff;cursor:pointer;margin-left:8px;padding:0;">
+            <span id="log-count" style="font-size:12px;color:var(--text-secondary);margin-right:12px;">0</span>
+            <button id="log-clear-btn" style="background:none;border:none;color:var(--text-primary);font-size:13px;cursor:pointer;">Clear</button>
+            <button id="log-maximize-btn" style="background:none;border:none;color:var(--text-primary);cursor:pointer;margin-left:8px;padding:0;">
                <svg class="icon-maximize" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
                <svg class="icon-minimize" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
             </button>
          </div>
        </div>
-       <div id="log-body" style="background:rgba(255,255,255,0.03);border-radius:12px;padding:16px;height:240px;overflow-y:auto;font-family:monospace;font-size:12px;color:rgba(255,255,255,0.8);">
-          <div id="log-empty" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.32);">
+       <div id="log-body" style="background:var(--control-bg);border-radius:12px;padding:16px;height:240px;overflow-y:auto;font-family:monospace;font-size:12px;color:var(--text-primary);">
+          <div id="log-empty" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text-tertiary);">
              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:8px;"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
              No logs yet.<br/>Run a scan to stream live test execution output.
           </div>
@@ -1761,28 +1775,28 @@ body {
     </div>
     
     <!-- ENV & CONFIG -->
-    <div class="card-b" id="section-env-config" style="background:#050505;border-radius:24px;padding:24px;">
+    <div class="card-b" id="section-env-config" style="background:var(--bg-cards);border-radius:24px;padding:24px;">
        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
          <div style="font-size:18px;font-weight:500;">Environment &amp; Config</div>
-         <button class="card-collapse-btn" data-target="section-env-config" style="background:none;border:none;color:#fff;cursor:pointer;padding:0;">
+         <button class="card-collapse-btn" data-target="section-env-config" style="background:none;border:none;color:var(--text-primary);cursor:pointer;padding:0;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
          </button>
        </div>
        <div class="card-collapsible-body" style="display:flex;flex-direction:column;gap:16px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);">
-             <div style="font-size:14px;color:rgba(255,255,255,0.56);">Environment</div>
-             <div style="font-size:14px;display:flex;align-items:center;gap:8px;">Production <span style="font-size:11px;background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:999px;">Prod</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--control-icon-bg);">
+             <div style="font-size:14px;color:var(--text-secondary);">Environment</div>
+             <div style="font-size:14px;display:flex;align-items:center;gap:8px;">Production <span style="font-size:11px;background:var(--control-secondary-bg);padding:2px 6px;border-radius:999px;">Prod</span></div>
           </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);">
-             <div style="font-size:14px;color:rgba(255,255,255,0.56);">Base URL</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--control-icon-bg);">
+             <div style="font-size:14px;color:var(--text-secondary);">Base URL</div>
              <div id="env-base-url" style="font-size:14px;">https://example.com</div>
           </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);">
-             <div style="font-size:14px;color:rgba(255,255,255,0.56);">Auth Type</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--control-icon-bg);">
+             <div style="font-size:14px;color:var(--text-secondary);">Auth Type</div>
              <div id="env-auth-type" style="font-size:14px;">None</div>
           </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);">
-             <div style="font-size:14px;color:rgba(255,255,255,0.56);">Timeout</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--control-icon-bg);">
+             <div style="font-size:14px;color:var(--text-secondary);">Timeout</div>
              <div style="font-size:14px;">30 seconds</div>
           </div>
        </div>
@@ -1801,22 +1815,22 @@ body {
 <div aria-labelledby="nav-tab-reports" class="reports-shell view-pane" id="reports-view" role="tabpanel" style="display:none;width:100%;height:100vh;overflow:hidden;">
   <div style="display:flex;height:100%;width:100%;">
     <!-- LEFT DRAWER: SCAN HISTORY -->
-    <aside aria-label="Scan history" style="width:350px;border-right:1px solid rgba(255,255,255,0.08);background:#14100E;display:flex;flex-direction:column;height:100%;">
-      <div style="padding:24px;border-bottom:1px solid rgba(255,255,255,0.08);">
+    <aside aria-label="Scan history" style="width:350px;border-right:1px solid var(--control-icon-bg);background:var(--bg-primary);display:flex;flex-direction:column;height:100%;">
+      <div style="padding:24px;border-bottom:1px solid var(--control-icon-bg);">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
           <div style="font-size:18px;font-weight:500;">Scan History</div>
           <div style="display:flex;align-items:center;gap:8px;">
-            <span class="history-count-badge" id="history-count-badge" style="background:rgba(255,255,255,0.1);border-radius:999px;padding:2px 8px;font-size:12px;">0</span>
-            <button aria-label="Clear scan history" id="history-clear-btn" style="background:none;border:none;color:rgba(255,255,255,0.56);cursor:pointer;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+            <span class="history-count-badge" id="history-count-badge" style="background:var(--control-secondary-bg);border-radius:999px;padding:2px 8px;font-size:12px;">0</span>
+            <button aria-label="Clear scan history" id="history-clear-btn" style="background:none;border:none;color:var(--text-secondary);cursor:pointer;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
           </div>
         </div>
         <div style="position:relative;">
-          <svg width="16" height="16" fill="none" stroke="rgba(255,255,255,0.56)" stroke-width="2" viewBox="0 0 24 24" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
-          <input id="history-search-input" placeholder="Search past runs..." type="text" style="width:100%;height:40px;background:rgba(255,255,255,0.06);border:none;border-radius:12px;padding-left:36px;color:#fff;font-size:13px;outline:none;" />
+          <svg width="16" height="16" fill="none" stroke="var(--text-secondary)" stroke-width="2" viewBox="0 0 24 24" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+          <input id="history-search-input" placeholder="Search past runs..." type="text" style="width:100%;height:40px;background:var(--control-bg);border:none;border-radius:12px;padding-left:36px;color:var(--text-primary);font-size:13px;outline:none;" />
         </div>
       </div>
       <div id="reports-history-list" role="list" style="flex:1;overflow-y:auto;padding:16px;">
-        <div id="history-empty-state" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.32);text-align:center;font-size:13px;gap:8px;">
+        <div id="history-empty-state" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text-tertiary);text-align:center;font-size:13px;gap:8px;">
           <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
           No scan history recorded yet.
         </div>
@@ -1829,14 +1843,14 @@ body {
       <!-- TOP CARDS ROW -->
       <div style="display:grid;grid-template-columns:1fr 350px;gap:24px;">
         <!-- OVERVIEW CARD -->
-        <div class="card-b" style="background:#050505;border-radius:24px;padding:32px;display:flex;flex-direction:column;justify-content:center;">
+        <div class="card-b" style="background:var(--bg-cards);border-radius:24px;padding:32px;display:flex;flex-direction:column;justify-content:center;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;">
             <div>
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
                 <h2 id="report-view-title" style="font-size:24px;font-weight:600;margin:0;">Test Execution Report</h2>
-                <span id="report-view-badge" class="recent-badge completed" style="background:rgba(47,213,154,0.1);color:#2FD59A;padding:4px 10px;border-radius:999px;font-size:12px;">Completed</span>
+                <span id="report-view-badge" class="recent-badge completed" style="background:rgba(47,213,154,0.1);color:var(--text-success);padding:4px 10px;border-radius:999px;font-size:12px;">Completed</span>
               </div>
-              <div style="font-size:13px;color:rgba(255,255,255,0.56);display:flex;align-items:center;gap:8px;">
+              <div style="font-size:13px;color:var(--text-secondary);display:flex;align-items:center;gap:8px;">
                 <span id="report-view-url">https://example.com</span>
                 <span>&bull;</span>
                 <span id="report-view-time">&mdash;</span>
@@ -1845,44 +1859,44 @@ body {
               </div>
             </div>
             <div style="display:flex;gap:12px;">
-              <a href="/download_report" download id="report-download-btn" style="height:40px;padding:0 16px;border-radius:999px;background:#fff;color:#000;display:flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;font-weight:500;">
+              <a href="/download_report" download id="report-download-btn" style="height:40px;padding:0 16px;border-radius:999px;background:var(--avatar-bg);color:var(--bg-cards);display:flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;font-weight:500;">
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg> Download
               </a>
-              <a href="/view_report" target="_blank" rel="noopener" id="report-external-btn" style="height:40px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.1);color:#fff;display:flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;font-weight:500;">
+              <a href="/view_report" target="_blank" rel="noopener" id="report-external-btn" style="height:40px;padding:0 16px;border-radius:999px;background:var(--control-secondary-bg);color:var(--text-primary);display:flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;font-weight:500;">
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> Open
               </a>
-              <button id="report-refresh-btn" style="height:40px;width:40px;border-radius:50%;background:rgba(255,255,255,0.06);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+              <button id="report-refresh-btn" style="height:40px;width:40px;border-radius:50%;background:var(--control-bg);color:var(--text-primary);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
               </button>
             </div>
           </div>
           
           <div style="display:flex;gap:16px;margin-top:32px;">
-             <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-                <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;">Total Tests</div>
+             <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+                <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Total Tests</div>
                 <div id="report-stat-total" style="font-size:24px;font-weight:500;">0</div>
              </div>
-             <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-                <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;">Passed</div>
-                <div id="report-stat-passed" style="font-size:24px;font-weight:500;color:#2FD59A;">0</div>
+             <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+                <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Passed</div>
+                <div id="report-stat-passed" style="font-size:24px;font-weight:500;color:var(--text-success);">0</div>
              </div>
-             <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-                <div style="font-size:13px;color:rgba(255,255,255,0.56);margin-bottom:12px;">Failed</div>
-                <div id="report-stat-failed" style="font-size:24px;font-weight:500;color:#FF5D6C;">0</div>
+             <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
+                <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Failed</div>
+                <div id="report-stat-failed" style="font-size:24px;font-weight:500;color:var(--text-danger);">0</div>
              </div>
              <div style="display:none;" id="report-stat-errors">0</div>
           </div>
         </div>
 
         <!-- GAUGE CARD -->
-        <div class="card-b" style="background:#050505;border-radius:24px;padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
+        <div class="card-b" style="background:var(--bg-cards);border-radius:24px;padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
            <svg width="120" height="120" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="4"></circle>
-              <circle id="report-gauge-fill" cx="50" cy="50" r="40" fill="none" stroke="#2FD59A" stroke-width="4" stroke-dasharray="251.2" stroke-dashoffset="251.2" style="transition:stroke-dashoffset 1s ease; transform:rotate(-90deg); transform-origin:50% 50%;"></circle>
+              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--control-icon-bg)" stroke-width="4"></circle>
+              <circle id="report-gauge-fill" cx="50" cy="50" r="40" fill="none" stroke="var(--success)" stroke-width="4" stroke-dasharray="251.2" stroke-dashoffset="251.2" style="transition:stroke-dashoffset 1s ease; transform:rotate(-90deg); transform-origin:50% 50%;"></circle>
            </svg>
            <div style="position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;">
              <span id="report-gauge-pct" style="font-size:24px;font-weight:500;">&mdash;</span>
-             <span style="font-size:10px;color:rgba(255,255,255,0.56);">Pass Rate</span>
+             <span style="font-size:10px;color:var(--text-secondary);">Pass Rate</span>
            </div>
            
            <div style="display:none;">
@@ -1893,17 +1907,17 @@ body {
       </div>
 
       <!-- IFRAME CARD -->
-      <div class="card-b" style="flex:1;background:#050505;border-radius:24px;display:flex;flex-direction:column;overflow:hidden;">
-        <div style="padding:16px 24px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;">
+      <div class="card-b" style="flex:1;background:var(--bg-cards);border-radius:24px;display:flex;flex-direction:column;overflow:hidden;">
+        <div style="padding:16px 24px;border-bottom:1px solid var(--control-icon-bg);display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="3"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
           Interactive HTML Report Viewer
         </div>
         <div style="flex:1;position:relative;">
           <iframe id="report-iframe" src="/view_report" style="width:100%;height:100%;border:none;display:block;" title="Test Execution HTML Report"></iframe>
-          <div id="report-iframe-fallback" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:#050505;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.56);gap:12px;">
+          <div id="report-iframe-fallback" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:var(--bg-cards);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-secondary);gap:12px;">
             <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
             <div style="font-size:14px;">No report generated yet. Run a scan to view results.</div>
-            <button onclick="switchView('dashboard')" style="background:#fff;color:#000;border:none;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;">Go to Dashboard</button>
+            <button onclick="switchView('dashboard')" style="background:var(--avatar-bg);color:var(--bg-cards);border:none;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;">Go to Dashboard</button>
           </div>
         </div>
       </div>
@@ -1911,7 +1925,8 @@ body {
     </main>
   </div>
 </div>
-</main>\n<script>
+</main>
+<script>
     // ═══════════════════════════════════════════════════════════
     // 1. THEME TOGGLE  (single source of truth — syncs iframe)
     // ═══════════════════════════════════════════════════════════
@@ -2105,15 +2120,20 @@ body {
       renderRecentScans();
     }
 
-    function renderChart() {
+    function renderChart(range = '7d') {
       const svg = document.getElementById("scan-chart-svg");
       if (!svg) return;
-      const history = getScanHistory();
+      const allHistory = getScanHistory();
       
-      // We want to show up to 7 bars
-      const scans = history.slice(0, 7).reverse();
+      const now = new Date().getTime();
+      let scans = allHistory.filter(s => {
+          if (range === 'all') return true;
+          const days = range === '30d' ? 30 : 7;
+          return (now - new Date(s.timestamp).getTime()) <= days * 24 * 60 * 60 * 1000;
+      });
+      scans = scans.reverse(); // chronological order
       
-      // Calculate overall pass rate for "This Week"
+      // Calculate overall pass rate
       let tTotal = 0; let tPass = 0;
       scans.forEach(s => {
           if (s.summary) {
@@ -2128,16 +2148,23 @@ body {
       // Clear existing bars
       svg.querySelectorAll('.chart-bar-group, .chart-tooltip').forEach(e => e.remove());
       
+      // Update X axis labels
+      const xAxis = document.getElementById("scan-chart-x-axis");
+      if (xAxis) xAxis.innerHTML = "";
+      
       if (scans.length === 0) return;
       
-      // We have 100% width and 100% height (SVG coordinates are flexible but let's use fixed coords for ease, 
-      // SVG width="100%" height="160"). Let's dynamically create bars.
       svg.setAttribute("viewBox", "0 0 700 160");
-      
       const width = 700;
       const height = 160;
-      const maxVal = Math.max(...scans.map(s => s.summary ? s.summary.total : 0), 10);
-      const gap = width / 7;
+      const gap = width / Math.max(scans.length, 1);
+      
+      // Date formatting for axis: group by date
+      const dateCounts = {};
+      scans.forEach(s => {
+          const d = new Date(s.timestamp).toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
+          dateCounts[d] = (dateCounts[d] || 0) + 1;
+      });
       
       scans.forEach((scan, i) => {
          const cx = (i * gap) + (gap / 2);
@@ -2145,78 +2172,95 @@ body {
          const passed = scan.summary ? scan.summary.passed : 0;
          const failed = scan.summary ? scan.summary.failed : 0;
          
-         const totalH = (total / maxVal) * (height * 0.8);
-         const passedH = total > 0 ? (passed / total) * totalH : 0;
-         const failedH = total > 0 ? (failed / total) * totalH : 0;
+         const passedRate = total > 0 ? (passed / total) : 0;
+         const failedRate = total > 0 ? (failed / total) : 0;
+         
+         const passedH = passedRate * height;
+         const failedH = failedRate * height;
          
          const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
          g.setAttribute("class", "chart-bar-group");
          g.style.cursor = "pointer";
          
-         // Hover target area
          const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-         hoverRect.setAttribute("x", cx - 20);
+         hoverRect.setAttribute("x", cx - (gap/2));
          hoverRect.setAttribute("y", 0);
-         hoverRect.setAttribute("width", 40);
+         hoverRect.setAttribute("width", gap);
          hoverRect.setAttribute("height", height);
          hoverRect.setAttribute("fill", "transparent");
          g.appendChild(hoverRect);
          
-         // Passed bar
          if (passedH > 0) {
              const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
              pRect.setAttribute("x", cx - 4);
              pRect.setAttribute("y", height - passedH);
              pRect.setAttribute("width", 8);
              pRect.setAttribute("height", passedH);
-             pRect.setAttribute("fill", "#2FD59A");
-             pRect.setAttribute("rx", "4");
+             pRect.setAttribute("fill", "var(--success)");
+             if (failedH === 0) pRect.setAttribute("rx", "4"); // rounded top if no failed cap
              g.appendChild(pRect);
          }
          
-         // Failed cap
          if (failedH > 0) {
              const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
              fRect.setAttribute("x", cx - 4);
-             fRect.setAttribute("y", height - totalH);
+             fRect.setAttribute("y", height - passedH - failedH);
              fRect.setAttribute("width", 8);
              fRect.setAttribute("height", failedH);
-             fRect.setAttribute("fill", "#FF5D6C");
+             fRect.setAttribute("fill", "var(--danger)");
              fRect.setAttribute("rx", "4");
              g.appendChild(fRect);
          }
          
-         // Tooltip logic
+         const d = new Date(scan.timestamp);
+         const dateStr = d.toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
+         let labelText = dateStr;
+         if (dateCounts[dateStr] > 1) {
+             labelText += "<br/>" + d.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
+         }
+         
+         if (xAxis) {
+             const span = document.createElement("span");
+             span.innerHTML = labelText;
+             span.style.textAlign = "center";
+             span.style.flex = "1";
+             span.style.fontSize = "11px";
+             xAxis.appendChild(span);
+         }
+         
          g.addEventListener("mouseenter", () => {
              const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
              tbg.setAttribute("class", "chart-tooltip");
              tbg.setAttribute("x", cx - 60);
-             tbg.setAttribute("y", height - totalH - 40);
+             const tipY = height - passedH - failedH - 40;
+             tbg.setAttribute("y", tipY);
              tbg.setAttribute("width", 120);
-             tbg.setAttribute("height", 30);
-             tbg.setAttribute("fill", "#ffffff");
-             tbg.setAttribute("rx", "15");
+             tbg.setAttribute("height", 45);
+             tbg.setAttribute("fill", "var(--text-primary)");
+             tbg.setAttribute("rx", "8");
              
+             const tdate = document.createElementNS("http://www.w3.org/2000/svg", "text");
+             tdate.setAttribute("class", "chart-tooltip");
+             tdate.setAttribute("x", cx);
+             tdate.setAttribute("y", tipY + 15);
+             tdate.setAttribute("fill", "var(--bg-cards)");
+             tdate.setAttribute("font-size", "10");
+             tdate.setAttribute("text-anchor", "middle");
+             tdate.textContent = d.toLocaleString("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' });
+
              const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
              ttext.setAttribute("class", "chart-tooltip");
              ttext.setAttribute("x", cx);
-             ttext.setAttribute("y", height - totalH - 20);
-             ttext.setAttribute("fill", "#000000");
+             ttext.setAttribute("y", tipY + 32);
+             ttext.setAttribute("fill", "var(--bg-cards)");
              ttext.setAttribute("font-size", "12");
              ttext.setAttribute("font-weight", "600");
              ttext.setAttribute("text-anchor", "middle");
              ttext.textContent = passed + " of " + total + " passed";
              
-             const tdot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-             tdot.setAttribute("class", "chart-tooltip");
-             tdot.setAttribute("cx", cx);
-             tdot.setAttribute("cy", height - totalH);
-             tdot.setAttribute("r", "4");
-             tdot.setAttribute("fill", "#ffffff");
-             
              svg.appendChild(tbg);
+             svg.appendChild(tdate);
              svg.appendChild(ttext);
-             svg.appendChild(tdot);
          });
          
          g.addEventListener("mouseleave", () => {
@@ -2225,27 +2269,24 @@ body {
          
          svg.appendChild(g);
       });
-      
-      // Update X axis labels
-      const xAxis = document.getElementById("scan-chart-x-axis");
-      if (xAxis) {
-         xAxis.innerHTML = "";
-         for(let i = 0; i < 7; i++) {
-             const span = document.createElement("span");
-             const scan = scans[i];
-             if (scan && scan.date) {
-                 const d = new Date(scan.timestamp);
-                 const day = d.toLocaleDateString("en-US", { weekday: 'short' });
-                 const num = d.getDate();
-                 span.innerHTML = day + "<br/>" + num;
-             } else {
-                 span.innerHTML = "-<br/>-";
-             }
-             span.style.textAlign = "center";
-             xAxis.appendChild(span);
-         }
-      }
     }
+
+    
+document.querySelectorAll('input[name="chart_range"]').forEach((radio, idx) => {
+    radio.addEventListener('change', (e) => {
+        // Update thumb
+        const thumb = e.target.closest('.segmented-control').querySelector('.segmented-thumb');
+        thumb.style.transform = `translateX(${idx * 100}%)`;
+        // Update active class
+        e.target.closest('.segmented-control').querySelectorAll('.segmented-label').forEach(lbl => lbl.classList.remove('active'));
+        e.target.closest('.segmented-label').classList.add('active');
+        
+        // Re-render chart with new range
+        if (typeof renderChart === 'function') {
+            renderChart(e.target.value);
+        }
+    });
+});
 
     renderChart();
 
@@ -2253,7 +2294,7 @@ body {
       const list = document.getElementById("recent-scans-list");
       const scans = getScanHistory().slice(0, 6);
       if (!scans.length) {
-        list.innerHTML = `<div style="font-size:11px;color:rgba(255,255,255,0.32);padding:8px 0;text-align:center;">No recent scans yet.</div>`;
+        list.innerHTML = `<div style="font-size:11px;color:var(--text-tertiary);padding:8px 0;text-align:center;">No recent scans yet.</div>`;
         return;
       }
       list.innerHTML = scans.map((s, idx) => {
@@ -2261,36 +2302,41 @@ body {
           const total = s.summary ? s.summary.total : 0;
           const passRate = total > 0 ? ((pass/total)*100).toFixed(2) : 0;
           const isOk = s.status === 'completed';
-          const color = isOk ? "#2FD59A" : "#FF5D6C";
+          const color = isOk ? "var(--success)" : "var(--danger)";
           const icon = isOk ? `<circle cx="12" cy="12" r="10" fill="none" stroke="${color}" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>` : `<circle cx="12" cy="12" r="10" fill="none" stroke="${color}" stroke-width="2"></circle><path d="M15 9l-6 6M9 9l6 6" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>`;
           
           return `
         <div class="recent-item" onclick="openReportByIndex(${idx})" style="display:flex;align-items:center;gap:16px;cursor:pointer;">
-          <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;">
+          <div style="width:40px;height:40px;border-radius:50%;background:var(--control-icon-bg);display:flex;align-items:center;justify-content:center;">
              <svg width="20" height="20" viewBox="0 0 24 24">${icon}</svg>
           </div>
           <div style="flex:1;">
-            <div style="font-size:14px;color:#fff;font-weight:500;margin-bottom:2px;">${escapeHtml(s.label || s.url)}</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.32);">${s.date || ""}</div>
+            <div style="font-size:14px;color:var(--text-primary);font-weight:500;margin-bottom:2px;">${escapeHtml(s.label || s.url)}</div>
+            <div style="font-size:11px;color:var(--text-tertiary);">${s.date || ""}</div>
           </div>
           <div style="text-align:right;">
              <div style="font-size:14px;color:${color};font-weight:500;">${isOk ? 'Passed' : 'Failed'}</div>
-             <div style="font-size:11px;color:rgba(255,255,255,0.32);">${pass} of ${total} tests</div>
+             <div style="font-size:11px;color:var(--text-tertiary);">${pass} of ${total} tests</div>
           </div>
         </div>`;
       }).join("");
     }
     renderRecentScans();
 
-    function renderChart() {
+    function renderChart(range = '7d') {
       const svg = document.getElementById("scan-chart-svg");
       if (!svg) return;
-      const history = getScanHistory();
+      const allHistory = getScanHistory();
       
-      // We want to show up to 7 bars
-      const scans = history.slice(0, 7).reverse();
+      const now = new Date().getTime();
+      let scans = allHistory.filter(s => {
+          if (range === 'all') return true;
+          const days = range === '30d' ? 30 : 7;
+          return (now - new Date(s.timestamp).getTime()) <= days * 24 * 60 * 60 * 1000;
+      });
+      scans = scans.reverse(); // chronological order
       
-      // Calculate overall pass rate for "This Week"
+      // Calculate overall pass rate
       let tTotal = 0; let tPass = 0;
       scans.forEach(s => {
           if (s.summary) {
@@ -2305,16 +2351,23 @@ body {
       // Clear existing bars
       svg.querySelectorAll('.chart-bar-group, .chart-tooltip').forEach(e => e.remove());
       
+      // Update X axis labels
+      const xAxis = document.getElementById("scan-chart-x-axis");
+      if (xAxis) xAxis.innerHTML = "";
+      
       if (scans.length === 0) return;
       
-      // We have 100% width and 100% height (SVG coordinates are flexible but let's use fixed coords for ease, 
-      // SVG width="100%" height="160"). Let's dynamically create bars.
       svg.setAttribute("viewBox", "0 0 700 160");
-      
       const width = 700;
       const height = 160;
-      const maxVal = Math.max(...scans.map(s => s.summary ? s.summary.total : 0), 10);
-      const gap = width / 7;
+      const gap = width / Math.max(scans.length, 1);
+      
+      // Date formatting for axis: group by date
+      const dateCounts = {};
+      scans.forEach(s => {
+          const d = new Date(s.timestamp).toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
+          dateCounts[d] = (dateCounts[d] || 0) + 1;
+      });
       
       scans.forEach((scan, i) => {
          const cx = (i * gap) + (gap / 2);
@@ -2322,78 +2375,95 @@ body {
          const passed = scan.summary ? scan.summary.passed : 0;
          const failed = scan.summary ? scan.summary.failed : 0;
          
-         const totalH = (total / maxVal) * (height * 0.8);
-         const passedH = total > 0 ? (passed / total) * totalH : 0;
-         const failedH = total > 0 ? (failed / total) * totalH : 0;
+         const passedRate = total > 0 ? (passed / total) : 0;
+         const failedRate = total > 0 ? (failed / total) : 0;
+         
+         const passedH = passedRate * height;
+         const failedH = failedRate * height;
          
          const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
          g.setAttribute("class", "chart-bar-group");
          g.style.cursor = "pointer";
          
-         // Hover target area
          const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-         hoverRect.setAttribute("x", cx - 20);
+         hoverRect.setAttribute("x", cx - (gap/2));
          hoverRect.setAttribute("y", 0);
-         hoverRect.setAttribute("width", 40);
+         hoverRect.setAttribute("width", gap);
          hoverRect.setAttribute("height", height);
          hoverRect.setAttribute("fill", "transparent");
          g.appendChild(hoverRect);
          
-         // Passed bar
          if (passedH > 0) {
              const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
              pRect.setAttribute("x", cx - 4);
              pRect.setAttribute("y", height - passedH);
              pRect.setAttribute("width", 8);
              pRect.setAttribute("height", passedH);
-             pRect.setAttribute("fill", "#2FD59A");
-             pRect.setAttribute("rx", "4");
+             pRect.setAttribute("fill", "var(--success)");
+             if (failedH === 0) pRect.setAttribute("rx", "4"); // rounded top if no failed cap
              g.appendChild(pRect);
          }
          
-         // Failed cap
          if (failedH > 0) {
              const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
              fRect.setAttribute("x", cx - 4);
-             fRect.setAttribute("y", height - totalH);
+             fRect.setAttribute("y", height - passedH - failedH);
              fRect.setAttribute("width", 8);
              fRect.setAttribute("height", failedH);
-             fRect.setAttribute("fill", "#FF5D6C");
+             fRect.setAttribute("fill", "var(--danger)");
              fRect.setAttribute("rx", "4");
              g.appendChild(fRect);
          }
          
-         // Tooltip logic
+         const d = new Date(scan.timestamp);
+         const dateStr = d.toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
+         let labelText = dateStr;
+         if (dateCounts[dateStr] > 1) {
+             labelText += "<br/>" + d.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
+         }
+         
+         if (xAxis) {
+             const span = document.createElement("span");
+             span.innerHTML = labelText;
+             span.style.textAlign = "center";
+             span.style.flex = "1";
+             span.style.fontSize = "11px";
+             xAxis.appendChild(span);
+         }
+         
          g.addEventListener("mouseenter", () => {
              const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
              tbg.setAttribute("class", "chart-tooltip");
              tbg.setAttribute("x", cx - 60);
-             tbg.setAttribute("y", height - totalH - 40);
+             const tipY = height - passedH - failedH - 40;
+             tbg.setAttribute("y", tipY);
              tbg.setAttribute("width", 120);
-             tbg.setAttribute("height", 30);
-             tbg.setAttribute("fill", "#ffffff");
-             tbg.setAttribute("rx", "15");
+             tbg.setAttribute("height", 45);
+             tbg.setAttribute("fill", "var(--text-primary)");
+             tbg.setAttribute("rx", "8");
              
+             const tdate = document.createElementNS("http://www.w3.org/2000/svg", "text");
+             tdate.setAttribute("class", "chart-tooltip");
+             tdate.setAttribute("x", cx);
+             tdate.setAttribute("y", tipY + 15);
+             tdate.setAttribute("fill", "var(--bg-cards)");
+             tdate.setAttribute("font-size", "10");
+             tdate.setAttribute("text-anchor", "middle");
+             tdate.textContent = d.toLocaleString("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' });
+
              const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
              ttext.setAttribute("class", "chart-tooltip");
              ttext.setAttribute("x", cx);
-             ttext.setAttribute("y", height - totalH - 20);
-             ttext.setAttribute("fill", "#000000");
+             ttext.setAttribute("y", tipY + 32);
+             ttext.setAttribute("fill", "var(--bg-cards)");
              ttext.setAttribute("font-size", "12");
              ttext.setAttribute("font-weight", "600");
              ttext.setAttribute("text-anchor", "middle");
              ttext.textContent = passed + " of " + total + " passed";
              
-             const tdot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-             tdot.setAttribute("class", "chart-tooltip");
-             tdot.setAttribute("cx", cx);
-             tdot.setAttribute("cy", height - totalH);
-             tdot.setAttribute("r", "4");
-             tdot.setAttribute("fill", "#ffffff");
-             
              svg.appendChild(tbg);
+             svg.appendChild(tdate);
              svg.appendChild(ttext);
-             svg.appendChild(tdot);
          });
          
          g.addEventListener("mouseleave", () => {
@@ -2402,26 +2472,6 @@ body {
          
          svg.appendChild(g);
       });
-      
-      // Update X axis labels
-      const xAxis = document.getElementById("scan-chart-x-axis");
-      if (xAxis) {
-         xAxis.innerHTML = "";
-         for(let i = 0; i < 7; i++) {
-             const span = document.createElement("span");
-             const scan = scans[i];
-             if (scan && scan.date) {
-                 const d = new Date(scan.timestamp);
-                 const day = d.toLocaleDateString("en-US", { weekday: 'short' });
-                 const num = d.getDate();
-                 span.innerHTML = day + "<br/>" + num;
-             } else {
-                 span.innerHTML = "-<br/>-";
-             }
-             span.style.textAlign = "center";
-             xAxis.appendChild(span);
-         }
-      }
     }
 
     renderChart();
@@ -2500,7 +2550,7 @@ body {
       const gaugeFillEl = document.getElementById("report-gauge-fill");
       gaugeFillEl.style.strokeDasharray = circumference;
       gaugeFillEl.style.strokeDashoffset = circumference - (pct / 100) * circumference;
-      gaugeFillEl.style.stroke = pct >= 80 ? "url(#gauge-gradient)" : pct >= 50 ? "#eab308" : "#ef4444";
+      gaugeFillEl.style.stroke = pct >= 80 ? "url(#gauge-gradient)" : pct >= 50 ? "var(--warning)" : "var(--danger)";
       document.getElementById("report-gauge-pct").textContent = pct + "%";
       document.getElementById("report-gauge-headline").textContent = pct === 100 ? "100% Pass Rate" : `${pct}% Pass Rate`;
       document.getElementById("report-gauge-sub").textContent = `${passed} of ${total} tests passed`;
@@ -2553,15 +2603,20 @@ body {
         activeSelectedScanId = null;
         renderRecentScans();
 
-    function renderChart() {
+    function renderChart(range = '7d') {
       const svg = document.getElementById("scan-chart-svg");
       if (!svg) return;
-      const history = getScanHistory();
+      const allHistory = getScanHistory();
       
-      // We want to show up to 7 bars
-      const scans = history.slice(0, 7).reverse();
+      const now = new Date().getTime();
+      let scans = allHistory.filter(s => {
+          if (range === 'all') return true;
+          const days = range === '30d' ? 30 : 7;
+          return (now - new Date(s.timestamp).getTime()) <= days * 24 * 60 * 60 * 1000;
+      });
+      scans = scans.reverse(); // chronological order
       
-      // Calculate overall pass rate for "This Week"
+      // Calculate overall pass rate
       let tTotal = 0; let tPass = 0;
       scans.forEach(s => {
           if (s.summary) {
@@ -2576,16 +2631,23 @@ body {
       // Clear existing bars
       svg.querySelectorAll('.chart-bar-group, .chart-tooltip').forEach(e => e.remove());
       
+      // Update X axis labels
+      const xAxis = document.getElementById("scan-chart-x-axis");
+      if (xAxis) xAxis.innerHTML = "";
+      
       if (scans.length === 0) return;
       
-      // We have 100% width and 100% height (SVG coordinates are flexible but let's use fixed coords for ease, 
-      // SVG width="100%" height="160"). Let's dynamically create bars.
       svg.setAttribute("viewBox", "0 0 700 160");
-      
       const width = 700;
       const height = 160;
-      const maxVal = Math.max(...scans.map(s => s.summary ? s.summary.total : 0), 10);
-      const gap = width / 7;
+      const gap = width / Math.max(scans.length, 1);
+      
+      // Date formatting for axis: group by date
+      const dateCounts = {};
+      scans.forEach(s => {
+          const d = new Date(s.timestamp).toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
+          dateCounts[d] = (dateCounts[d] || 0) + 1;
+      });
       
       scans.forEach((scan, i) => {
          const cx = (i * gap) + (gap / 2);
@@ -2593,78 +2655,95 @@ body {
          const passed = scan.summary ? scan.summary.passed : 0;
          const failed = scan.summary ? scan.summary.failed : 0;
          
-         const totalH = (total / maxVal) * (height * 0.8);
-         const passedH = total > 0 ? (passed / total) * totalH : 0;
-         const failedH = total > 0 ? (failed / total) * totalH : 0;
+         const passedRate = total > 0 ? (passed / total) : 0;
+         const failedRate = total > 0 ? (failed / total) : 0;
+         
+         const passedH = passedRate * height;
+         const failedH = failedRate * height;
          
          const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
          g.setAttribute("class", "chart-bar-group");
          g.style.cursor = "pointer";
          
-         // Hover target area
          const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-         hoverRect.setAttribute("x", cx - 20);
+         hoverRect.setAttribute("x", cx - (gap/2));
          hoverRect.setAttribute("y", 0);
-         hoverRect.setAttribute("width", 40);
+         hoverRect.setAttribute("width", gap);
          hoverRect.setAttribute("height", height);
          hoverRect.setAttribute("fill", "transparent");
          g.appendChild(hoverRect);
          
-         // Passed bar
          if (passedH > 0) {
              const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
              pRect.setAttribute("x", cx - 4);
              pRect.setAttribute("y", height - passedH);
              pRect.setAttribute("width", 8);
              pRect.setAttribute("height", passedH);
-             pRect.setAttribute("fill", "#2FD59A");
-             pRect.setAttribute("rx", "4");
+             pRect.setAttribute("fill", "var(--success)");
+             if (failedH === 0) pRect.setAttribute("rx", "4"); // rounded top if no failed cap
              g.appendChild(pRect);
          }
          
-         // Failed cap
          if (failedH > 0) {
              const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
              fRect.setAttribute("x", cx - 4);
-             fRect.setAttribute("y", height - totalH);
+             fRect.setAttribute("y", height - passedH - failedH);
              fRect.setAttribute("width", 8);
              fRect.setAttribute("height", failedH);
-             fRect.setAttribute("fill", "#FF5D6C");
+             fRect.setAttribute("fill", "var(--danger)");
              fRect.setAttribute("rx", "4");
              g.appendChild(fRect);
          }
          
-         // Tooltip logic
+         const d = new Date(scan.timestamp);
+         const dateStr = d.toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
+         let labelText = dateStr;
+         if (dateCounts[dateStr] > 1) {
+             labelText += "<br/>" + d.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
+         }
+         
+         if (xAxis) {
+             const span = document.createElement("span");
+             span.innerHTML = labelText;
+             span.style.textAlign = "center";
+             span.style.flex = "1";
+             span.style.fontSize = "11px";
+             xAxis.appendChild(span);
+         }
+         
          g.addEventListener("mouseenter", () => {
              const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
              tbg.setAttribute("class", "chart-tooltip");
              tbg.setAttribute("x", cx - 60);
-             tbg.setAttribute("y", height - totalH - 40);
+             const tipY = height - passedH - failedH - 40;
+             tbg.setAttribute("y", tipY);
              tbg.setAttribute("width", 120);
-             tbg.setAttribute("height", 30);
-             tbg.setAttribute("fill", "#ffffff");
-             tbg.setAttribute("rx", "15");
+             tbg.setAttribute("height", 45);
+             tbg.setAttribute("fill", "var(--text-primary)");
+             tbg.setAttribute("rx", "8");
              
+             const tdate = document.createElementNS("http://www.w3.org/2000/svg", "text");
+             tdate.setAttribute("class", "chart-tooltip");
+             tdate.setAttribute("x", cx);
+             tdate.setAttribute("y", tipY + 15);
+             tdate.setAttribute("fill", "var(--bg-cards)");
+             tdate.setAttribute("font-size", "10");
+             tdate.setAttribute("text-anchor", "middle");
+             tdate.textContent = d.toLocaleString("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' });
+
              const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
              ttext.setAttribute("class", "chart-tooltip");
              ttext.setAttribute("x", cx);
-             ttext.setAttribute("y", height - totalH - 20);
-             ttext.setAttribute("fill", "#000000");
+             ttext.setAttribute("y", tipY + 32);
+             ttext.setAttribute("fill", "var(--bg-cards)");
              ttext.setAttribute("font-size", "12");
              ttext.setAttribute("font-weight", "600");
              ttext.setAttribute("text-anchor", "middle");
              ttext.textContent = passed + " of " + total + " passed";
              
-             const tdot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-             tdot.setAttribute("class", "chart-tooltip");
-             tdot.setAttribute("cx", cx);
-             tdot.setAttribute("cy", height - totalH);
-             tdot.setAttribute("r", "4");
-             tdot.setAttribute("fill", "#ffffff");
-             
              svg.appendChild(tbg);
+             svg.appendChild(tdate);
              svg.appendChild(ttext);
-             svg.appendChild(tdot);
          });
          
          g.addEventListener("mouseleave", () => {
@@ -2673,26 +2752,6 @@ body {
          
          svg.appendChild(g);
       });
-      
-      // Update X axis labels
-      const xAxis = document.getElementById("scan-chart-x-axis");
-      if (xAxis) {
-         xAxis.innerHTML = "";
-         for(let i = 0; i < 7; i++) {
-             const span = document.createElement("span");
-             const scan = scans[i];
-             if (scan && scan.date) {
-                 const d = new Date(scan.timestamp);
-                 const day = d.toLocaleDateString("en-US", { weekday: 'short' });
-                 const num = d.getDate();
-                 span.innerHTML = day + "<br/>" + num;
-             } else {
-                 span.innerHTML = "-<br/>-";
-             }
-             span.style.textAlign = "center";
-             xAxis.appendChild(span);
-         }
-      }
     }
 
     renderChart();
@@ -2784,7 +2843,7 @@ body {
       gaugeFailed.textContent = failed;
       gaugeFill.style.strokeDashoffset = circumference - (pct / 100) * circumference;
       gaugeFill.style.strokeDasharray  = circumference;
-      gaugeFill.style.stroke = pct >= 80 ? "url(#gauge-gradient)" : pct >= 50 ? "#eab308" : "#ef4444";
+      gaugeFill.style.stroke = pct >= 80 ? "url(#gauge-gradient)" : pct >= 50 ? "var(--warning)" : "var(--danger)";
       gaugeBarFill.style.transform = `scaleX(${pct / 100})`;
       gaugeBarMeta.textContent = `${passed} / ${total} passed`;
     }
@@ -2876,11 +2935,11 @@ body {
     function setLoading(loading){
       submitBtn.disabled=loading;
       if(loading){
-        btnText.textContent="Testing...";submitBtn.classList.add("testing");runBtnShell.classList.add("testing");
+        btnText.textContent="Testing...";submitBtn.classList.add("testing"); submitBtn.disabled = true;runBtnShell.classList.add("testing");
         statusDot.className="status-dot running";footerDot.className="status-dot running";
         document.getElementById("exec-status-badge").className="exec-status-badge running";
       } else {
-        btnText.textContent="Start Scan";submitBtn.classList.remove("testing");runBtnShell.classList.remove("testing");
+        btnText.textContent="Start Scan";submitBtn.classList.remove("testing"); submitBtn.disabled = false;runBtnShell.classList.remove("testing");
       }
     }
 
