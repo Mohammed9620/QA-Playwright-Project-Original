@@ -45,7 +45,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--accent-blue);
+      color: var(--text-accent);
     }
     .admin-header-title {
       font-size: 17px;
@@ -73,7 +73,7 @@
       color: var(--text-tertiary);
     }
     .admin-back a {
-      color: var(--accent-blue);
+      color: var(--text-accent);
       text-decoration: none;
       transition: color var(--duration-fast) var(--ease-out),
                   opacity var(--duration-fast) var(--ease-out);
@@ -99,26 +99,43 @@
   </style>
 </head>
 
-<body>
-  <!-- ════════ TOP BAR ════════ -->
-  <header class="topbar">
-    <a class="topbar-brand" href="/">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        <path d="M9 12l2 2 4-4"/>
-      </svg>
-      QA Automation Engine
-    </a>
-    <span class="topbar-version">v1.0</span>
-    <div class="topbar-spacer"></div>
-    <a href="/" class="topbar-nav-link secondary" style="margin-right: 12px;">Dashboard</a>
-    <button class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
-      <span id="theme-icon">☀️</span>
-    </button>
-  </header>
+<body style="margin:0; overflow:hidden; display:flex; width:100vw; height:100vh;">
+  <nav id="left-rail" style="width:72px; background:var(--bg-cards); border-radius:24px; margin:16px 0 16px 16px; display:flex; flex-direction:column; align-items:center; padding:24px 0; gap:16px;">
+  <div style="width:40px; height:40px; border-radius:12px; background:var(--avatar-bg); display:flex; align-items:center; justify-content:center; color:var(--bg-cards); font-weight:700; margin-bottom:24px; flex-shrink:0;">
+    QA
+  </div>
+  
+  <button id="nav-tab-dashboard" title="Dashboard" class="rail-icon" onclick="window.location.href='/'" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-primary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+  </button>
 
-  <!-- ════════ ADMIN CONTAINER ════════ -->
-  <main class="admin-wrapper">
+  <button id="nav-tab-reports" title="Reports" class="rail-icon" onclick="window.location.href='/#reports'" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+  </button>
+
+  {% if session.get('role') == 'admin' %}
+  <a href="/admin/create_admin" title="Admin" class="rail-icon" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; text-decoration:none; flex-shrink:0;">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+  </a>
+  {% endif %}
+
+  <div style="flex:1;"></div>
+
+  <button id="theme-toggle" title="Toggle theme" class="rail-icon" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+    <span id="theme-icon">☀️</span>
+  </button>
+
+  {% if session.get('username') %}
+  <a href="/logout" title="Log out" class="rail-icon logout-icon" style="width:40px; height:40px; border-radius:50%; background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; text-decoration:none; margin-bottom: 8px;">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+    </a>
+    <div style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:var(--control-icon-bg); display:flex; align-items:center; justify-content:center; color:var(--text-primary); font-size:14px; font-weight:600; flex-shrink:0;" title="User: {{ session.get('username') }}">
+      {{ session.get('username', 'U')[0:2]|upper }}
+    </div>
+  {% endif %}
+</nav>
+  <div id="main-content" style="flex:1; overflow-y:auto; padding:24px; display:flex; flex-direction:column; align-items:center;">
+    <main class="admin-wrapper">
     <div class="admin-card">
 
       <!-- Header -->
@@ -137,15 +154,36 @@
 
       <!-- Steps Indicator -->
       <div class="steps-indicator">
+        {% if step in ['email', 'verify_otp', 'register'] %}
+        <div class="step-dot {% if step == 'email' or step == 'verify_otp' or step == 'register' %}active{% endif %} {% if step != 'email' %}completed{% endif %}"></div>
+        <div class="step-dot {% if step == 'verify_otp' or step == 'register' %}active{% endif %} {% if step == 'register' %}completed{% endif %}"></div>
+        <div class="step-dot {% if step == 'register' %}active{% endif %}"></div>
+        {% else %}
         <div class="step-dot {% if step == 'verify_admin' or step == 'create_admin' %}active{% endif %} {% if step == 'create_admin' %}completed{% endif %}"></div>
         <div class="step-dot {% if step == 'create_admin' %}active{% endif %}"></div>
+        {% endif %}
       </div>
 
       <!-- Card surface -->
       <div class="admin-surface">
 
         <!-- Step Titles -->
-        {% if step == 'verify_admin' %}
+        {% if step == 'email' %}
+          <h2 class="card-section-title">
+            <span>Step 1: Contact Details</span>
+            <span class="card-step-label">Email Verify</span>
+          </h2>
+        {% elif step == 'verify_otp' %}
+          <h2 class="card-section-title">
+            <span>Step 2: Security Validation</span>
+            <span class="card-step-label">OTP Verification</span>
+          </h2>
+        {% elif step == 'register' %}
+          <h2 class="card-section-title">
+            <span>Step 3: Setup Administrator</span>
+            <span class="card-step-label">Credentials</span>
+          </h2>
+        {% elif step == 'verify_admin' %}
           <h2 class="card-section-title">
             <span>Security</span>
             <span class="card-step-label">Authentication</span>
@@ -167,6 +205,15 @@
           </div>
         {% endif %}
 
+        {% if info %}
+          <div class="info-banner" style="background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.25); border-radius:12px; padding:10px 14px; margin-bottom:16px; font-size:13px; color:var(--text-primary); display:flex; align-items:center; gap:8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <span>{{ info }}</span>
+          </div>
+        {% endif %}
+
         {% if success_msg %}
           <div class="success-banner">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -177,7 +224,102 @@
         {% endif %}
 
         <!-- Forms -->
-        {% if step == 'verify_admin' %}
+        {% if step == 'email' %}
+          <form method="POST" action="/admin/create_admin">
+            <input type="hidden" name="action" value="send_otp">
+            <div class="field">
+              <label class="field-label" for="email">Admin Email Address</label>
+              <input
+                class="field-input"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="admin@example.com"
+                autocomplete="email"
+                required
+                autofocus
+              >
+              <p class="field-info">A 6-digit verification code will be sent to authorize creating an admin.</p>
+            </div>
+            <button type="submit" class="btn-submit">
+              Get Verification Code
+            </button>
+          </form>
+
+        {% elif step == 'verify_otp' %}
+          <form method="POST" action="/admin/create_admin">
+            <input type="hidden" name="action" value="verify_otp">
+            <div class="field">
+              <label class="field-label" for="otp_code">OTP Code</label>
+              <input
+                class="field-input"
+                type="text"
+                id="otp_code"
+                name="otp_code"
+                placeholder="000000"
+                autocomplete="one-time-code"
+                maxlength="6"
+                required
+                autofocus
+              >
+              <p class="field-info">Enter the 6-digit code printed in the backend console log.</p>
+            </div>
+            <button type="submit" class="btn-submit">
+              Verify Code
+            </button>
+          </form>
+
+          <form method="POST" action="/admin/create_admin" style="margin-top:16px; text-align:center;">
+            <input type="hidden" name="action" value="send_otp">
+            <input type="hidden" name="email" value="{{ email }}">
+            <span style="font-size:12px; color:var(--text-tertiary);">Didn't get the code? </span>
+            <button type="submit" class="btn-link" style="background:none; border:none; color:var(--text-accent); font-size:12px; cursor:pointer; text-decoration:underline;">Resend OTP</button>
+          </form>
+
+          <form method="POST" action="/admin/create_admin" style="margin-top:8px; text-align:center;">
+            <input type="hidden" name="action" value="restart">
+            <button type="submit" class="btn-link" style="background:none; border:none; color:var(--text-tertiary); font-size:12px; cursor:pointer;">Use different email</button>
+          </form>
+
+        {% elif step == 'register' %}
+          <form method="POST" action="/admin/create_admin">
+            <input type="hidden" name="action" value="register">
+            <div class="field">
+              <label class="field-label">Verified Email</label>
+              <input class="field-input" type="text" value="{{ email }}" disabled>
+            </div>
+            <div class="field">
+              <label class="field-label" for="username">New Admin Username</label>
+              <input
+                class="field-input"
+                type="text"
+                id="username"
+                name="username"
+                placeholder="admin_jane"
+                autocomplete="off"
+                required
+                autofocus
+              >
+            </div>
+            <div class="field">
+              <label class="field-label" for="password">New Admin Password</label>
+              <input
+                class="field-input"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                autocomplete="new-password"
+                required
+              >
+              <p class="field-info">Must be at least 8 characters.</p>
+            </div>
+            <button type="submit" class="btn-submit">
+              Create Admin User
+            </button>
+          </form>
+
+        {% elif step == 'verify_admin' %}
           <form method="POST" action="/admin/create_admin">
             <input type="hidden" name="action" value="verify">
             <div class="field">
@@ -244,23 +386,28 @@
 
     </div>
   </main>
+  </div>
 
   <!-- ════════ JAVASCRIPT ════════ -->
   <script>
     (function initTheme() {
       const saved = localStorage.getItem("qa-theme") || "dark";
       document.documentElement.setAttribute("data-theme", saved);
-      document.getElementById("theme-icon").textContent = saved === "dark" ? "☀️" : "🌙";
+      const icon = document.getElementById("theme-icon");
+      if (icon) icon.textContent = saved === "dark" ? "☀️" : "🌙";
     })();
 
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-      const html = document.documentElement;
-      const current = html.getAttribute("data-theme");
-      const next = current === "dark" ? "light" : "dark";
-      html.setAttribute("data-theme", next);
-      localStorage.setItem("qa-theme", next);
-      document.getElementById("theme-icon").textContent = next === "dark" ? "☀️" : "🌙";
-    });
+    const toggle = document.getElementById("theme-toggle");
+    if (toggle) {
+        toggle.addEventListener("click", () => {
+          const html = document.documentElement;
+          const current = html.getAttribute("data-theme");
+          const next = current === "dark" ? "light" : "dark";
+          html.setAttribute("data-theme", next);
+          localStorage.setItem("qa-theme", next);
+          document.getElementById("theme-icon").textContent = next === "dark" ? "☀️" : "🌙";
+        });
+    }
   </script>
 </body>
 

@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
 
+<html data-theme="dark" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QA Automation Engine — Dashboard & Reports</title>
-  <meta name="description" content="Configure and execute end-to-end automated tests with real-time feedback and comprehensive reporting.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QA Automation Engine — Dashboard &amp; Reports</title>
+<meta content="Configure and execute end-to-end automated tests with real-time feedback and comprehensive reporting." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet"/>
+<style>
     /* ═══════════════════════════════════════════════════════════
        DASHBOARD & REPORTS LAYOUT SYSTEM (DARK PURPLE THEME)
        ═══════════════════════════════════════════════════════════ */
-    body { overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
+    body { overflow: hidden; height: 100vh; display: flex; flex-direction: row; background: var(--bg-primary); }
 
     /* View containers */
     .view-pane {
       flex: 1;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       height: calc(100vh - 48px);
       overflow: hidden;
       position: relative;
@@ -27,7 +27,7 @@
     .dash-shell {
       flex: 1;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       overflow: hidden;
       height: calc(100vh - 48px);
     }
@@ -43,12 +43,7 @@
       background: var(--bg-primary);
     }
 
-    .dash-col {
-      overflow-y: auto;
-      overflow-x: hidden;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border-default) transparent;
-    }
+    
 
     #col-left {
       width: var(--col-left-w, 280px);
@@ -120,7 +115,7 @@
     .gutter-col:hover::before,
     .gutter-col.is-dragging::before {
       background: var(--accent-blue);
-      box-shadow: 0 0 8px rgba(155,106,196,0.65);
+      box-shadow: 0 0 8px rgba(47,213,154,0.65);
     }
 
     body.is-resizing {
@@ -157,7 +152,7 @@
     .card-collapse-btn:hover,
     .card-action-btn:hover {
       color: var(--text-primary);
-      background: rgba(255,255,255,0.06);
+      background: var(--control-bg);
       border-color: var(--border-muted);
     }
     .card-collapse-btn:active,
@@ -184,7 +179,7 @@
     .sidebar-left {
       padding: 16px 14px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       gap: 14px;
     }
     .sidebar-section {
@@ -209,12 +204,12 @@
     .sidebar-section-icon {
       width: 26px; height: 26px;
       border-radius: var(--radius-sm);
-      background: rgba(155,106,196,0.12);
-      border: 1px solid rgba(155,106,196,0.2);
+      background: rgba(47,213,154,0.12);
+      border: 1px solid rgba(47,213,154,0.2);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .sidebar-section-icon svg { width: 13px; height: 13px; color: var(--accent-blue); }
+    .sidebar-section-icon svg { width: 13px; height: 13px; color: var(--text-accent); }
     .sidebar-section-title { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.2; }
     .sidebar-section-sub   { font-size: 11px; color: var(--text-tertiary); margin-top: 1px; }
 
@@ -242,8 +237,8 @@
       transition: border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
     }
     .scan-select:focus {
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 2px rgba(155,106,196,0.18);
+      border-color: var(--text-accent);
+      box-shadow: 0 0 0 2px rgba(47,213,154,0.18);
     }
     .field-hint { font-size: 11px; color: var(--text-tertiary); margin-top: 5px; line-height: 1.4; }
 
@@ -257,7 +252,7 @@
       border: 1px solid var(--border-default);
       border-radius: var(--radius-sm);
       padding: 9px; cursor: pointer;
-      display: flex; flex-direction: column; gap: 4px;
+      display: flex; flex-direction: row; background: var(--bg-primary); gap: 4px;
       overflow: hidden;
       transition: border-color var(--duration-fast) var(--ease-out),
                   background var(--duration-fast) var(--ease-out),
@@ -271,11 +266,11 @@
     .strategy-card:not(.selected):hover { opacity: 0.8; border-color: var(--border-muted); }
     .strategy-card.selected {
       opacity: 1;
-      border-color: var(--accent-blue);
-      background: rgba(155,106,196,0.08);
-      box-shadow: 0 0 0 1px rgba(155,106,196,0.2);
+      border-color: var(--text-accent);
+      background: rgba(47,213,154,0.08);
+      box-shadow: 0 0 0 1px rgba(47,213,154,0.2);
     }
-    .strategy-card.selected .strategy-card-icon  { color: var(--accent-blue); }
+    .strategy-card.selected .strategy-card-icon  { color: var(--text-accent); }
     .strategy-card.selected .strategy-card-title { color: var(--text-primary); }
     .strategy-card:active { transform: scale(0.97); }
 
@@ -317,10 +312,10 @@
       transition: border-color var(--duration-fast) var(--ease-out),
                   box-shadow var(--duration-fast) var(--ease-out);
     }
-    .field-input-sm:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 2px rgba(155,106,196,0.18); }
+    .field-input-sm:focus { border-color: var(--text-accent); box-shadow: 0 0 0 2px rgba(47,213,154,0.18); }
 
     /* Env table */
-    .env-table { display: flex; flex-direction: column; gap: 2px; }
+    .env-table { display: flex; flex-direction: row; background: var(--bg-primary); gap: 2px; }
     .env-row {
       display: grid; grid-template-columns: 90px 1fr auto;
       align-items: center; gap: 8px;
@@ -329,7 +324,7 @@
     .env-row:last-child { border-bottom: none; }
     .env-key { font-size: 11px; color: var(--text-tertiary); }
     .env-val { font-size: 11px; font-family: var(--mono); color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .env-badge { font-size: 9px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: rgba(155,106,196,0.15); color: var(--accent-blue); white-space: nowrap; }
+    .env-badge { font-size: 9px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: rgba(47,213,154,0.15); color: var(--text-accent); white-space: nowrap; }
     .env-note { font-size: 10px; color: var(--text-tertiary); margin-top: 10px; line-height: 1.5; display: flex; gap: 6px; align-items: flex-start; }
     .env-note svg { width: 11px; height: 11px; flex-shrink: 0; margin-top: 2px; }
 
@@ -344,35 +339,35 @@
       border-radius: calc(var(--radius-sm) + 4px);
       filter: blur(10px); opacity: 0; z-index: -2;
       will-change: transform, opacity;
-      transition: opacity 800ms var(--ease-out);
+      transition: opacity var(--dur-slow) var(--ease);
     }
     .run-button-shell.testing .run-shell-layer { opacity: 0.38; }
     .run-shell-layer.layer-one   { background: radial-gradient(circle at 30% 50%, var(--accent-blue), transparent 60%); }
-    .run-shell-layer.layer-two   { background: radial-gradient(circle at 70% 30%, #5b21b6, transparent 65%); }
-    .run-shell-layer.layer-three { background: radial-gradient(circle at 50% 80%, #7c3aed, transparent 70%); }
+    .run-shell-layer.layer-two   { background: radial-gradient(circle at 70% 30%, var(--success), transparent 65%); }
+    .run-shell-layer.layer-three { background: radial-gradient(circle at 50% 80%, #12A36F, transparent 70%); }
     .run-shell-edge {
       position: absolute; inset: -1px;
       border-radius: calc(var(--radius-sm) + 1px);
       padding: 1px; z-index: -1;
       background: conic-gradient(from var(--edge-angle), transparent 0deg 310deg,
-        rgba(155,106,196,0.1) 322deg, rgba(155,106,196,0.6) 338deg,
-        rgba(155,106,196,0.3) 352deg, transparent 360deg);
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        rgba(47,213,154,0.1) 322deg, rgba(47,213,154,0.6) 338deg,
+        rgba(47,213,154,0.3) 352deg, transparent 360deg);
+      -webkit-mask: linear-gradient(var(--bg-cards) 0 0) content-box, linear-gradient(var(--bg-cards) 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude;
-      opacity: 0; transition: opacity 500ms var(--ease-out);
+      opacity: 0; transition: opacity var(--dur-slow) var(--ease);
     }
     .run-button-shell.testing .run-shell-edge { opacity: 1; }
     .run-shell-grain {
       position: absolute; inset: 0; border-radius: inherit;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       opacity: 0; mix-blend-mode: overlay; pointer-events: none; z-index: 1;
-      transition: opacity 800ms var(--ease-out);
+      transition: opacity var(--dur-slow) var(--ease);
     }
     .run-button-shell.testing .run-shell-grain { opacity: 0.12; }
     .btn-run {
       position: relative; width: 100%; height: 100%;
       background: var(--accent-blue); border: none;
-      border-radius: inherit; color: #fff;
+      border-radius: inherit; color: var(--text-primary);
       font-family: var(--font); font-size: 13px; font-weight: 600;
       cursor: pointer; overflow: hidden; padding: 0;
       transition: filter var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
@@ -383,20 +378,20 @@
     .btn-run .btn-idle-text {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center; gap: 7px;
-      transition: transform 260ms ease, opacity 260ms ease;
+      transition: transform var(--dur-base) var(--ease), opacity var(--dur-base) var(--ease);
     }
     .btn-run:not(:disabled):hover .btn-idle-text { transform: translateX(36px); opacity: 0; }
     .btn-run .btn-hover-text {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center; gap: 7px;
       transform: translateX(36px); opacity: 0;
-      transition: transform 260ms ease, opacity 260ms ease;
+      transition: transform var(--dur-base) var(--ease), opacity var(--dur-base) var(--ease);
       pointer-events: none; z-index: 2;
     }
     .btn-run:not(:disabled):hover .btn-hover-text { transform: translateX(0); opacity: 1; }
     .btn-spinner {
       display: none; width: 13px; height: 13px;
-      border: 2px solid rgba(255,255,255,0.25); border-top-color: #fff;
+      border: 2px solid var(--border-strong); border-top-color: var(--text-primary);
       border-radius: 50%; animation: spin 0.8s linear infinite;
     }
     .btn-run.testing .btn-spinner { display: flex; }
@@ -404,12 +399,12 @@
 
     /* ═══ CENTER PANE ═══ */
     .center-pane {
-      display: flex; flex-direction: column; overflow: hidden;
+      display: flex; flex-direction: row; background: var(--bg-primary); overflow: hidden;
       background: var(--bg-primary);
     }
     .center-scroll {
       flex: 1; overflow-y: auto; overflow-x: hidden;
-      padding: 16px 18px; display: flex; flex-direction: column; gap: 14px;
+      padding: 16px 18px; display: flex; flex-direction: row; background: var(--bg-primary); gap: 14px;
       scrollbar-width: thin; scrollbar-color: var(--border-default) transparent;
     }
 
@@ -423,10 +418,10 @@
     .exec-card-title-group { display: flex; align-items: center; gap: 10px; }
     .exec-icon {
       width: 30px; height: 30px; border-radius: var(--radius-sm);
-      background: rgba(155,106,196,0.12); border: 1px solid rgba(155,106,196,0.2);
+      background: rgba(47,213,154,0.12); border: 1px solid rgba(47,213,154,0.2);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .exec-icon svg { width: 15px; height: 15px; color: var(--accent-blue); }
+    .exec-icon svg { width: 15px; height: 15px; color: var(--text-accent); }
     .exec-title    { font-size: 13px; font-weight: 600; color: var(--text-primary); }
     .exec-subtitle { font-size: 11px; color: var(--text-tertiary); margin-top: 1px; }
     .exec-meta { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-tertiary); }
@@ -434,10 +429,10 @@
       display: flex; align-items: center; gap: 5px;
       font-size: 11px; font-weight: 600;
       padding: 3px 8px; border-radius: 20px;
-      background: rgba(155,106,196,0.12); color: var(--accent-blue);
+      background: rgba(47,213,154,0.12); color: var(--text-accent);
     }
-    .exec-status-badge.running  { background: rgba(234,179,8,0.12); color: var(--warning); }
-    .exec-status-badge.done-ok  { background: rgba(34,197,94,0.12); color: var(--success); }
+    .exec-status-badge.running  { background: rgba(234,179,8,0.12); color: var(--text-warning); }
+    .exec-status-badge.done-ok  { background: rgba(34,197,94,0.12); color: var(--text-success); }
     .exec-status-badge.done-fail{ background: rgba(239,68,68,0.12);  color: var(--danger); }
     .exec-status-badge .status-dot { width: 6px; height: 6px; }
 
@@ -452,7 +447,7 @@
       height: 2px; background: var(--border-default); z-index: 0;
     }
     .step-item {
-      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      display: flex; flex-direction: row; background: var(--bg-primary); align-items: center; gap: 5px;
       position: relative; z-index: 1; flex: 1;
     }
     .step-circle {
@@ -465,19 +460,19 @@
                   box-shadow var(--duration-normal) var(--ease-out);
     }
     .step-circle svg { width: 13px; height: 13px; color: var(--text-tertiary); transition: color var(--duration-normal) var(--ease-out); }
-    .step-item.done .step-circle    { border-color: var(--success); background: rgba(34,197,94,0.12); }
-    .step-item.done .step-circle svg{ color: var(--success); }
+    .step-item.done .step-circle    { border-color: var(--text-success); background: rgba(34,197,94,0.12); }
+    .step-item.done .step-circle svg{ color: var(--text-success); }
     .step-item.running .step-circle {
-      border-color: var(--accent-blue); background: rgba(155,106,196,0.12);
-      box-shadow: 0 0 0 4px rgba(155,106,196,0.15);
+      border-color: var(--text-accent); background: rgba(47,213,154,0.12);
+      box-shadow: 0 0 0 4px rgba(47,213,154,0.15);
       animation: step-pulse 28s ease-in-out infinite;
     }
-    .step-item.running .step-circle svg { color: var(--accent-blue); }
+    .step-item.running .step-circle svg { color: var(--text-accent); }
     .step-item.failed .step-circle     { border-color: var(--danger); background: rgba(239,68,68,0.12); }
     .step-item.failed .step-circle svg { color: var(--danger); }
     @keyframes step-pulse {
-      0%,100%{ box-shadow: 0 0 0 4px rgba(74,40,120,0.15); }
-      50%    { box-shadow: 0 0 0 8px rgba(74,40,120,0.06); }
+      0%,100%{ box-shadow: 0 0 0 4px rgba(47,213,154,0.15); }
+      50%    { box-shadow: 0 0 0 8px rgba(47,213,154,0.06); }
     }
     .step-label { font-size: 11px; font-weight: 500; color: var(--text-tertiary); text-align: center; transition: color var(--duration-normal) var(--ease-out); }
     .step-time  { font-size: 10px; font-family: var(--mono); color: var(--text-tertiary); text-align: center; }
@@ -488,7 +483,7 @@
     .exec-progress-track { flex: 1; height: 6px; background: var(--border-muted); border-radius: 3px; overflow: hidden; }
     .exec-progress-fill {
       height: 100%; border-radius: 3px;
-      background: linear-gradient(90deg, var(--accent-blue), #c084fc);
+      background: linear-gradient(90deg, var(--accent-blue), #12A36F);
       transform: scaleX(0); transform-origin: left;
       transition: transform 0.4s var(--ease-out); will-change: transform;
     }
@@ -503,36 +498,36 @@
     .completion-section.visible { display:block; }
     .completion-card { background:var(--bg-secondary); border:1px solid var(--border-default); border-radius:var(--radius-lg); padding:16px; text-align:center; }
     .completion-status { font-size:14px; font-weight:600; margin-bottom:14px; }
-    .completion-status.ok   { color:var(--success); }
-    .completion-status.warn { color:var(--danger); }
+    .completion-status.ok   { color:var(--text-success); }
+    .completion-status.warn { color:var(--text-danger); }
     .stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:14px; }
     .stat-box { background:var(--bg-tertiary); border:1px solid var(--border-muted); border-radius:var(--radius-sm); padding:8px 6px; text-align:center; }
     .stat-num { font-size:18px; font-weight:700; font-family:var(--mono); line-height:1; letter-spacing:-0.02em; }
     .stat-num.total  { color:var(--accent-blue); }
-    .stat-num.passed { color:var(--success); }
-    .stat-num.failed { color:var(--danger); }
-    .stat-num.errors { color:var(--warning); }
+    .stat-num.passed { color:var(--text-success); }
+    .stat-num.failed { color:var(--text-danger); }
+    .stat-num.errors { color:var(--text-warning); }
     .stat-label { font-size:9px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-tertiary); margin-top:3px; }
     .pass-rate-wrap { margin-bottom:10px; }
     .pass-rate-header { display:flex; justify-content:space-between; font-size:11px; color:var(--text-secondary); margin-bottom:5px; }
     .pass-rate-track { height:5px; background:var(--bg-tertiary); border-radius:3px; overflow:hidden; }
     .pass-rate-fill { position:relative; width:100%; height:100%; border-radius:3px; transform:scaleX(0); transform-origin:left center; will-change:transform; }
-    .pass-rate-fill::after { content:""; position:absolute; top:0; right:0; width:8px; height:100%; border-radius:inherit; background:rgba(255,255,255,0.62); box-shadow:0 0 7px currentColor; opacity:0.72; }
-    .pass-rate-fill.good { background:var(--success); color:var(--success); }
-    .pass-rate-fill.bad  { background:var(--danger);  color:var(--danger); }
+    .pass-rate-fill::after { content:""; position:absolute; top:0; right:0; width:8px; height:100%; border-radius:inherit; background:var(--overlay-light); box-shadow:0 0 7px currentColor; opacity:0.72; }
+    .pass-rate-fill.good { background:var(--success); color:var(--text-success); }
+    .pass-rate-fill.bad  { background:var(--danger);  color:var(--text-danger); }
     .completion-view-link {
       display: inline-flex; align-items: center; gap: 5px;
-      font-size: 11px; color: var(--accent-blue); text-decoration: none;
+      font-size: 11px; color: var(--text-accent); text-decoration: none;
       margin-top: 4px; cursor: pointer; transition: color var(--duration-fast) var(--ease-out);
     }
-    .completion-view-link:hover { color: #c084fc; text-decoration: underline; }
+    .completion-view-link:hover { color: #12A36F; text-decoration: underline; }
 
     /* ═══ ACTIVITY LOG WIDGET (VERTICALLY RESIZABLE & MAXIMIZABLE) ═══ */
     .activity-card {
       background: var(--bg-secondary);
       border: 1px solid var(--border-default);
       border-radius: var(--radius-lg);
-      display: flex; flex-direction: column;
+      display: flex; flex-direction: row; background: var(--bg-primary);
       flex: 1 1 auto;
       min-height: 240px;
       height: 380px;
@@ -567,14 +562,14 @@
 
     .activity-view-btn {
       display: flex; align-items: center; gap: 4px;
-      font-size: 11px; font-weight: 500; color: var(--accent-blue);
-      background: none; border: 1px solid rgba(155,106,196,0.25);
+      font-size: 11px; font-weight: 500; color: var(--text-accent);
+      background: none; border: 1px solid rgba(47,213,154,0.25);
       border-radius: var(--radius-sm); padding: 3px 8px;
       cursor: pointer; text-decoration: none;
       transition: border-color var(--duration-fast) var(--ease-out),
                   background var(--duration-fast) var(--ease-out);
     }
-    .activity-view-btn:hover { background: rgba(155,106,196,0.08); border-color: var(--accent-blue); }
+    .activity-view-btn:hover { background: rgba(47,213,154,0.08); border-color: var(--text-accent); }
     .activity-view-btn svg { width: 11px; height: 11px; }
 
     /* Log body */
@@ -584,7 +579,7 @@
       scrollbar-width: thin; scrollbar-color: var(--border-default) transparent;
     }
     .log-empty {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      display: flex; flex-direction: row; background: var(--bg-primary); align-items: center; justify-content: center;
       height: 120px; color: var(--text-tertiary); font-size: 12px; gap: 6px; text-align: center;
     }
     .log-empty svg { width: 24px; height: 24px; color: var(--border-default); }
@@ -595,10 +590,10 @@
     .log-level-label{ flex-shrink: 0; font-size: 10px; font-weight: 600; font-family: var(--mono); color: var(--text-tertiary); width: 34px; user-select: none; }
     .log-text { flex: 1; min-width: 0; overflow-wrap: break-word; word-break: break-word; color: var(--text-secondary); font-size: 11px; }
     .log-line.level-pass .log-level-dot   { background: var(--success); }
-    .log-line.level-pass .log-level-label { color: var(--success); }
+    .log-line.level-pass .log-level-label { color: var(--text-success); }
     .log-line.level-pass .log-text        { color: var(--text-primary); }
     .log-line.level-warn .log-level-dot   { background: var(--warning); }
-    .log-line.level-warn .log-level-label { color: var(--warning); }
+    .log-line.level-warn .log-level-label { color: var(--text-warning); }
     .log-line.level-warn .log-text        { color: var(--text-primary); }
     .log-line.level-fail .log-level-dot, .log-line.level-error .log-level-dot   { background: var(--danger); }
     .log-line.level-fail .log-level-label,.log-line.level-error .log-level-label{ color: var(--danger); }
@@ -608,7 +603,7 @@
       font-size: 9px; font-weight: 600; letter-spacing: 0.07em;
       color: var(--text-tertiary); text-transform: uppercase; opacity: 0.6;
     }
-    .log-file-sep::after { content:""; flex:1; height:1px; background:rgba(255,255,255,0.05); }
+    .log-file-sep::after { content:""; flex:1; height:1px; background:var(--border-subtle); }
     .log-count { font-size: 10px; font-weight: 500; color: var(--text-tertiary); background: var(--bg-tertiary); padding: 1px 6px; border-radius: 8px; font-family: var(--mono); }
     .log-clear-btn {
       background: none; border: 1px solid var(--border-default);
@@ -622,24 +617,24 @@
     .timeline { background: var(--bg-primary); border: 1px solid var(--border-muted); border-radius: var(--radius-md); overflow: hidden; }
     .tl-row {
       display: none; align-items: flex-start; gap: 10px;
-      padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 12px 14px; border-bottom: 1px solid var(--border-subtle);
       flex-wrap: wrap; row-gap: 0;
-      transition: background 200ms ease;
+      transition: background var(--dur-base) var(--ease);
     }
     .tl-row:last-child { border-bottom: none; }
     @keyframes row-slide-in { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
     .tl-row.visible { display: flex; animation: row-slide-in 0.28s ease forwards; }
-    .tl-row.running { background: rgba(155,106,196,0.05); }
+    .tl-row.running { background: rgba(47,213,154,0.05); }
     .tl-row.passed  { background: rgba(34,197,94,0.04); }
     .tl-row.failed  { background: rgba(239,68,68,0.04); }
     .circuit-trace  { display: none; }
-    .tl-dot { flex-shrink:0; width:7px; height:7px; border-radius:50%; background:var(--border-default); margin-top:5px; transition:background 260ms ease; }
+    .tl-dot { flex-shrink:0; width:7px; height:7px; border-radius:50%; background:var(--border-default); margin-top:5px; transition:background var(--dur-base) var(--ease); }
     .tl-row.running .tl-dot { background: var(--accent-blue); animation: tl-pulse 25s ease-in-out infinite; }
     .tl-row.passed  .tl-dot { background: var(--success); animation: none; }
     .tl-row.failed  .tl-dot { background: var(--danger);  animation: none; }
     @keyframes tl-pulse {
-      0%,100%{ box-shadow: 0 0 0 0 rgba(74,40,120,0.5); }
-      50%    { box-shadow: 0 0 0 4px rgba(74,40,120,0); }
+      0%,100%{ box-shadow: 0 0 0 0 rgba(47,213,154,0.5); }
+      50%    { box-shadow: 0 0 0 4px rgba(47,213,154,0); }
     }
     .tl-pixel-grid { display:none; grid-template-columns:repeat(3,4px); grid-template-rows:repeat(3,4px); gap:1.5px; flex-shrink:0; margin-top:5px; }
     .tl-row.running .tl-pixel-grid { display: grid; }
@@ -652,34 +647,34 @@
     .timeline-detail   { margin-top:2px; font-size:10px; color:var(--text-tertiary); font-family:var(--mono); display:flex; gap:6px; flex-wrap:wrap; }
     .timeline-detail-stats { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .timeline-badge { flex-shrink:0; font-size:9px; font-weight:600; padding:2px 7px; border-radius:10px; text-transform:uppercase; letter-spacing:0.04em; white-space:nowrap; }
-    .timeline-badge.waiting { background:rgba(255,255,255,0.06); color:var(--text-tertiary); }
-    .timeline-badge.running { background:rgba(155,106,196,0.15); color:var(--accent-blue); }
-    .timeline-badge.passed  { background:var(--success-muted);   color:var(--success); }
-    .timeline-badge.failed  { background:var(--danger-muted);    color:var(--danger); }
-    .timeline-badge.error   { background:var(--danger-muted);    color:var(--danger); }
-    .timeline-badge.timeout { background:rgba(234,179,8,0.15);   color:var(--warning); }
+    .timeline-badge.waiting { background:var(--control-bg); color:var(--text-tertiary); }
+    .timeline-badge.running { background:rgba(47,213,154,0.15); color:var(--accent-blue); }
+    .timeline-badge.passed  { background:var(--success-muted);   color:var(--text-success); }
+    .timeline-badge.failed  { background:var(--danger-muted);    color:var(--text-danger); }
+    .timeline-badge.error   { background:var(--danger-muted);    color:var(--text-danger); }
+    .timeline-badge.timeout { background:rgba(234,179,8,0.15);   color:var(--text-warning); }
     .tl-running-meta { display:none; align-items:center; gap:6px; margin-top:3px; font-size:10px; }
     .tl-row.running .tl-running-meta { display:flex; }
     @keyframes shimmer-text { 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
     .tl-shimmer-label {
       font-weight:600; font-size:10px;
-      background: linear-gradient(90deg,rgba(155,106,196,0.3) 0%,var(--accent-blue) 25%,rgba(155,106,196,0.3) 50%,rgba(155,106,196,0.1) 100%);
+      background: linear-gradient(90deg,rgba(47,213,154,0.3) 0%,var(--accent-blue) 25%,rgba(47,213,154,0.3) 50%,rgba(47,213,154,0.1) 100%);
       background-size:200% 100%;
       -webkit-background-clip:text; -webkit-text-fill-color:transparent;
       background-clip:text; animation:shimmer-text 8s linear infinite;
     }
     .tl-elapsed { font-family:var(--mono); font-size:10px; color:var(--text-tertiary); min-width:32px; }
-    .tl-progress { position:relative; overflow:hidden; height:2px; width:100%; margin-top:8px; background:rgba(255,255,255,0.06); opacity:0; transition:opacity 200ms ease; }
+    .tl-progress { position:relative; overflow:hidden; height:2px; width:100%; margin-top:8px; background:var(--control-bg); opacity:0; transition:opacity var(--dur-base) var(--ease); }
     .tl-progress.running,.tl-progress.passed,.tl-progress.failed { opacity:1; }
     @keyframes progress-slide { 0%{transform:translateX(-100%);} 100%{transform:translateX(400%);} }
-    .tl-progress-bar { position:absolute; left:0; top:0; height:100%; width:25%; background:linear-gradient(90deg,transparent,var(--accent-blue),#c084fc,var(--accent-blue),transparent); animation:progress-slide 6s ease-in-out infinite; display:none; }
+    .tl-progress-bar { position:absolute; left:0; top:0; height:100%; width:25%; background:linear-gradient(90deg,transparent,var(--accent-blue),#12A36F,var(--accent-blue),transparent); animation:progress-slide 6s ease-in-out infinite; display:none; }
     .tl-progress.running .tl-progress-bar { display:block; }
-    .tl-progress.passed { background:var(--success); transition:background 0.3s ease,opacity 200ms ease; }
-    .tl-progress.failed { background:var(--danger);  transition:background 0.3s ease,opacity 200ms ease; }
+    .tl-progress.passed { background:var(--success); transition:background var(--dur-base) var(--ease),opacity var(--dur-base) var(--ease); }
+    .tl-progress.failed { background:var(--danger);  transition:background var(--dur-base) var(--ease),opacity var(--dur-base) var(--ease); }
 
     /* ═══ RIGHT SIDEBAR (CLEANED UP — Redundant cards removed) ═══ */
     .sidebar-right {
-      display: flex; flex-direction: column;
+      display: flex; flex-direction: row; background: var(--bg-primary);
       padding: 16px 14px; gap: 14px;
       overflow-y: auto;
       scrollbar-width: thin; scrollbar-color: var(--border-default) transparent;
@@ -689,7 +684,7 @@
     .gauge-card { background:var(--bg-tertiary); border:1px solid var(--border-default); border-radius:var(--radius-lg); padding:14px; }
     .gauge-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
     .gauge-header-left { display:flex; align-items:center; gap:8px; }
-    .gauge-icon { width:26px; height:26px; border-radius:var(--radius-sm); background:rgba(155,106,196,0.12); border:1px solid rgba(155,106,196,0.2); display:flex; align-items:center; justify-content:center; }
+    .gauge-icon { width:26px; height:26px; border-radius:var(--radius-sm); background:rgba(47,213,154,0.12); border:1px solid rgba(47,213,154,0.2); display:flex; align-items:center; justify-content:center; }
     .gauge-icon svg { width:13px; height:13px; color:var(--accent-blue); }
     .gauge-title { font-size:12px; font-weight:600; color:var(--text-primary); }
     .gauge-sub   { font-size:10px; color:var(--text-tertiary); }
@@ -711,31 +706,31 @@
     .gauge-legend-dot.skipped { background:var(--warning); }
     .gauge-legend-val { font-weight:600; font-family:var(--mono); color:var(--text-primary); }
     .gauge-bar-track { height:4px; background:var(--border-muted); border-radius:2px; overflow:hidden; }
-    .gauge-bar-fill  { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--accent-blue),#c084fc); transform:scaleX(0); transform-origin:left; transition:transform 0.8s var(--ease-out) 0.2s; will-change:transform; }
+    .gauge-bar-fill  { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--accent-blue),#12A36F); transform:scaleX(0); transform-origin:left; transition:transform 0.8s var(--ease-out) 0.2s; will-change:transform; }
     .gauge-bar-meta  { font-size:10px; color:var(--text-tertiary); font-family:var(--mono); margin-top:5px; }
 
     /* Recent scans */
     .recent-card { background:var(--bg-tertiary); border:1px solid var(--border-default); border-radius:var(--radius-lg); padding:14px; }
     .recent-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
     .recent-header-left { display:flex; align-items:center; gap:8px; }
-    .recent-icon { width:24px; height:24px; border-radius:var(--radius-sm); background:rgba(155,106,196,0.1); border:1px solid rgba(155,106,196,0.18); display:flex; align-items:center; justify-content:center; }
+    .recent-icon { width:24px; height:24px; border-radius:var(--radius-sm); background:rgba(47,213,154,0.1); border:1px solid rgba(47,213,154,0.18); display:flex; align-items:center; justify-content:center; }
     .recent-icon svg { width:12px; height:12px; color:var(--accent-blue); }
     .recent-title { font-size:12px; font-weight:600; color:var(--text-primary); }
     .recent-view-all { font-size:11px; font-weight:500; color:var(--accent-blue); text-decoration:none; cursor:pointer; background:none; border:none; padding:0; transition:color var(--duration-fast) var(--ease-out); }
-    .recent-view-all:hover { color:#c084fc; }
+    .recent-view-all:hover { color:#12A36F; }
     .recent-list { display:flex; flex-direction:column; gap:3px; }
     .recent-item {
       display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:var(--radius-sm);
       cursor: pointer; transition:background var(--duration-fast) var(--ease-out);
     }
-    .recent-item:hover { background:rgba(255,255,255,0.04); }
+    .recent-item:hover { background:var(--bg-hover); }
     .recent-item-body { flex:1; min-width:0; }
     .recent-item-name { font-size:11px; font-weight:500; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .recent-item-date { font-size:10px; color:var(--text-tertiary); margin-top:1px; }
     .recent-badge { font-size:9px; font-weight:600; padding:2px 6px; border-radius:10px; white-space:nowrap; letter-spacing:0.02em; }
-    .recent-badge.running   { background:rgba(234,179,8,0.12); color:var(--warning); }
-    .recent-badge.completed { background:var(--success-muted); color:var(--success); }
-    .recent-badge.failed    { background:var(--danger-muted);  color:var(--danger); }
+    .recent-badge.running   { background:rgba(234,179,8,0.12); color:var(--text-warning); }
+    .recent-badge.completed { background:var(--success-muted); color:var(--text-success); }
+    .recent-badge.failed    { background:var(--danger-muted);  color:var(--text-danger); }
     .recent-item-arrow { color:var(--text-tertiary); }
 
     /* ═══════════════════════════════════════════════════════════
@@ -744,12 +739,13 @@
     .reports-shell {
       flex: 1;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       height: calc(100vh - 48px);
       overflow: hidden;
       background: var(--bg-primary);
     }
-    .reports-layout {
+/* reports view base styles */
+.reports-layout {
       display: flex;
       flex-direction: row;
       height: 100%;
@@ -766,7 +762,7 @@
       background: var(--bg-secondary);
       border-right: 1px solid var(--border-default);
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       overflow: hidden;
     }
     .reports-drawer-header {
@@ -785,7 +781,7 @@
     .reports-drawer-icon {
       width: 16px;
       height: 16px;
-      color: var(--accent-blue);
+      color: var(--text-accent);
     }
     .reports-drawer-title {
       font-size: 13px;
@@ -800,8 +796,8 @@
       font-size: 10px;
       font-family: var(--mono);
       font-weight: 600;
-      color: var(--accent-blue);
-      background: rgba(155,106,196,0.15);
+      color: var(--text-accent);
+      background: rgba(47,213,154,0.15);
       padding: 1px 7px;
       border-radius: 10px;
     }
@@ -835,8 +831,8 @@
       transition: border-color var(--duration-fast) var(--ease-out);
     }
     .history-search-input:focus {
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 2px rgba(155,106,196,0.18);
+      border-color: var(--text-accent);
+      box-shadow: 0 0 0 2px rgba(47,213,154,0.18);
     }
 
     .reports-history-list {
@@ -858,18 +854,19 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      margin-bottom: 8px;
       transition: background var(--duration-fast) var(--ease-out),
                   border-color var(--duration-fast) var(--ease-out),
                   transform var(--duration-fast) var(--ease-out);
     }
     .reports-history-item:hover {
-      background: rgba(255,255,255,0.04);
+      background: var(--bg-hover);
       border-color: var(--border-default);
     }
     .reports-history-item.is-active {
-      background: rgba(155,106,196,0.12);
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 1px rgba(155,106,196,0.3);
+      background: rgba(47,213,154,0.12);
+      border-color: var(--text-accent);
+      box-shadow: 0 0 0 1px rgba(47,213,154,0.3);
     }
     .reports-history-item-top {
       display: flex;
@@ -906,7 +903,7 @@
       font-size: 9px;
       padding: 1px 6px;
       border-radius: 4px;
-      background: rgba(255,255,255,0.05);
+      background: var(--border-subtle);
     }
 
     /* Empty state */
@@ -974,14 +971,14 @@
       width: 36px;
       height: 36px;
       border-radius: var(--radius-sm);
-      background: rgba(155,106,196,0.12);
-      border: 1px solid rgba(155,106,196,0.22);
+      background: rgba(47,213,154,0.12);
+      border: 1px solid rgba(47,213,154,0.22);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
-    .report-overview-icon svg { width: 18px; height: 18px; color: var(--accent-blue); }
+    .report-overview-icon svg { width: 18px; height: 18px; color: var(--text-accent); }
     .report-overview-title-row {
       display: flex;
       align-items: center;
@@ -1002,7 +999,7 @@
     }
     .report-meta-url {
       font-family: var(--mono);
-      color: var(--accent-blue);
+      color: var(--text-accent);
     }
     .report-meta-sep { opacity: 0.4; }
 
@@ -1036,7 +1033,7 @@
     }
     .report-gauge-meta {
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       gap: 2px;
       margin-left: 10px;
     }
@@ -1056,7 +1053,7 @@
       border: 1px solid var(--border-default);
       border-radius: var(--radius-lg);
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       flex: 1;
       min-height: 520px;
       overflow: hidden;
@@ -1077,7 +1074,7 @@
       align-items: center;
       gap: 6px;
     }
-    .report-frame-title svg { width: 13px; height: 13px; color: var(--accent-blue); }
+    .report-frame-title svg { width: 13px; height: 13px; color: var(--text-accent); }
     .report-frame-url-tag {
       font-family: var(--mono);
       font-size: 10px;
@@ -1097,14 +1094,14 @@
       width: 100%;
       height: 100%;
       border: none;
-      background: #0d0814;
+      background: var(--bg-cards);
       flex: 1;
     }
     .report-iframe-fallback {
       position: absolute;
       inset: 0;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       align-items: center;
       justify-content: center;
       background: var(--bg-secondary);
@@ -1149,10 +1146,10 @@
     .btn-action svg { width: 12px; height: 12px; }
     .btn-action.primary {
       background: var(--accent-blue);
-      color: #fff;
+      color: var(--text-primary);
       border-color: transparent;
     }
-    .btn-action.primary:hover { filter: brightness(1.1); box-shadow: 0 0 10px rgba(155,106,196,0.4); }
+    .btn-action.primary:hover { filter: brightness(1.1); box-shadow: 0 0 10px rgba(47,213,154,0.4); }
     .btn-action.secondary {
       background: var(--bg-tertiary);
       color: var(--text-primary);
@@ -1179,8 +1176,8 @@
       font-family: var(--font);
       transition:background var(--duration-fast) var(--ease-out),color var(--duration-fast) var(--ease-out);
     }
-    .topbar-nav-tab:hover  { color:var(--text-primary); background:rgba(255,255,255,0.04); }
-    .topbar-nav-tab.active { background:var(--accent-blue); color:#fff; }
+    .topbar-nav-tab:hover  { color:var(--text-primary); background:var(--bg-hover); }
+    .topbar-nav-tab.active { background:var(--accent-blue); color:var(--text-on-accent); }
     .topbar-nav-tab svg { width:13px; height:13px; }
     .topbar-user {
       display:flex; align-items:center; gap:6px; padding:4px 8px;
@@ -1191,9 +1188,9 @@
     .topbar-user:hover { border-color:var(--border-muted); background:var(--bg-elevated); }
     .topbar-avatar {
       width:24px; height:24px; border-radius:50%;
-      background:linear-gradient(135deg,var(--accent-blue),#7c3aed);
+      background:linear-gradient(135deg,var(--accent-blue),#12A36F);
       display:flex; align-items:center; justify-content:center;
-      font-size:10px; font-weight:700; color:#fff; flex-shrink:0;
+      font-size:10px; font-weight:700; color:var(--text-primary); flex-shrink:0;
     }
     .topbar-username { font-size:12px; font-weight:500; color:var(--text-primary); }
     .topbar-user-chevron svg { width:12px; height:12px; color:var(--text-tertiary); }
@@ -1202,575 +1199,930 @@
     /* Responsive */
     @media (max-width:960px) {
       body { overflow:auto; }
-      .dash-layout, .reports-layout { flex-direction: column; overflow: auto; }
+      /* responsive layout handled below */
       #col-left, #col-right, .reports-drawer { width: 100% !important; max-width: none; border-right: none; border-bottom: 1px solid var(--border-default); }
       .gutter-col { display: none; }
-      .report-metrics-row { flex-direction: column; }
+      .report-metrics-row { flex-direction: row; background: var(--bg-primary); }
     }
     @media (prefers-reduced-motion:reduce) {
-      .step-item.running .step-circle,.tl-row.running .tl-dot,.tl-shimmer-label,.tl-progress-bar { animation:none; }
-      .gauge-fill,.gauge-bar-fill,.pass-rate-fill,.exec-progress-fill { transition-duration:0.01s; }
-      .strategy-card:active,.btn-action:active,.btn-run:active:not(:disabled) { transform:none; filter:brightness(0.94); }
+      *, *::before, *::after { animation-duration: 0.01s !important; animation-iteration-count: 1 !important; transition-duration: 0.01s !important; }
+      .step-item.running .step-circle,.tl-row.running .tl-dot,.tl-shimmer-label,.tl-progress-bar { animation:none !important; }
+      .gauge-fill,.gauge-bar-fill,.pass-rate-fill,.exec-progress-fill { transition-duration:0.01s !important; }
+      .strategy-card:active,.btn-action:active,.btn-run:active:not(:disabled) { transform:none !important; }
       .auth-fields,.auth-fields.visible,.auth-fields-inner { transition-duration:0.01s !important; transform:none !important; }
+      .log-line { animation:none !important; }
+      .tl-row.visible { animation:none !important; }
+      .segmented-thumb { transition-duration:0.01s !important; }
     }
+  
+
+/* ═══════════════════════════════════════════════════════════
+   DASHBOARD OVERRIDES (CRYPTO DASHBOARD STYLE)
+   ═══════════════════════════════════════════════════════════ */
+body {
+  background-color: var(--bg-primary) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  padding: 16px !important;
+  gap: 24px !important;
+}
+
+/* ── Icon Rail (was .topbar) ── */
+.topbar {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 72px !important;
+  height: calc(100vh - 32px) !important;
+  background: var(--bg-cards) !important;
+  border-radius: 24px !important;
+  border: none !important;
+  align-items: center !important;
+  padding: 24px 0 !important;
+  gap: 16px !important;
+  position: static !important;
+  flex-shrink: 0 !important;
+}
+
+.topbar-center-nav {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.topbar-nav-tab,
+.topbar-nav-link {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 1px solid var(--border-default) !important;
+  display: flex !important;
+  color: var(--text-secondary) !important;
+}
+.topbar-nav-tab.active {
+  border-color: var(--text-success) !important;
+  color: var(--text-success) !important;
+  background: rgba(47, 213, 154, 0.1) !important;
+}
+
+/* Hide text in rail tabs */
+.topbar-nav-tab span, .topbar-nav-tab,
+.topbar-nav-tab text,
+.topbar-nav-link span,
+.topbar-nav-link text {
+  display: none !important;
+}
+.topbar-nav-tab svg,
+.topbar-nav-link svg {
+  margin: 0 !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Sidebar Footer area (push to bottom) */
+.theme-toggle {
+  margin-top: auto !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  justify-content: center !important;
+  border: 1px solid var(--border-default) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.theme-toggle span { display: none !important; }
+
+.topbar-user {
+  width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  justify-content: center !important;
+  border: none !important;
+  background: transparent !important;
+}
+.topbar-user:hover { background: transparent !important; border-color: transparent !important; }
+.topbar-avatar {
+  width: 44px !important;
+  height: 44px !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+}
+.topbar-username, .topbar-user-chevron { display: none !important; }
+
+/* Hide redundant topbar items */
+.topbar-brand,
+.topbar-spacer {
+  display: none !important;
+}
+
+/* Run status pill in page header */
+
+
+/* ══════════════════════════════════════════════════════════════
+   RESTORED DASHBOARD WIREFRAME LAYOUT (SINGLE-SCREEN SYSTEM)
+   ══════════════════════════════════════════════════════════════ */
+#dashboard-view[style*="display: none"],
+#dashboard-view[style*="display:none"] {
+  display: none !important;
+}
+#reports-view[style*="display: none"],
+#reports-view[style*="display:none"] {
+  display: none !important;
+}
+
+#dashboard-view {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 14px !important;
+  padding: 8px 24px 10px !important;
+  max-width: 1440px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  min-height: 0 !important;
+  height: calc(100vh - 56px) !important;
+  overflow: hidden !important;
+}
+
+#reports-view {
+  flex: 1 !important;
+  display: flex !important;
+  height: calc(100vh - 56px) !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.dash-col-left {
+  width: 380px !important;
+  min-width: 380px !important;
+  max-width: 380px !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+.dash-col-right {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+#section-config-scan {
+  flex-shrink: 0 !important;
+}
+
+#section-recent-scans {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-height: 100px !important;
+  overflow: hidden !important;
+}
+
+#recent-scans-list {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+#section-exec-overview {
+  flex-shrink: 0 !important;
+}
+
+#section-scan-chart {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-height: 140px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+#activity-log-card {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-height: 140px !important;
+  overflow: hidden !important;
+}
+
+#log-body {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+/* Activity Log lines & pills */
+.log-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  line-height: 1.4;
+  animation: log-in var(--dur-fast) var(--ease);
+}
+@keyframes log-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.log-timestamp {
+  color: var(--text-tertiary);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.log-source-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+  flex-shrink: 0;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.log-pill {
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.log-pill.info { background: var(--control-icon-bg); color: var(--text-secondary); }
+.log-pill.pass { background: rgba(47, 213, 154, 0.16); color: var(--text-success); }
+.log-pill.fail { background: rgba(255, 93, 108, 0.16); color: var(--text-danger); }
+.log-pill.warn { background: rgba(245, 185, 66, 0.16); color: var(--text-warning); }
+.log-text {
+  color: var(--text-primary);
+  word-break: break-word;
+  flex: 1;
+}
+
+/* Toast Notification (Bottom Right) */
+.scan-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: var(--bg-cards);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+}
+.scan-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.scan-toast:focus-visible {
+  outline: 2px solid var(--success);
+  outline-offset: 2px;
+}
+.toast-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.toast-dot.pass { background: var(--success); }
+.toast-dot.fail { background: var(--danger); }
+#toast-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 0 0 8px;
+  line-height: 1;
+}
+#toast-close-btn:hover { color: var(--text-primary); }
+
+
+    /* Motion System & P4 Layout Specifics */
+    .step-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      position: relative; z-index: 2; background: transparent !important;
+    }
+    .step-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid var(--control-icon-bg);
+      background: var(--bg-cards);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600; color: var(--text-tertiary);
+      transition: transform var(--dur-base) var(--ease),
+                  border-color var(--dur-base) var(--ease),
+                  background var(--dur-base) var(--ease),
+                  color var(--dur-base) var(--ease),
+                  box-shadow var(--dur-base) var(--ease);
+    }
+    .step-item.running .step-circle {
+      border-color: var(--success);
+      background: rgba(47, 213, 154, 0.12);
+      color: var(--success);
+      box-shadow: 0 0 0 4px rgba(47, 213, 154, 0.15);
+      animation: step-soft-pulse 2s ease-in-out infinite;
+    }
+    @keyframes step-soft-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.72; }
+    }
+    .step-item.done .step-circle {
+      border-color: var(--success);
+      background: rgba(47, 213, 154, 0.12);
+      color: var(--success);
+    }
+    .step-item.failed .step-circle {
+      border-color: var(--danger);
+      background: rgba(255, 93, 108, 0.12);
+      color: var(--danger);
+    }
+    .step-label {
+      font-size: 11px; font-weight: 500; color: var(--text-tertiary); text-align: center; white-space: nowrap;
+    }
+    .step-item.done .step-label, .step-item.running .step-label {
+      color: var(--text-primary);
+    }
+    .check-svg polyline {
+      stroke-dasharray: 24; stroke-dashoffset: 0;
+      transition: stroke-dashoffset var(--dur-base) var(--ease);
+    }
+    .recent-item.highlight {
+      animation: highlight-fade 1.2s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+    }
+    @keyframes highlight-fade {
+      0% { background: rgba(47, 213, 154, 0.22); }
+      100% { background: transparent; }
+    }
+    .recent-item {
+      animation: recent-in var(--dur-base) var(--ease);
+    }
+    @keyframes recent-in {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .view-pane {
+      animation: view-fade-in var(--dur-base) var(--ease);
+    }
+    @keyframes view-fade-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 900px) {
+      #main-content { overflow: auto !important; }
+      #dashboard-view { flex-direction: column !important; height: auto !important; overflow: visible !important; }
+      .dash-col-left, .dash-col-right { width: 100% !important; min-width: 0 !important; height: auto !important; }
+      #reports-view { height: auto !important; overflow: visible !important; }
+      #reports-view > div { flex-direction: column !important; height: auto !important; }
+      #reports-view aside { width: 100% !important; min-width: 0 !important; height: 320px !important; }
+      #report-summary-strip { flex-wrap: wrap !important; max-height: none !important; }
+    }
+
   </style>
+
+<style>
+  #nav-tab-dashboard.active, #nav-tab-reports.active {
+    border-color: var(--text-success) !important;
+    color: var(--text-success) !important;
+    background: rgba(47,213,154,0.12) !important;
+  }
+</style>
 </head>
-
 <body>
-  <!-- TOP BAR -->
-  <header class="topbar">
-    <a href="/" class="topbar-brand">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-      QA Automation Engine
+<nav id="left-rail" style="width:72px; background:var(--bg-cards); border-radius:24px; margin:16px 0 16px 16px; display:flex; flex-direction:column; align-items:center; padding:24px 0; gap:16px;">
+  <div style="width:40px; height:40px; border-radius:12px; background:var(--avatar-bg); display:flex; align-items:center; justify-content:center; color:var(--bg-cards); font-weight:700; margin-bottom:24px; flex-shrink:0;">
+    QA
+  </div>
+  
+  <button id="nav-tab-dashboard" title="Dashboard" class="rail-icon active" onclick="switchView('dashboard')" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-primary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+  </button>
+
+  <button id="nav-tab-reports" title="Reports" class="rail-icon" onclick="switchView('reports')" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+  </button>
+
+  {% if session.get('role') == 'admin' %}
+  <a href="/admin/create_admin" title="Admin" class="rail-icon" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; text-decoration:none; flex-shrink:0;">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+  </a>
+  {% endif %}
+
+  <div style="flex:1;"></div>
+
+  <button id="theme-toggle" title="Toggle theme" class="rail-icon" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+    <span id="theme-icon">☀️</span>
+  </button>
+
+  {% if session.get('username') %}
+  <a href="/logout" title="Log out" class="rail-icon logout-icon" style="width:40px; height:40px; border-radius:50%; background:none; color:var(--text-secondary); display:flex; align-items:center; justify-content:center; text-decoration:none; margin-bottom: 8px;">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
     </a>
-    <span class="topbar-version">v1.0</span>
-    <div class="topbar-spacer"></div>
+    <div style="width:44px; height:44px; border-radius:50%; border:1px solid var(--border-default); background:var(--control-icon-bg); display:flex; align-items:center; justify-content:center; color:var(--text-primary); font-size:14px; font-weight:600; flex-shrink:0;" title="User: {{ session.get('username') }}">
+      {{ session.get('username', 'U')[0:2]|upper }}
+    </div>
+  {% endif %}
+</nav>
 
-    <!-- CLIENT-SIDE TAB NAVIGATION -->
-    <nav class="topbar-center-nav" aria-label="Main navigation">
-      <button type="button" class="topbar-nav-tab active" id="nav-tab-dashboard" role="tab" aria-selected="true" aria-controls="dashboard-view">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        Dashboard
-      </button>
-      <button type="button" class="topbar-nav-tab" id="nav-tab-reports" role="tab" aria-selected="false" aria-controls="reports-view">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        Reports
-      </button>
-    </nav>
-
-    <div class="topbar-spacer"></div>
-    <div class="topbar-status" id="topbar-status">
-      <span class="status-dot" id="status-dot"></span>
+<main id="main-content" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+  <!-- PAGE HEADER (Slim 56px Top Bar) -->
+  <header style="height:56px; padding:0 32px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
+    <h1 id="page-title" style="font-size:18px; font-weight:600; margin:0; color:var(--text-primary); letter-spacing:-0.01em;">Dashboard</h1>
+    <div class="topbar-status" id="topbar-status" style="background:var(--control-icon-bg); border-radius:999px; padding:6px 16px; display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-primary);">
+      <span class="status-dot" id="status-dot" style="width:8px; height:8px; border-radius:50%; background:var(--success);"></span>
       <span id="status-text">Ready</span>
     </div>
-    <span id="footer-timer"></span>
-    <button class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
-      <span id="theme-icon">☀️</span>
-    </button>
-    {% if session.get('role') == 'admin' %}
-      <a href="/admin/create_admin" class="topbar-nav-link primary">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Admin
-      </a>
-    {% endif %}
-    {% if session.get('username') %}
-    <div class="topbar-user">
-      <div class="topbar-avatar">{{ session.get('username', 'U')[0:2]|upper }}</div>
-      <span class="topbar-username">{{ session.get('username', '') }}</span>
-      <span class="topbar-user-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-    </div>
-    <a href="/logout" class="topbar-nav-link secondary" style="margin-left:4px;">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-      Logout
-    </a>
-    {% endif %}
   </header>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       VIEW 1: DASHBOARD VIEW (#dashboard-view)
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="dash-shell view-pane" id="dashboard-view" role="tabpanel" aria-labelledby="nav-tab-dashboard">
-    <div class="dash-layout" id="dash-layout">
+<div aria-labelledby="nav-tab-dashboard" class="view-pane dash-shell" id="dashboard-view" role="tabpanel" style="display:flex; flex-direction:row; gap:20px; padding:16px 32px 24px; max-width:1440px; margin:0 auto; width:100%; box-sizing:border-box; flex:1; min-height:0; overflow:hidden;">
+  
+  <!-- LEFT COLUMN (~380px) -->
+  <div class="dash-col-left" style="width:380px; min-width:380px; display:flex; flex-direction:column; gap:16px; min-height:0; height:100%;">
+    <!-- NEW SCAN CARD -->
+    <div class="card-b" id="section-config-scan" style="background:var(--bg-cards); border-radius:24px; padding:18px 20px; flex-shrink:0;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; position:relative;">
+        <div style="font-size:16px; font-weight:600; color:var(--text-primary);">New Scan</div>
+        <button type="button" id="env-config-info-btn" aria-label="Environment and configuration" title="Environment & Config" style="width:28px; height:28px; border-radius:50%; background:var(--control-bg); border:none; color:var(--text-secondary); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        </button>
 
-      <!-- LEFT SIDEBAR: SCAN CONFIGURATION -->
-      <aside class="sidebar-left dash-col" id="col-left" aria-label="Scan configuration">
+        <!-- Environment & Config Popover -->
+        <div class="card-b" id="section-env-config" style="display:none; position:absolute; top:36px; right:0; z-index:50; width:280px; background:var(--bg-card-hover, var(--bg-cards)); border:1px solid var(--border-subtle, var(--border-default)); box-shadow:0 12px 32px rgba(0,0,0,0.36); border-radius:16px; padding:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div style="font-size:13px; font-weight:600; color:var(--text-primary);">Environment &amp; Config</div>
+            <button type="button" class="card-collapse-btn" data-target="section-env-config" id="env-config-close-btn" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; padding:2px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+          <div class="card-collapsible-body" style="display:flex; flex-direction:column; gap:8px; font-size:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:6px; border-bottom:1px solid var(--control-icon-bg);">
+              <div style="color:var(--text-secondary);">Environment</div>
+              <div style="display:flex; align-items:center; gap:6px; color:var(--text-primary);">Production <span style="font-size:10px; background:var(--control-secondary-bg); padding:1px 6px; border-radius:999px;">Prod</span></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:6px; border-bottom:1px solid var(--control-icon-bg);">
+              <div style="color:var(--text-secondary);">Base URL</div>
+              <div id="env-base-url" style="color:var(--text-primary); max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">https://example.com</div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:6px; border-bottom:1px solid var(--control-icon-bg);">
+              <div style="color:var(--text-secondary);">Auth Type</div>
+              <div id="env-auth-type" style="color:var(--text-primary);">None</div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="color:var(--text-secondary);">Timeout</div>
+              <div style="color:var(--text-primary);">30 seconds</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form id="scan-form" novalidate="">
+        <!-- TARGET URL -->
+        <div class="field" style="margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:var(--text-secondary);">
+            <span>Target URL</span>
+          </div>
+          <div style="position:relative;">
+            <input autocomplete="off" id="url" name="url" placeholder="https://example.com" required="" spellcheck="false" type="text" style="width:100%; height:40px; border-radius:12px; background:var(--control-bg); border:none; color:var(--text-primary); padding:0 14px; font-size:13px; outline:none; box-sizing:border-box;" />
+          </div>
+        </div>
+
+        <!-- SCAN TYPE -->
+        <div class="field" style="margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:var(--text-secondary);">
+            <span>Scan Type</span>
+          </div>
+          <!-- Custom Dropdown Wrapper -->
+          <div class="custom-select-wrapper" id="scan-type-custom-dropdown">
+            <button type="button" class="custom-select-trigger" id="scan-type-trigger" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-controls="scan-type-options" aria-label="Scan Type" style="height:40px;">
+              <span id="scan-type-selected-label">Login Test</span>
+              <svg class="custom-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="custom-select-popover" id="scan-type-options" role="listbox" aria-label="Scan Type Options">
+              <div class="custom-select-option is-selected" role="option" data-value="login" aria-selected="true" tabindex="-1">
+                <span>Login Test</span>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="custom-select-option" role="option" data-value="bruteforce" aria-selected="false" tabindex="-1">
+                <span>Credential Bruteforce Probe</span>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="custom-select-option" role="option" data-value="api" aria-selected="false" tabindex="-1">
+                <span>API Health Check</span>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="custom-select-option" role="option" data-value="auth" aria-selected="false" tabindex="-1">
+                <span>Broken Authentication Check</span>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="custom-select-option" role="option" data-value="full" aria-selected="false" tabindex="-1">
+                <span>Full Scan</span>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+            </div>
+            <!-- Visually hidden native select to keep existing JS & Playwright page.select_option("#scan_type", ...) working perfectly -->
+            <select id="scan_type" name="scan_type" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;opacity:0;pointer-events:none;" tabindex="-1" aria-hidden="true">
+              <option value="login" selected>Login Test</option>
+              <option value="bruteforce">Credential Bruteforce Probe</option>
+              <option value="api">API Health Check</option>
+              <option value="auth">Broken Authentication Check</option>
+              <option value="full">Full Scan</option>
+            </select>
+          </div>
+          <div id="scan-hint" style="display:none;"></div>
+        </div>
+
+        <!-- SCAN STRATEGY SEGMENTED -->
+        <div class="field" style="margin-bottom:16px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:var(--text-secondary);">
+            <span>Strategy</span>
+          </div>
+          <div class="segmented-control" id="strategy-control" role="radiogroup" aria-label="Scan Strategy" style="height:36px;">
+            <label class="segmented-label active" role="radio" aria-checked="true" tabindex="0" data-value="external" style="padding:4px 10px; font-size:12px;">
+              <input checked name="scan_strategy" type="radio" value="external" tabindex="-1"/>
+              External
+            </label>
+            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="authenticated" style="padding:4px 10px; font-size:12px;">
+              <input name="scan_strategy" type="radio" value="authenticated" tabindex="-1"/>
+              Authenticated
+            </label>
+            <div class="segmented-thumb"></div>
+          </div>
+        </div>
+
+        <div class="auth-fields" id="auth-fields" style="display:none;">
+          <input id="auth-username" type="hidden" value="Mohammad" />
+          <input id="auth-password" type="hidden" value="0000" />
+          <input id="user-locator" type="hidden" />
+          <input id="pass-locator" type="hidden" />
+          <input id="login-locator" type="hidden" />
+        </div>
+
+        <div class="error-banner" id="js-error" style="display:none; color:var(--text-danger); font-size:12px; margin-bottom:10px;">
+          <span id="js-error-text"></span>
+        </div>
         
-        <!-- Configure Scan Section -->
-        <div class="sidebar-section" id="section-config-scan">
-          <div class="sidebar-section-header">
-            <div class="sidebar-section-header-left">
-              <div class="sidebar-section-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-              </div>
-              <div>
-                <div class="sidebar-section-title">New Scan</div>
-                <div class="sidebar-section-sub">Configure target and parameters</div>
-              </div>
-            </div>
-            <button type="button" class="card-collapse-btn" data-target="section-config-scan" aria-label="Toggle section" title="Collapse section">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-          </div>
-
-          <div class="card-collapsible-body">
-            <form id="scan-form" novalidate>
-              <div class="field">
-                <label class="field-label" for="url">Target URL</label>
-                <div class="url-field-wrap">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                  <input class="field-input" type="text" id="url" name="url" placeholder="https://example.com" autocomplete="off" spellcheck="false" required>
-                </div>
-              </div>
-              <div class="strategy-group">
-                <span class="strategy-label">Scan Strategy</span>
-                <div class="strategy-cards">
-                  <label class="strategy-card directional-glow selected" id="card-external">
-                    <input type="radio" name="scan_strategy" value="external" checked>
-                    <svg class="strategy-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-                    <h3 class="strategy-card-title">External Scan</h3>
-                    <span class="strategy-card-desc">Black-box. URL only.</span>
-                  </label>
-                  <label class="strategy-card directional-glow" id="card-authenticated">
-                    <input type="radio" name="scan_strategy" value="authenticated">
-                    <svg class="strategy-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                    <h3 class="strategy-card-title">Authenticated</h3>
-                    <span class="strategy-card-desc">Requires credentials.</span>
-                  </label>
-                </div>
-              </div>
-              <div class="auth-fields" id="auth-fields">
-                <div class="auth-fields-wrapper">
-                  <div class="auth-fields-inner directional-glow">
-                    <h4 class="auth-fields-title">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                      Test Credentials
-                    </h4>
-                    <div class="auth-field-row">
-                      <div class="field"><label class="field-label-sm" for="auth-username">Username</label><input class="field-input-sm" type="text" id="auth-username" placeholder="admin" autocomplete="off"></div>
-                      <div class="field"><label class="field-label-sm" for="auth-password">Password</label><input class="field-input-sm" type="password" id="auth-password" placeholder="••••••••" autocomplete="off"></div>
-                    </div>
-                    <h4 class="auth-fields-title mt-1">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                      Element Locators
-                    </h4>
-                    <div class="auth-field-row">
-                      <div class="field"><label class="field-label-sm" for="user-locator">Username Locator</label><input class="field-input-sm" type="text" id="user-locator" placeholder="#user-name" autocomplete="off"></div>
-                      <div class="field"><label class="field-label-sm" for="pass-locator">Password Locator</label><input class="field-input-sm" type="text" id="pass-locator" placeholder="#password" autocomplete="off"></div>
-                    </div>
-                    <div class="field"><label class="field-label-sm" for="login-locator">Login Button Locator</label><input class="field-input-sm" type="text" id="login-locator" placeholder="#login-button" autocomplete="off"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="field" style="margin-top:12px;">
-                <label class="field-label" for="scan_type">Scan Type</label>
-                <select class="scan-select" id="scan_type" name="scan_type">
-                  <option value="login">Login Test</option>
-                  <option value="bruteforce">Credential Bruteforce Probe</option>
-                  <option value="api">API Health Check</option>
-                  <option value="auth">Broken Authentication Check</option>
-                  <option value="full">Full Scan — all of the above</option>
-                </select>
-                <p class="field-hint" id="scan-hint">Runs both positive and negative login tests.</p>
-              </div>
-              <div class="error-banner" id="js-error" role="alert" style="display:none;margin-top:8px;">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <span id="js-error-text"></span>
-              </div>
-              <div style="margin-top:14px;">
-                <div class="run-button-shell" id="run-button-shell">
-                  <span class="run-shell-layer layer-one" aria-hidden="true"></span>
-                  <span class="run-shell-layer layer-two" aria-hidden="true"></span>
-                  <span class="run-shell-layer layer-three" aria-hidden="true"></span>
-                  <span class="run-shell-grain" aria-hidden="true"></span>
-                  <span class="run-shell-edge" aria-hidden="true"></span>
-                  <button type="submit" class="btn-run" id="submit-btn">
-                    <span class="btn-idle-text">
-                      <span class="btn-spinner" id="btn-spinner"></span>
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                      <span id="btn-text">Start Scan</span>
-                    </span>
-                    <span class="btn-hover-text" aria-hidden="true">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                      Start Scan
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
+        <div id="run-button-shell">
+           <button id="submit-btn" type="submit" style="width:100%; height:42px; border-radius:999px; background:var(--avatar-bg); color:var(--bg-cards); font-size:14px; font-weight:600; border:none; cursor:pointer; outline:none; box-sizing:border-box;">
+             <span id="btn-spinner" style="display:none;"></span>
+             <span id="btn-text">Start scan</span>
+           </button>
         </div>
+      </form>
+    </div>
 
-        <!-- Environment & Config Section -->
-        <div class="sidebar-section" id="section-env-config">
-          <div class="sidebar-section-header">
-            <div class="sidebar-section-header-left">
-              <div class="sidebar-section-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-              </div>
-              <div class="sidebar-section-title">Environment & Config</div>
-            </div>
-            <button type="button" class="card-collapse-btn" data-target="section-env-config" aria-label="Toggle section" title="Collapse section">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-          </div>
-          <div class="card-collapsible-body">
-            <div class="env-table">
-              <div class="env-row">
-                <div class="env-key"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-right:4px;vertical-align:-2px;"><circle cx="12" cy="12" r="10"/></svg>Environment</div>
-                <div class="env-val">Production</div><span class="env-badge">Prod</span>
-              </div>
-              <div class="env-row">
-                <div class="env-key"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-right:4px;vertical-align:-2px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Base URL</div>
-                <div class="env-val" id="env-base-url">https://example.com</div><span></span>
-              </div>
-              <div class="env-row">
-                <div class="env-key"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-right:4px;vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Auth Type</div>
-                <div class="env-val" id="env-auth-type">None</div><span></span>
-              </div>
-              <div class="env-row">
-                <div class="env-key"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-right:4px;vertical-align:-2px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Timeout</div>
-                <div class="env-val">30 seconds</div><span></span>
-              </div>
-            </div>
-            <p class="env-note">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              Settings are managed in the test configuration file and runtime environment.
-            </p>
-          </div>
-        </div>
-      </aside>
-
-      <!-- GUTTER LEFT (SPLITTER 1) -->
-      <div class="gutter-col" id="gutter-left" role="separator" aria-orientation="vertical" tabindex="0" title="Drag to resize left column">
-        <div class="gutter-handle"></div>
+    <!-- RECENT SCANS CARD (Scrolls inside) -->
+    <div class="card-b" id="section-recent-scans" style="background:var(--bg-cards); border-radius:24px; padding:18px 20px; display:flex; flex-direction:column; flex:1; min-height:0; overflow:hidden;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-shrink:0;">
+        <div style="font-size:16px; font-weight:600; color:var(--text-primary);">Recent Scans</div>
+        <button type="button" onclick="switchView('reports')" style="background:none; border:none; color:var(--text-secondary); font-size:12px; cursor:pointer; padding:0;">See all</button>
       </div>
-
-      <!-- CENTER PANE: EXECUTION OVERVIEW & LIVE LOG -->
-      <main class="center-pane dash-col" id="col-center" aria-label="Execution overview and live log">
-        <div class="center-scroll">
-          
-          <!-- Execution Overview Card -->
-          <div class="exec-card directional-glow" id="section-exec-overview">
-            <div class="exec-card-header">
-              <div class="exec-card-title-group">
-                <div class="exec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-                <div>
-                  <div class="exec-title">Execution Overview</div>
-                  <div class="exec-subtitle">Live progress and test milestones.</div>
-                </div>
-              </div>
-              <div class="exec-meta">
-                <div class="exec-status-badge" id="exec-status-badge">
-                  <span class="status-dot" id="footer-dot"></span>
-                  <span id="footer-text">Ready</span>
-                </div>
-                <button type="button" class="card-collapse-btn" data-target="section-exec-overview" aria-label="Toggle execution overview" title="Collapse section">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="card-collapsible-body">
-              <div class="step-progress-track" id="step-progress-track">
-                <div class="step-item" id="step-init">
-                  <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-                  <span class="step-label">Initialize</span>
-                  <span class="step-time" id="step-init-time">—</span>
-                </div>
-                <div class="step-item" id="step-discover">
-                  <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-                  <span class="step-label">Discover</span>
-                  <span class="step-time" id="step-discover-time">—</span>
-                </div>
-                <div class="step-item" id="step-scan">
-                  <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div>
-                  <span class="step-label">Scan</span>
-                  <span class="step-time" id="step-scan-time">—</span>
-                </div>
-                <div class="step-item" id="step-analyze">
-                  <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-                  <span class="step-label">Analyze</span>
-                  <span class="step-time" id="step-analyze-time">Pending</span>
-                </div>
-                <div class="step-item" id="step-report">
-                  <div class="step-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-                  <span class="step-label">Generate Report</span>
-                  <span class="step-time" id="step-report-time">Pending</span>
-                </div>
-              </div>
-              <div class="exec-progress-wrap">
-                <div class="exec-progress-track"><div class="exec-progress-fill" id="exec-progress-fill"></div></div>
-                <span class="exec-progress-pct" id="exec-progress-pct">0%</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-section" id="timeline-section">
-            <div class="timeline" id="timeline"></div>
-          </div>
-
-          <!-- Completion section (Cleaned up: No redundant action buttons) -->
-          <div class="completion-section" id="completion-section">
-            <div class="completion-card directional-glow">
-              <div class="completion-status" id="completion-status"></div>
-              <div class="stat-row" id="stat-row">
-                <div class="stat-box"><div class="stat-num total"  id="stat-total">0</div><div class="stat-label">Total</div></div>
-                <div class="stat-box"><div class="stat-num passed" id="stat-passed">0</div><div class="stat-label">Passed</div></div>
-                <div class="stat-box"><div class="stat-num failed" id="stat-failed">0</div><div class="stat-label">Failed</div></div>
-                <div class="stat-box"><div class="stat-num errors" id="stat-errors">0</div><div class="stat-label">Errors</div></div>
-              </div>
-              <div class="pass-rate-wrap" id="pass-rate-wrap">
-                <div class="pass-rate-header"><span>Pass Rate</span><span id="pass-rate-pct">0%</span></div>
-                <div class="pass-rate-track"><div class="pass-rate-fill good" id="pass-rate-fill"></div></div>
-              </div>
-              <a href="javascript:void(0)" onclick="switchView('reports')" class="completion-view-link">
-                View detailed execution breakdown in Reports tab →
-              </a>
-            </div>
-          </div>
-
-          <!-- Activity log card (Vertically resizable & maximizable) -->
-          <div class="activity-card" id="activity-log-card">
-            <div class="activity-header">
-              <div class="activity-title-group">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-blue);"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                <div>
-                  <div class="activity-title">Activity Log</div>
-                  <div class="activity-sub">Live execution output stream.</div>
-                </div>
-              </div>
-              <div class="activity-actions">
-                <span class="log-count" id="log-count">0</span>
-                <button class="log-clear-btn" id="log-clear-btn">Clear</button>
-                <button type="button" class="card-action-btn" id="log-maximize-btn" aria-label="Maximize log view" title="Toggle full height">
-                  <svg class="icon-maximize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                  <svg class="icon-minimize" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                </button>
-                <button type="button" class="card-collapse-btn" data-target="activity-log-card" aria-label="Toggle activity log" title="Collapse section">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-              </div>
-            </div>
-            <div class="log-body card-collapsible-body" id="log-body">
-              <div class="log-empty" id="log-empty">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                <span>No logs yet.<br>Run a scan to stream live test execution output.</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </main>
-
-      <!-- GUTTER RIGHT (SPLITTER 2) -->
-      <div class="gutter-col" id="gutter-right" role="separator" aria-orientation="vertical" tabindex="0" title="Drag to resize right column">
-        <div class="gutter-handle"></div>
+      <div id="recent-scans-list" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:10px; min-height:0; padding-right:4px;">
+        <!-- JS fills this -->
       </div>
-
-      <!-- RIGHT SIDEBAR: METRICS & RECENT RUNS -->
-      <aside class="sidebar-right dash-col" id="col-right" aria-label="Scan results and history">
-        <svg width="0" height="0" style="position:absolute;">
-          <defs>
-            <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#9b6ac4"/>
-              <stop offset="100%" stop-color="#c084fc"/>
-            </linearGradient>
-          </defs>
-        </svg>
-
-        <!-- Scan Result Gauge Card -->
-        <div class="gauge-card" id="section-gauge-result">
-          <div class="gauge-header">
-            <div class="gauge-header-left">
-              <div class="gauge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
-              <div><div class="gauge-title">Scan Result</div><div class="gauge-sub">Current run outcome</div></div>
-            </div>
-            <button type="button" class="card-collapse-btn" data-target="section-gauge-result" aria-label="Toggle scan result" title="Collapse section">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-          </div>
-          <div class="card-collapsible-body">
-            <div class="gauge-ring-wrap">
-              <div class="gauge-svg-wrap">
-                <svg class="gauge-svg" width="84" height="84" viewBox="0 0 90 90">
-                  <circle class="gauge-track" cx="45" cy="45" r="35"/>
-                  <circle class="gauge-fill" id="gauge-fill" cx="45" cy="45" r="35"/>
-                </svg>
-                <div class="gauge-center">
-                  <span class="gauge-pct" id="gauge-pct">—</span>
-                  <span class="gauge-pct-label">Pass Rate</span>
-                </div>
-              </div>
-              <div class="gauge-legend">
-                <div class="gauge-legend-row"><span class="gauge-legend-key"><span class="gauge-legend-dot total"></span>Total Tests</span><span class="gauge-legend-val" id="gauge-total">—</span></div>
-                <div class="gauge-legend-row"><span class="gauge-legend-key"><span class="gauge-legend-dot passed"></span>Passed</span><span class="gauge-legend-val" id="gauge-passed">—</span></div>
-                <div class="gauge-legend-row"><span class="gauge-legend-key"><span class="gauge-legend-dot failed"></span>Failed</span><span class="gauge-legend-val" id="gauge-failed">—</span></div>
-                <div class="gauge-legend-row"><span class="gauge-legend-key"><span class="gauge-legend-dot skipped"></span>Skipped</span><span class="gauge-legend-val">0</span></div>
-              </div>
-            </div>
-            <div class="gauge-bar-track"><div class="gauge-bar-fill" id="gauge-bar-fill"></div></div>
-            <div class="gauge-bar-meta" id="gauge-bar-meta">Run a scan to see results</div>
-          </div>
-        </div>
-
-        <!-- Recent Scans Card -->
-        <div class="recent-card" id="section-recent-scans">
-          <div class="recent-header">
-            <div class="recent-header-left">
-              <div class="recent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-              <span class="recent-title">Recent Scans</span>
-            </div>
-            <div class="card-actions-group">
-              <button type="button" class="recent-view-all" onclick="switchView('reports')">View All</button>
-              <button type="button" class="card-collapse-btn" data-target="section-recent-scans" aria-label="Toggle recent scans" title="Collapse section">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-            </div>
-          </div>
-          <div class="card-collapsible-body">
-            <div class="recent-list" id="recent-scans-list">
-              <div style="font-size:11px;color:var(--text-tertiary);padding:8px 0;text-align:center;">No recent scans yet.</div>
-            </div>
-          </div>
-        </div>
-
-      </aside>
-
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════
+  <!-- RIGHT COLUMN (Flexible) -->
+  <div class="dash-col-right" style="flex:1; min-width:0; display:flex; flex-direction:column; gap:16px; min-height:0; height:100%;">
+    <!-- 1. RUN STATUS CARD (TOP) -->
+    <div class="card-b" id="section-exec-overview" style="background:var(--bg-cards); border-radius:20px; padding:10px 16px; flex-shrink:0;">
+      <!-- HEADER ROW: TITLE + ONE-SENTENCE STEP DESC + RUNNING TEST LINE + ELAPSED TIMER -->
+      <div id="exec-header-row" style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+        <div style="min-width:0; flex:1; padding-right:10px;">
+          <div id="exec-header-title" style="font-size:14px; font-weight:600; color:var(--text-primary); line-height:1.25;">Run Status</div>
+          <div id="exec-header-desc" style="font-size:11px; color:var(--text-secondary); margin-top:1px; display:none; line-height:1.3;"></div>
+          <div id="exec-running-test" style="font-size:11px; color:var(--text-success); margin-top:1px; display:none; line-height:1.3; font-weight:500;"></div>
+        </div>
+        <div id="exec-timer-wrapper" style="display:none; align-items:center; gap:6px; flex-shrink:0; background:var(--control-bg); padding:3px 8px; border-radius:999px;">
+          <span class="status-dot running" style="width:6px; height:6px; border-radius:50%; background:var(--success);"></span>
+          <span id="run-timer" style="font-family:var(--font-mono, monospace); font-size:12px; font-weight:600; color:var(--text-primary);">00:00</span>
+        </div>
+      </div>
+
+      <!-- RESULT BANNER -->
+      <div id="exec-result-banner" class="exec-result-banner" style="display:none; padding:4px 10px; border-radius:8px; margin-bottom:6px; font-size:11px; font-weight:500; align-items:center; gap:6px;">
+        <span id="exec-result-icon"></span>
+        <span id="exec-result-text"></span>
+      </div>
+      
+      <!-- 5-STEP PROGRESS WITH 2PX CONNECTOR TRACK + MINT FILL -->
+      <div style="display:flex; justify-content:space-between; position:relative; margin-bottom:6px; padding:0 10px;">
+         <div style="position:absolute; top:14px; left:32px; right:32px; height:2px; background:var(--control-icon-bg); z-index:0;"></div>
+         <div id="stepper-connector-fill" style="position:absolute; top:14px; left:32px; height:2px; background:var(--success); z-index:1; width:0%; max-width:calc(100% - 64px); transition:width var(--dur-slow) var(--ease);"></div>
+         
+         <div class="step-item" id="step-init">
+            <div class="step-circle">1</div>
+            <div class="step-label">Initialize</div>
+         </div>
+         <div class="step-item" id="step-discover">
+            <div class="step-circle">2</div>
+            <div class="step-label">Discover</div>
+         </div>
+         <div class="step-item" id="step-scan">
+            <div class="step-circle">3</div>
+            <div class="step-label">Scan</div>
+         </div>
+         <div class="step-item" id="step-analyze">
+            <div class="step-circle">4</div>
+            <div class="step-label">Analyze</div>
+         </div>
+         <div class="step-item" id="step-report">
+            <div class="step-circle">5</div>
+            <div class="step-label">Report</div>
+         </div>
+         
+         <div id="step-init-time" style="display:none;"></div>
+         <div id="step-discover-time" style="display:none;"></div>
+         <div id="step-scan-time" style="display:none;"></div>
+         <div id="step-analyze-time" style="display:none;"></div>
+         <div id="step-report-time" style="display:none;"></div>
+      </div>
+
+      <!-- EXECUTION PROGRESS BAR -->
+      <div style="margin-bottom:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; font-size:11px; color:var(--text-secondary);">
+          <span>Execution Progress</span>
+          <span id="exec-progress-pct" style="font-weight:600; color:var(--text-primary);">0%</span>
+        </div>
+        <div style="height:3px; border-radius:999px; background:var(--control-icon-bg); overflow:hidden; position:relative;">
+          <div id="exec-progress-fill" style="height:100%; width:0%; background:var(--success); border-radius:999px; transition:width var(--dur-slow) var(--ease);"></div>
+        </div>
+      </div>
+      
+      <!-- TILES & 56PX RING GAUGE -->
+      <div id="completion-section" style="display:flex; gap:10px; align-items:center;">
+         <div style="flex:1; background:var(--control-bg); border-radius:12px; padding:10px 12px; position:relative; overflow:hidden;">
+            <div style="font-size:11px; color:var(--text-secondary); margin-bottom:3px; display:flex; align-items:center; gap:6px;">
+               <div style="width:16px; height:16px; border-radius:50%; background:var(--control-icon-bg); display:flex; align-items:center; justify-content:center;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg></div> Total
+            </div>
+            <div id="stat-total" style="font-size:18px; font-weight:600; color:var(--text-primary);">0</div>
+         </div>
+         <div style="flex:1; background:var(--control-bg); border-radius:12px; padding:10px 12px; position:relative; overflow:hidden;">
+            <div style="font-size:11px; color:var(--text-secondary); margin-bottom:3px; display:flex; align-items:center; gap:6px;">
+               <div style="width:16px; height:16px; border-radius:50%; background:rgba(47,213,154,0.12); display:flex; align-items:center; justify-content:center;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Passed
+            </div>
+            <div id="stat-passed" style="font-size:18px; font-weight:600; color:var(--text-success);">0</div>
+         </div>
+         <div style="flex:1; background:var(--control-bg); border-radius:12px; padding:10px 12px; position:relative; overflow:hidden;">
+            <div style="font-size:11px; color:var(--text-secondary); margin-bottom:3px; display:flex; align-items:center; gap:6px;">
+               <div style="width:16px; height:16px; border-radius:50%; background:rgba(255,93,108,0.12); display:flex; align-items:center; justify-content:center;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div> Failed
+            </div>
+            <div id="stat-failed" style="font-size:18px; font-weight:600; color:var(--text-danger);">0</div>
+            <div id="stat-errors" style="display:none;">0</div>
+         </div>
+         <div id="section-gauge-result" style="width:56px; height:56px; display:flex; align-items:center; justify-content:center; position:relative; flex-shrink:0;">
+            <svg width="56" height="56" viewBox="0 0 56 56">
+               <circle cx="28" cy="28" r="22" fill="none" stroke="var(--control-icon-bg)" stroke-width="3.5"></circle>
+               <circle id="gauge-fill" cx="28" cy="28" r="22" fill="none" stroke="var(--success)" stroke-width="3.5" stroke-dasharray="138.2" stroke-dashoffset="138.2" style="transition:stroke-dashoffset var(--dur-slow) var(--ease); transform:rotate(-90deg); transform-origin:28px 28px;"></circle>
+            </svg>
+            <div id="gauge-pct" style="position:absolute; font-size:11px; font-weight:600; color:var(--text-primary);">0%</div>
+            
+            <div style="display:none;">
+              <span id="gauge-total"></span>
+              <span id="gauge-passed"></span>
+              <span id="gauge-failed"></span>
+              <span id="gauge-bar-fill"></span>
+              <span id="gauge-bar-meta"></span>
+            </div>
+         </div>
+      </div>
+      
+      <!-- hidden fields required by JS -->
+      <div style="display:none;">
+         <span id="exec-status-badge"></span>
+         <span id="footer-dot"></span><span id="footer-text"></span>
+         <span id="footer-timer"></span>
+         <span id="completion-status"></span>
+         <span id="pass-rate-fill"></span><span id="pass-rate-pct"></span>
+      </div>
+    </div>
+
+    <!-- 2. SCAN RESULTS CHART CARD (MIDDLE - can compress to min 140px) -->
+    <div class="card-b" id="section-scan-chart" style="background:var(--bg-cards); border-radius:24px; padding:16px 20px; display:flex; flex-direction:column; flex:1; min-height:140px; position:relative;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-shrink:0;">
+        <div>
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:2px;">Average Pass Rate</div>
+          <div style="font-size:22px; font-weight:600; color:var(--text-primary);">98.5%</div>
+        </div>
+        <div class="segmented-control cols-3" id="chart-range-control" role="radiogroup" aria-label="Chart Range" style="width:160px; height:32px;">
+            <label class="segmented-label active" role="radio" aria-checked="true" tabindex="0" data-value="7d" style="font-size:11px; padding:4px 8px;">
+              <input checked name="chart_range" type="radio" value="7d" tabindex="-1"/>
+              7d
+            </label>
+            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="30d" style="font-size:11px; padding:4px 8px;">
+              <input name="chart_range" type="radio" value="30d" tabindex="-1"/>
+              30d
+            </label>
+            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="all" style="font-size:11px; padding:4px 8px;">
+              <input name="chart_range" type="radio" value="all" tabindex="-1"/>
+              All
+            </label>
+            <div class="segmented-thumb"></div>
+         </div>
+      </div>
+      <!-- CHART AREA -->
+      <div id="scan-chart-container" style="flex:1; min-height:50px; margin-top:10px; position:relative; border-bottom:1px dashed var(--border-default);">
+         <svg id="scan-chart-svg" width="100%" height="100%" style="min-height:50px; overflow:visible;">
+            <text x="-25" y="5" fill="var(--text-tertiary)" font-size="9">100</text>
+            <line x1="0" y1="0%" x2="100%" y2="0%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
+            
+            <text x="-20" y="53%" fill="var(--text-tertiary)" font-size="9">50</text>
+            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
+            
+            <text x="-15" y="100%" fill="var(--text-tertiary)" font-size="9">0</text>
+            <line x1="0" y1="100%" x2="100%" y2="100%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
+         </svg>
+      </div>
+      <!-- Chart X Axis -->
+      <div id="scan-chart-x-axis" style="display:flex; justify-content:space-between; margin-top:6px; font-size:10px; color:var(--text-tertiary); flex-shrink:0;">
+         <span>Mon<br/>15</span>
+         <span>Tue<br/>16</span>
+         <span>Wed<br/>17</span>
+         <span>Thu<br/>18</span>
+         <span>Fri<br/>19</span>
+         <span>Sat<br/>20</span>
+         <span>Sun<br/>21</span>
+      </div>
+    </div>
+
+    <!-- 3. ACTIVITY LOG (BOTTOM - scrolls inside) -->
+    <div class="card-b" id="activity-log-card" style="background:var(--bg-cards); border-radius:24px; padding:16px 20px; display:flex; flex-direction:column; flex:1; min-height:140px; overflow:hidden;">
+       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-shrink:0;">
+         <div style="font-size:15px; font-weight:600; color:var(--text-primary);">Activity Log</div>
+         <div>
+            <span id="log-count" style="font-size:11px; color:var(--text-secondary); margin-right:10px;">0</span>
+            <button type="button" id="log-clear-btn" style="background:none; border:none; color:var(--text-primary); font-size:12px; cursor:pointer;">Clear</button>
+            <button type="button" id="log-maximize-btn" style="background:none; border:none; color:var(--text-primary); cursor:pointer; margin-left:8px; padding:0;">
+               <svg class="icon-maximize" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+               <svg class="icon-minimize" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </button>
+         </div>
+       </div>
+       <div id="log-body" style="background:var(--control-bg); border-radius:12px; padding:12px; flex:1; overflow-y:auto; font-family:monospace; font-size:11px; color:var(--text-primary); min-height:0;">
+          <div id="log-empty" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--text-tertiary); text-align:center;">
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:6px;"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+             No logs yet. Start a scan to stream output.
+          </div>
+       </div>
+    </div>
+  </div>
+
+  <div id="timeline-section" style="display:none;">
+     <div id="timeline"></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
        VIEW 2: DEDICATED REPORTS VIEW (#reports-view)
        ═══════════════════════════════════════════════════════════ -->
-  <div class="reports-shell view-pane" id="reports-view" style="display:none;" role="tabpanel" aria-labelledby="nav-tab-reports">
-    <div class="reports-layout">
-
-      <!-- LEFT DRAWER: SCAN HISTORY -->
-      <aside class="reports-drawer" aria-label="Scan history">
-        <div class="reports-drawer-header">
-          <div class="reports-drawer-title-group">
-            <svg class="reports-drawer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <div>
-              <div class="reports-drawer-title">Scan History</div>
-              <div class="reports-drawer-sub">Chronological run log</div>
-            </div>
+<div aria-labelledby="nav-tab-reports" class="reports-shell view-pane" id="reports-view" role="tabpanel" style="display:none; width:100%; flex:1; min-height:0; overflow:hidden;">
+  <div style="display:flex; height:100%; width:100%; overflow:hidden;">
+    <!-- LEFT DRAWER: SCAN HISTORY -->
+    <aside aria-label="Scan history" style="width:350px; min-width:350px; border-right:1px solid var(--control-icon-bg); background:var(--bg-primary); display:flex; flex-direction:column; height:100%; min-height:0; overflow:hidden;">
+      <div style="padding:16px 20px; border-bottom:1px solid var(--control-icon-bg); flex-shrink:0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div style="font-size:16px; font-weight:600; color:var(--text-primary);">Scan History</div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="history-count-badge" id="history-count-badge" style="background:var(--control-secondary-bg); border-radius:999px; padding:2px 8px; font-size:11px;">0</span>
+            <button aria-label="Clear scan history" id="history-clear-btn" style="background:none; border:none; color:var(--text-secondary); cursor:pointer;"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
           </div>
-          <div style="display:flex; align-items:center; gap:6px;">
-            <span class="history-count-badge" id="history-count-badge">0</span>
-            <button type="button" class="card-action-btn" id="history-clear-btn" title="Clear History" aria-label="Clear scan history">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-            </button>
+        </div>
+        <div style="position:relative;">
+          <svg width="14" height="14" fill="none" stroke="var(--text-secondary)" stroke-width="2" viewBox="0 0 24 24" style="position:absolute; left:12px; top:50%; transform:translateY(-50%);"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+          <input id="history-search-input" placeholder="Search past runs..." type="text" style="width:100%; height:36px; background:var(--control-bg); border:none; border-radius:10px; padding-left:34px; color:var(--text-primary); font-size:12px; outline:none;" />
+        </div>
+      </div>
+      <div id="reports-history-list" role="list" style="flex:1; overflow-y:auto; padding:12px; min-height:0;">
+        <div id="history-empty-state" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--text-tertiary); text-align:center; font-size:12px; gap:8px;">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8"></line><line x1="12" x2="12.01" y1="16"></line></svg>
+          No scan history recorded yet.
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT AREA: SUMMARY STRIP + REPORT VIEWER -->
+    <main style="flex:1; min-width:0; padding:16px 28px 24px; display:flex; flex-direction:column; gap:16px; height:100%; min-height:0; box-sizing:border-box; overflow:hidden;">
+      
+      <!-- SUMMARY STRIP (max 120px tall) -->
+      <div id="report-summary-strip" class="card-b" style="background:var(--bg-cards); border-radius:20px; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; max-height:120px; flex-shrink:0;">
+        <!-- Left: Title + Status Badge & Single-line Meta -->
+        <div style="min-width:0; flex-shrink:1;">
+          <div style="display:flex; align-items:center; gap:8px; line-height:24px;">
+            <h2 id="report-view-title" style="font-size:18px; font-weight:600; margin:0; line-height:24px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text-primary);">Test Execution Report</h2>
+            <span id="report-view-badge" class="recent-badge completed" style="background:rgba(47,213,154,0.1); color:var(--text-success); padding:2px 8px; border-radius:999px; font-size:11px; line-height:16px; white-space:nowrap;">Completed</span>
+          </div>
+          <div style="font-size:12px; color:var(--text-secondary); line-height:18px; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+            <span id="report-view-url">https://example.com</span> &bull; 
+            <span id="report-view-time">&mdash;</span> &bull; 
+            <span id="report-view-strategy">External</span>
           </div>
         </div>
 
-        <div class="history-search-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="history-search-input" class="history-search-input" placeholder="Search past runs...">
-        </div>
-
-        <div class="reports-history-list" id="reports-history-list" role="list">
-          <!-- Filled dynamically by JavaScript -->
-          <div class="history-empty-state" id="history-empty-state">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <span>No scan history recorded yet.<br>Scans run from the Dashboard will appear here.</span>
-          </div>
-        </div>
-      </aside>
-
-      <!-- RIGHT AREA: REPORT DETAILS & EMBEDDED VIEWER -->
-      <main class="reports-main" aria-label="Report viewer and metrics">
-        <div class="reports-main-scroll">
-
-          <!-- REPORT TOP OVERVIEW CARD -->
-          <div class="report-overview-card directional-glow">
-            <div class="report-overview-header">
-              <div class="report-overview-left">
-                <div class="report-overview-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                </div>
-                <div>
-                  <div class="report-overview-title-row">
-                    <h2 class="report-overview-title" id="report-view-title">Test Execution Report</h2>
-                    <span class="recent-badge completed" id="report-view-badge">Completed</span>
-                  </div>
-                  <div class="report-overview-meta">
-                    <span id="report-view-url" class="report-meta-url">https://example.com</span>
-                    <span class="report-meta-sep">•</span>
-                    <span id="report-view-time" class="report-meta-time">—</span>
-                    <span class="report-meta-sep">•</span>
-                    <span id="report-view-strategy" class="report-meta-strategy">External</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="report-overview-actions">
-                <a href="/download_report" id="report-download-btn" class="btn-action primary" download title="Download HTML report">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Download Report
-                </a>
-                <a href="/view_report" id="report-external-btn" target="_blank" rel="noopener" class="btn-action secondary" title="Open report in separate tab">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-                  Open in New Tab
-                </a>
-                <button type="button" id="report-refresh-btn" class="btn-action ghost" title="Reload embedded report">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-                  Refresh
-                </button>
-              </div>
-            </div>
-
-            <!-- METRIC CARDS & CIRCULAR GAUGE ROW -->
-            <div class="report-metrics-row">
-              <div class="report-stat-grid">
-                <div class="stat-box">
-                  <div class="stat-num total" id="report-stat-total">0</div>
-                  <div class="stat-label">Total Tests</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-num passed" id="report-stat-passed">0</div>
-                  <div class="stat-label">Passed</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-num failed" id="report-stat-failed">0</div>
-                  <div class="stat-label">Failed</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-num errors" id="report-stat-errors">0</div>
-                  <div class="stat-label">Errors</div>
-                </div>
-              </div>
-
-              <!-- CIRCULAR PASS RATE GAUGE -->
-              <div class="report-gauge-card">
-                <div class="gauge-ring-wrap" style="margin-bottom:0;">
-                  <div class="gauge-svg-wrap" style="width:76px; height:76px;">
-                    <svg class="gauge-svg" width="76" height="76" viewBox="0 0 90 90">
-                      <circle class="gauge-track" cx="45" cy="45" r="35"/>
-                      <circle class="gauge-fill" id="report-gauge-fill" cx="45" cy="45" r="35"/>
-                    </svg>
-                    <div class="gauge-center">
-                      <span class="gauge-pct" id="report-gauge-pct" style="font-size:16px;">—</span>
-                      <span class="gauge-pct-label" style="font-size:8px;">Pass Rate</span>
-                    </div>
-                  </div>
-                  <div class="report-gauge-meta">
-                    <div class="report-gauge-headline" id="report-gauge-headline">Pass Rate Status</div>
-                    <div class="report-gauge-sub" id="report-gauge-sub">Selected run analytics</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <!-- Middle: Inline Chips + 56px Pass-Rate Ring -->
+        <div style="display:flex; align-items:center; gap:14px; flex-shrink:0;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:12px; padding:4px 10px; border-radius:8px; background:var(--control-bg); color:var(--text-secondary); display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
+              Total <b id="report-stat-total" style="color:var(--text-primary); font-weight:600;">0</b>
+            </span>
+            <span style="font-size:12px; padding:4px 10px; border-radius:8px; background:rgba(47,213,154,0.1); color:var(--text-success); display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
+              Passed <b id="report-stat-passed" style="font-weight:600;">0</b>
+            </span>
+            <span id="report-chip-failed" style="font-size:12px; padding:4px 10px; border-radius:8px; background:var(--control-bg); color:var(--text-secondary); display:inline-flex; align-items:center; gap:4px; white-space:nowrap; transition:background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);">
+              Failed <b id="report-stat-failed" style="font-weight:600;">0</b>
+            </span>
+            <span id="report-chip-errors" style="font-size:12px; padding:4px 10px; border-radius:8px; background:var(--control-bg); color:var(--text-secondary); display:inline-flex; align-items:center; gap:4px; white-space:nowrap; transition:background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);">
+              Errors <b id="report-stat-errors" style="font-weight:600;">0</b>
+            </span>
           </div>
 
-          <!-- EMBEDDED IFRAME VIEWER CARD -->
-          <div class="report-frame-card directional-glow">
-            <div class="report-frame-header">
-              <div class="report-frame-title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                <span>Interactive HTML Report Viewer</span>
-              </div>
-              <span class="report-frame-url-tag">/view_report</span>
-            </div>
-            <div class="report-frame-body">
-              <iframe id="report-iframe" class="report-iframe" src="/view_report" title="Test Execution HTML Report"></iframe>
-              <div class="report-iframe-fallback" id="report-iframe-fallback" style="display:none;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                <h3>No report generated yet</h3>
-                <p>Run an automated test scan from the Dashboard to generate detailed HTML execution reports and view them here.</p>
-                <button type="button" class="btn-action primary" onclick="switchView('dashboard')" style="margin-top:10px;">
-                  Go to Dashboard
-                </button>
-              </div>
+          <!-- 56px Pass-Rate Ring -->
+          <div style="width:56px; height:56px; display:flex; align-items:center; justify-content:center; position:relative; flex-shrink:0;">
+            <svg width="56" height="56" viewBox="0 0 56 56">
+              <circle cx="28" cy="28" r="22" fill="none" stroke="var(--control-icon-bg)" stroke-width="4"></circle>
+              <circle id="report-gauge-fill" cx="28" cy="28" r="22" fill="none" stroke="var(--success)" stroke-width="4" stroke-dasharray="138.2" stroke-dashoffset="138.2" style="transition:stroke-dashoffset var(--dur-slow) var(--ease); transform:rotate(-90deg); transform-origin:28px 28px;"></circle>
+            </svg>
+            <span id="report-gauge-pct" style="position:absolute; font-size:11px; font-weight:600; color:var(--text-primary);">&mdash;</span>
+            <div style="display:none;">
+              <span id="report-gauge-headline"></span>
+              <span id="report-gauge-sub"></span>
             </div>
           </div>
-
         </div>
-      </main>
 
-    </div>
+        <!-- Right: Action Buttons -->
+        <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+          <a href="/download_report" download id="report-download-btn" style="height:36px; padding:0 14px; border-radius:999px; background:var(--avatar-bg); color:var(--bg-cards); display:inline-flex; align-items:center; gap:6px; text-decoration:none; font-size:13px; font-weight:600; white-space:nowrap;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download
+          </a>
+          <a href="/view_report" target="_blank" rel="noopener" id="report-external-btn" style="height:36px; padding:0 14px; border-radius:999px; background:var(--control-secondary-bg); color:var(--text-primary); display:inline-flex; align-items:center; gap:6px; text-decoration:none; font-size:13px; font-weight:500; white-space:nowrap;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> Open
+          </a>
+          <button id="report-refresh-btn" type="button" aria-label="Refresh report" style="height:36px; width:36px; border-radius:50%; background:var(--control-bg); color:var(--text-primary); border:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- REPORT VIEWER (fills the rest, >= 55% viewport height) -->
+      <div id="report-viewer-card" class="card-b" style="flex:1; min-height:55%; background:var(--bg-cards); border-radius:20px; display:flex; flex-direction:column; overflow:hidden;">
+        <div style="padding:12px 20px; border-bottom:1px solid var(--control-icon-bg); display:flex; align-items:center; gap:10px; font-size:13px; font-weight:500; flex-shrink:0; color:var(--text-primary);">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="3"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
+          Interactive HTML Report Viewer
+        </div>
+        <div style="flex:1; min-height:0; position:relative;">
+          <iframe id="report-iframe" src="/view_report" style="width:100%; height:100%; border:none; display:block;" title="Test Execution HTML Report"></iframe>
+          <div id="report-iframe-fallback" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:var(--bg-cards); display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--text-secondary); gap:12px;">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <div style="font-size:13px;">No report generated yet. Run a scan to view results.</div>
+            <button type="button" onclick="switchView('dashboard')" style="background:var(--avatar-bg); color:var(--bg-cards); border:none; border-radius:999px; padding:7px 16px; font-size:12px; font-weight:600; cursor:pointer;">Go to Dashboard</button>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
-
-  <script>
+</div>
+  <!-- Toast Notification (bottom right) -->
+  <div id="scan-toast" role="status" aria-live="polite" tabindex="0" class="scan-toast">
+    <span class="toast-dot"></span>
+    <span id="toast-message"></span>
+    <button id="toast-close-btn" type="button" aria-label="Close notification">&times;</button>
+  </div>
+</main>
+<script>
     // ═══════════════════════════════════════════════════════════
     // 1. THEME TOGGLE  (single source of truth — syncs iframe)
     // ═══════════════════════════════════════════════════════════
@@ -1781,9 +2133,53 @@
         const iframe = document.getElementById("report-iframe");
         if (!iframe) return;
         const iDoc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
-        if (iDoc && iDoc.documentElement) {
-          iDoc.documentElement.setAttribute("data-theme", theme);
+        if (!iDoc || !iDoc.documentElement) return;
+        iDoc.documentElement.setAttribute("data-theme", theme);
+
+        // Inject design-token CSS into iframe for R2 report styling
+        let style = iDoc.getElementById("qa-theme-inject");
+        if (!style) {
+          style = iDoc.createElement("style");
+          style.id = "qa-theme-inject";
+          (iDoc.head || iDoc.documentElement).appendChild(style);
         }
+        style.textContent = `
+          :root, [data-theme="dark"] {
+            --r-bg: #0d0a08; --r-surface: #14100e; --r-card: #1a1614;
+            --r-text: #fff; --r-text2: rgba(255,255,255,.56); --r-text3: rgba(255,255,255,.32);
+            --r-border: rgba(255,255,255,.12); --r-success: #2FD59A; --r-danger: #FF5D6C;
+            --r-accent: #2FD59A; --r-warning: #F5B942;
+            color-scheme: dark;
+          }
+          [data-theme="light"] {
+            --r-bg: #f2f2f7; --r-surface: #fff; --r-card: #fff;
+            --r-text: #1c1c1e; --r-text2: rgba(28,28,30,.56); --r-text3: rgba(28,28,30,.32);
+            --r-border: rgba(0,0,0,.12); --r-success: #12A36F; --r-danger: #E03B4B;
+            --r-accent: #12A36F; --r-warning: #D97706;
+            color-scheme: light;
+          }
+          html, body {
+            background: var(--r-bg) !important;
+            color: var(--r-text) !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, system-ui, sans-serif !important;
+          }
+          h1, h2, h3, h4, h5, h6 { color: var(--r-text) !important; }
+          p, li, td, th, span, div, pre, code { color: var(--r-text2) !important; }
+          a { color: var(--r-accent) !important; }
+          table { border-collapse: collapse !important; width: 100% !important; border-radius: 16px !important; overflow: hidden !important; }
+          th { background: var(--r-surface) !important; color: var(--r-text) !important; padding: 10px 14px !important; font-size: 12px !important; font-weight: 600 !important; text-align: left !important; border-bottom: 1px solid var(--r-border) !important; }
+          td { background: var(--r-card) !important; padding: 10px 14px !important; font-size: 13px !important; border-bottom: 1px solid var(--r-border) !important; }
+          tr:last-child td { border-bottom: none !important; }
+          tr:hover td { background: var(--r-surface) !important; }
+          .passed, .pass, [class*="pass"] { color: var(--r-success) !important; }
+          .failed, .fail, [class*="fail"] { color: var(--r-danger) !important; }
+          .error, [class*="error"] { color: var(--r-danger) !important; }
+          .warning, .warn, [class*="warn"] { color: var(--r-warning) !important; }
+          pre, code { background: var(--r-surface) !important; border: 1px solid var(--r-border) !important; border-radius: 8px !important; padding: 8px !important; font-size: 12px !important; }
+          hr { border-color: var(--r-border) !important; }
+          img { border-radius: 8px !important; }
+          * { border-color: var(--r-border) !important; }
+        `;
       } catch (_) { /* cross-origin guard — silently skip */ }
     }
 
@@ -1821,8 +2217,10 @@
     const viewDashboard = document.getElementById("dashboard-view");
     const viewReports   = document.getElementById("reports-view");
 
-    function switchView(viewName) {
+    function switchView(viewName, updateHash = true) {
+      const pageTitle = document.getElementById("page-title");
       if (viewName === "reports") {
+        if (pageTitle) pageTitle.textContent = "Reports";
         viewDashboard.style.display = "none";
         viewReports.style.display = "flex";
         tabDashboard.classList.remove("active");
@@ -1830,18 +2228,36 @@
         tabReports.classList.add("active");
         tabReports.setAttribute("aria-selected", "true");
         loadReportsView();
+        if (updateHash && window.location.hash !== "#reports") {
+          history.replaceState(null, "", "#reports");
+        }
       } else {
+        if (pageTitle) pageTitle.textContent = "Dashboard";
         viewReports.style.display = "none";
         viewDashboard.style.display = "flex";
         tabReports.classList.remove("active");
         tabReports.setAttribute("aria-selected", "false");
         tabDashboard.classList.add("active");
         tabDashboard.setAttribute("aria-selected", "true");
+        if (updateHash && window.location.hash === "#reports") {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
       }
     }
 
     tabDashboard.addEventListener("click", () => switchView("dashboard"));
     tabReports.addEventListener("click", () => switchView("reports"));
+
+    function initViewFromHash() {
+      if (window.location.hash === "#reports") {
+        switchView("reports", false);
+      } else {
+        switchView("dashboard", false);
+      }
+    }
+    window.addEventListener("hashchange", initViewFromHash);
+    document.addEventListener("DOMContentLoaded", initViewFromHash);
+    initViewFromHash();
 
     // ═══════════════════════════════════════════════════════════
     // 3. HORIZONTAL COLUMN SPLITTERS (DRAGGABLE GUTTERS)
@@ -1962,27 +2378,195 @@
       // Sync recent scans key for backward compatibility
       localStorage.setItem(RECENT_KEY, JSON.stringify(history.slice(0, 6)));
       renderRecentScans();
-      renderReportsHistory();
     }
 
-    function renderRecentScans() {
+
+    function renderRecentScans(highlightId = null) {
       const list = document.getElementById("recent-scans-list");
       const scans = getScanHistory().slice(0, 6);
       if (!scans.length) {
         list.innerHTML = `<div style="font-size:11px;color:var(--text-tertiary);padding:8px 0;text-align:center;">No recent scans yet.</div>`;
         return;
       }
-      list.innerHTML = scans.map((s, idx) => `
-        <div class="recent-item" onclick="openReportByIndex(${idx})">
-          <div class="recent-item-body">
-            <div class="recent-item-name">${escapeHtml(s.label || s.url)}</div>
-            <div class="recent-item-date">${s.date || ""}</div>
+      list.innerHTML = scans.map((s, idx) => {
+          const pass = s.summary ? s.summary.passed : 0;
+          const total = s.summary ? s.summary.total : 0;
+          const passRate = total > 0 ? ((pass/total)*100).toFixed(2) : 0;
+          const isOk = s.status === 'completed';
+          const color = isOk ? "var(--success)" : "var(--danger)";
+          const icon = isOk ? `<circle cx="12" cy="12" r="10" fill="none" stroke="${color}" stroke-width="2"></circle><path d="M8 12l3 3 5-5" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>` : `<circle cx="12" cy="12" r="10" fill="none" stroke="${color}" stroke-width="2"></circle><path d="M15 9l-6 6M9 9l6 6" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>`;
+          const isHl = highlightId && (s.id === highlightId || idx === 0);
+          
+          return `
+        <div class="recent-item ${isHl ? 'highlight' : ''}" onclick="openReportByIndex(${idx})" style="display:flex;align-items:center;gap:16px;cursor:pointer;padding:8px 12px;border-radius:14px;transition:background var(--dur-fast) var(--ease);">
+          <div style="width:40px;height:40px;border-radius:50%;background:var(--control-icon-bg);display:flex;align-items:center;justify-content:center;">
+             <svg width="20" height="20" viewBox="0 0 24 24">${icon}</svg>
           </div>
-          <span class="recent-badge ${s.status === 'completed' ? 'completed' : 'failed'}">${s.status === 'completed' ? 'Completed' : 'Failed'}</span>
-          <svg class="recent-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>`).join("");
+          <div style="flex:1;">
+            <div style="font-size:14px;color:var(--text-primary);font-weight:500;margin-bottom:2px;">${escapeHtml(s.label || s.url)}</div>
+            <div style="font-size:11px;color:var(--text-tertiary);">${s.date || ""}</div>
+          </div>
+          <div style="text-align:right;">
+             <div style="font-size:14px;color:${color};font-weight:500;">${isOk ? 'Passed' : 'Failed'}</div>
+             <div style="font-size:11px;color:var(--text-tertiary);">${pass} of ${total} tests</div>
+          </div>
+        </div>`;
+      }).join("");
     }
     renderRecentScans();
+
+    function renderChart(range = '7d') {
+      const svg = document.getElementById("scan-chart-svg");
+      if (!svg) return;
+      const allHistory = getScanHistory();
+      
+      const now = new Date().getTime();
+      let scans = allHistory.filter(s => {
+          if (range === 'all') return true;
+          const days = range === '30d' ? 30 : 7;
+          return (now - new Date(s.timestamp).getTime()) <= days * 24 * 60 * 60 * 1000;
+      });
+      scans = scans.reverse(); // chronological order
+      
+      // Calculate overall pass rate
+      let tTotal = 0; let tPass = 0;
+      scans.forEach(s => {
+          if (s.summary) {
+              tTotal += s.summary.total;
+              tPass += s.summary.passed;
+          }
+      });
+      const avgRate = tTotal > 0 ? Math.round((tPass/tTotal)*100) : 0;
+      const avgRateEl = svg.closest(".card-b").querySelector("div[style*='font-size:32px']");
+      if (avgRateEl) avgRateEl.textContent = avgRate + "%";
+      
+      // Clear existing bars
+      svg.querySelectorAll('.chart-bar-group, .chart-tooltip').forEach(e => e.remove());
+      
+      // Update X axis labels
+      const xAxis = document.getElementById("scan-chart-x-axis");
+      if (xAxis) xAxis.innerHTML = "";
+      
+      if (scans.length === 0) return;
+      
+      svg.setAttribute("viewBox", "0 0 700 160");
+      const width = 700;
+      const height = 160;
+      const gap = width / Math.max(scans.length, 1);
+      
+      // Date formatting for axis: group by date
+      const dateCounts = {};
+      scans.forEach(s => {
+          const d = new Date(s.timestamp).toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
+          dateCounts[d] = (dateCounts[d] || 0) + 1;
+      });
+      
+      scans.forEach((scan, i) => {
+         const cx = (i * gap) + (gap / 2);
+         const total = scan.summary ? scan.summary.total : 0;
+         const passed = scan.summary ? scan.summary.passed : 0;
+         const failed = scan.summary ? scan.summary.failed : 0;
+         
+         const passedRate = total > 0 ? (passed / total) : 0;
+         const failedRate = total > 0 ? (failed / total) : 0;
+         
+         const passedH = passedRate * height;
+         const failedH = failedRate * height;
+         
+         const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+         g.setAttribute("class", "chart-bar-group");
+         g.style.cursor = "pointer";
+         
+         const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+         hoverRect.setAttribute("x", cx - (gap/2));
+         hoverRect.setAttribute("y", 0);
+         hoverRect.setAttribute("width", gap);
+         hoverRect.setAttribute("height", height);
+         hoverRect.setAttribute("fill", "transparent");
+         g.appendChild(hoverRect);
+         
+         if (passedH > 0) {
+             const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             pRect.setAttribute("x", cx - 4);
+             pRect.setAttribute("y", height - passedH);
+             pRect.setAttribute("width", 8);
+             pRect.setAttribute("height", passedH);
+             pRect.setAttribute("fill", "var(--success)");
+             if (failedH === 0) pRect.setAttribute("rx", "4"); // rounded top if no failed cap
+             g.appendChild(pRect);
+         }
+         
+         if (failedH > 0) {
+             const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             fRect.setAttribute("x", cx - 4);
+             fRect.setAttribute("y", height - passedH - failedH);
+             fRect.setAttribute("width", 8);
+             fRect.setAttribute("height", failedH);
+             fRect.setAttribute("fill", "var(--danger)");
+             fRect.setAttribute("rx", "4");
+             g.appendChild(fRect);
+         }
+         
+         const d = new Date(scan.timestamp);
+         const dateStr = d.toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
+         let labelText = dateStr;
+         if (dateCounts[dateStr] > 1) {
+             labelText += "<br/>" + d.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
+         }
+         
+         if (xAxis) {
+             const span = document.createElement("span");
+             span.innerHTML = labelText;
+             span.style.textAlign = "center";
+             span.style.flex = "1";
+             span.style.fontSize = "11px";
+             xAxis.appendChild(span);
+         }
+         
+         g.addEventListener("mouseenter", () => {
+             const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+             tbg.setAttribute("class", "chart-tooltip");
+             tbg.setAttribute("x", cx - 60);
+             const tipY = height - passedH - failedH - 40;
+             tbg.setAttribute("y", tipY);
+             tbg.setAttribute("width", 120);
+             tbg.setAttribute("height", 45);
+             tbg.setAttribute("fill", "var(--text-primary)");
+             tbg.setAttribute("rx", "8");
+             
+             const tdate = document.createElementNS("http://www.w3.org/2000/svg", "text");
+             tdate.setAttribute("class", "chart-tooltip");
+             tdate.setAttribute("x", cx);
+             tdate.setAttribute("y", tipY + 15);
+             tdate.setAttribute("fill", "var(--bg-cards)");
+             tdate.setAttribute("font-size", "10");
+             tdate.setAttribute("text-anchor", "middle");
+             tdate.textContent = d.toLocaleString("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' });
+
+             const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
+             ttext.setAttribute("class", "chart-tooltip");
+             ttext.setAttribute("x", cx);
+             ttext.setAttribute("y", tipY + 32);
+             ttext.setAttribute("fill", "var(--bg-cards)");
+             ttext.setAttribute("font-size", "12");
+             ttext.setAttribute("font-weight", "600");
+             ttext.setAttribute("text-anchor", "middle");
+             ttext.textContent = passed + " of " + total + " passed";
+             
+             svg.appendChild(tbg);
+             svg.appendChild(tdate);
+             svg.appendChild(ttext);
+         });
+         
+         g.addEventListener("mouseleave", () => {
+             svg.querySelectorAll('.chart-tooltip').forEach(e => e.remove());
+         });
+         
+         svg.appendChild(g);
+      });
+    }
+
+    renderChart();
 
     let activeSelectedScanId = null;
 
@@ -2006,18 +2590,20 @@
 
       list.innerHTML = filtered.map(s => {
         const isActive = s.id === activeSelectedScanId;
-        const total = s.summary ? s.summary.total : 0;
-        const passed = s.summary ? s.summary.passed : 0;
+        const isOk = s.status === 'completed';
+        const labelText = s.label || 'Scan run';
+        const dateText = s.date || '';
+        const urlText = s.url || '';
+        const metaStr = urlText && dateText ? `${urlText}, ${dateText}` : (urlText || dateText);
+
         return `
-          <div class="reports-history-item ${isActive ? 'is-active' : ''}" data-id="${s.id}" onclick="selectScanInHistory('${s.id}')">
-            <div class="reports-history-item-top">
-              <span class="reports-history-title">${escapeHtml(s.label || 'Scan Run')}</span>
-              <span class="recent-badge ${s.status === 'completed' ? 'completed' : 'failed'}">${s.status === 'completed' ? 'Passed' : 'Failed'}</span>
+          <div class="reports-history-item ${isActive ? 'is-active' : ''}" data-id="${s.id}" onclick="selectScanInHistory('${s.id}')" style="padding:10px 12px; border-radius:12px; cursor:pointer; margin-bottom:6px; display:flex; flex-direction:column; gap:4px; transition:background var(--dur-fast) var(--ease);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="reports-history-title" style="font-size:13px; font-weight:500; color:var(--text-primary); text-transform:none;">${escapeHtml(labelText)}</span>
+              <span class="recent-badge ${isOk ? 'completed' : 'failed'}" style="font-size:11px; padding:2px 8px; border-radius:999px;">${isOk ? 'Passed' : 'Failed'}</span>
             </div>
-            <div class="reports-history-url">${escapeHtml(s.url || '')}</div>
-            <div class="reports-history-footer">
-              <span>${s.date || ''}</span>
-              ${total > 0 ? `<span class="reports-history-stats-pill">${passed}/${total} passed</span>` : ''}
+            <div class="reports-history-url" style="font-size:11px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-transform:none; font-family:var(--font-sans, inherit);">
+              ${escapeHtml(metaStr)}
             </div>
           </div>
         `;
@@ -2052,16 +2638,42 @@
       document.getElementById("report-stat-failed").textContent = failed;
       document.getElementById("report-stat-errors").textContent = errors;
 
-      // Circular gauge in report view
+      const chipFailed = document.getElementById("report-chip-failed");
+      if (chipFailed) {
+        if (failed > 0) {
+          chipFailed.style.background = "rgba(255,93,108,0.12)";
+          chipFailed.style.color = "var(--danger)";
+        } else {
+          chipFailed.style.background = "var(--control-bg)";
+          chipFailed.style.color = "var(--text-secondary)";
+        }
+      }
+      const chipErrors = document.getElementById("report-chip-errors");
+      if (chipErrors) {
+        if (errors > 0) {
+          chipErrors.style.background = "rgba(255,93,108,0.12)";
+          chipErrors.style.color = "var(--danger)";
+        } else {
+          chipErrors.style.background = "var(--control-bg)";
+          chipErrors.style.color = "var(--text-secondary)";
+        }
+      }
+
+      // Circular 56px ring in summary strip (r=22, circumference=138.2)
       const pct = total > 0 ? Math.round((passed / total) * 100) : 0;
-      const circumference = 2 * Math.PI * 35;
+      const circumference = 138.2;
       const gaugeFillEl = document.getElementById("report-gauge-fill");
-      gaugeFillEl.style.strokeDasharray = circumference;
-      gaugeFillEl.style.strokeDashoffset = circumference - (pct / 100) * circumference;
-      gaugeFillEl.style.stroke = pct >= 80 ? "url(#gauge-gradient)" : pct >= 50 ? "#eab308" : "#ef4444";
-      document.getElementById("report-gauge-pct").textContent = pct + "%";
-      document.getElementById("report-gauge-headline").textContent = pct === 100 ? "100% Pass Rate" : `${pct}% Pass Rate`;
-      document.getElementById("report-gauge-sub").textContent = `${passed} of ${total} tests passed`;
+      if (gaugeFillEl) {
+        gaugeFillEl.style.strokeDasharray = circumference;
+        gaugeFillEl.style.strokeDashoffset = (circumference - (pct / 100) * circumference).toFixed(1);
+        gaugeFillEl.style.stroke = pct >= 80 ? "var(--success)" : pct >= 50 ? "var(--warning)" : "var(--danger)";
+      }
+      const pctEl = document.getElementById("report-gauge-pct");
+      if (pctEl) pctEl.textContent = total > 0 ? pct + "%" : "—";
+      const headEl = document.getElementById("report-gauge-headline");
+      if (headEl) headEl.textContent = pct === 100 ? "100% Pass Rate" : `${pct}% Pass Rate`;
+      const subEl = document.getElementById("report-gauge-sub");
+      if (subEl) subEl.textContent = `${passed} of ${total} tests passed`;
 
       // Embedded Iframe loading
       const iframe = document.getElementById("report-iframe");
@@ -2110,11 +2722,13 @@
         localStorage.removeItem(RECENT_KEY);
         activeSelectedScanId = null;
         renderRecentScans();
+        renderChart();
         loadReportsView();
       }
     });
 
     // Report refresh button
+
     document.getElementById("report-refresh-btn").addEventListener("click", () => {
       const iframe = document.getElementById("report-iframe");
       if (iframe) iframe.src = "/view_report?t=" + Date.now();
@@ -2128,24 +2742,8 @@
     const envAuthType = document.getElementById("env-auth-type");
     urlInput.addEventListener("input", () => { envBaseUrl.textContent = urlInput.value || "https://example.com"; });
 
-    const strategyRadios = document.querySelectorAll('input[name="scan_strategy"]');
-    const strategyCards  = document.querySelectorAll(".strategy-card");
     const authFields     = document.getElementById("auth-fields");
     const STRATEGY_DEFAULT_SCAN = { external: "api", authenticated: "login" };
-
-    strategyRadios.forEach(radio => {
-      radio.addEventListener("change", () => {
-        strategyCards.forEach(c => c.classList.remove("selected"));
-        const parentCard = radio.closest(".strategy-card");
-        if (parentCard) parentCard.classList.add("selected");
-        const isAuth = radio.value === "authenticated";
-        if (isAuth) authFields.classList.add("visible"); else authFields.classList.remove("visible");
-        envAuthType.textContent = isAuth ? "Credentials" : "None";
-        const rec = STRATEGY_DEFAULT_SCAN[radio.value];
-        if (rec && selectEl.value !== rec) { selectEl.value = rec; hintEl.textContent = HINTS[rec] || ""; }
-      });
-    });
-    function getSelectedStrategy() { const c = document.querySelector('input[name="scan_strategy"]:checked'); return c ? c.value : "external"; }
 
     const HINTS = {
       login:      "Runs both positive and negative login tests.",
@@ -2156,7 +2754,207 @@
     };
     const selectEl = document.getElementById("scan_type");
     const hintEl   = document.getElementById("scan-hint");
-    selectEl.addEventListener("change", () => { hintEl.textContent = HINTS[selectEl.value] || ""; });
+
+    function getSelectedStrategy() {
+      const c = document.querySelector('input[name="scan_strategy"]:checked');
+      return c ? c.value : "external";
+    }
+
+    // Segmented control helper for instant first-click state change and sliding thumb
+    function initSegmentedControl(controlEl, onChange) {
+      if (!controlEl) return;
+      const labels = Array.from(controlEl.querySelectorAll(".segmented-label"));
+      const thumb = controlEl.querySelector(".segmented-thumb");
+
+      function updateThumb(activeLabel) {
+        if (!thumb || !activeLabel) return;
+        const cl = controlEl.getBoundingClientRect();
+        const rl = activeLabel.getBoundingClientRect();
+        const left = rl.left - cl.left;
+        const width = rl.width;
+        thumb.style.transform = `translateX(${left}px)`;
+        thumb.style.width = `${width}px`;
+      }
+
+      labels.forEach(label => {
+        function activate() {
+          labels.forEach(l => {
+            l.classList.remove("active");
+            l.setAttribute("aria-checked", "false");
+            const r = l.querySelector('input[type="radio"]');
+            if (r) r.checked = false;
+          });
+          label.classList.add("active");
+          label.setAttribute("aria-checked", "true");
+          const radio = label.querySelector('input[type="radio"]');
+          if (radio) {
+            radio.checked = true;
+            radio.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+          updateThumb(label);
+          if (onChange) onChange(radio ? radio.value : label.dataset.value);
+        }
+
+        label.addEventListener("click", activate);
+        label.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            activate();
+          }
+        });
+      });
+
+      const currentActive = controlEl.querySelector(".segmented-label.active") || labels[0];
+      if (currentActive) {
+        requestAnimationFrame(() => updateThumb(currentActive));
+      }
+      window.addEventListener("resize", () => {
+        const cur = controlEl.querySelector(".segmented-label.active");
+        if (cur) updateThumb(cur);
+      });
+    }
+
+    // Initialize Strategy Segmented Control
+    initSegmentedControl(document.getElementById("strategy-control"), (val) => {
+      const isAuth = val === "authenticated";
+      if (isAuth) {
+        authFields.style.display = "block";
+        authFields.classList.add("visible");
+      } else {
+        authFields.style.display = "none";
+        authFields.classList.remove("visible");
+      }
+      envAuthType.textContent = isAuth ? "Credentials" : "None";
+      const rec = STRATEGY_DEFAULT_SCAN[val];
+      if (rec && selectEl.value !== rec) {
+        selectEl.value = rec;
+        selectEl.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    });
+
+    // Initialize Chart Range Segmented Control
+    initSegmentedControl(document.getElementById("chart-range-control"), (val) => {
+      renderChart(val);
+    });
+
+    // Custom Select Dropdown Implementation
+    function initCustomSelect() {
+      const wrapper = document.getElementById("scan-type-custom-dropdown");
+      if (!wrapper) return;
+      const trigger = document.getElementById("scan-type-trigger");
+      const popover = document.getElementById("scan-type-options");
+      const labelEl = document.getElementById("scan-type-selected-label");
+      const options = Array.from(popover.querySelectorAll(".custom-select-option"));
+      let isOpen = false;
+      let focusedIndex = options.findIndex(o => o.classList.contains("is-selected"));
+
+      function open() {
+        isOpen = true;
+        trigger.classList.add("is-open");
+        trigger.setAttribute("aria-expanded", "true");
+        popover.classList.add("is-open");
+        updateFocus(options.findIndex(o => o.classList.contains("is-selected")));
+      }
+
+      function close() {
+        isOpen = false;
+        trigger.classList.remove("is-open");
+        trigger.setAttribute("aria-expanded", "false");
+        popover.classList.remove("is-open");
+        options.forEach(o => o.classList.remove("is-focused"));
+      }
+
+      function selectOption(opt) {
+        const val = opt.dataset.value;
+        options.forEach(o => {
+          const isSel = o === opt;
+          o.classList.toggle("is-selected", isSel);
+          o.setAttribute("aria-selected", isSel ? "true" : "false");
+        });
+        labelEl.textContent = opt.querySelector("span").textContent;
+        if (selectEl.value !== val) {
+          selectEl.value = val;
+          selectEl.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+        close();
+        trigger.focus();
+      }
+
+      function updateFocus(idx) {
+        if (idx < 0) idx = 0;
+        if (idx >= options.length) idx = options.length - 1;
+        focusedIndex = idx;
+        options.forEach((o, i) => {
+          o.classList.toggle("is-focused", i === idx);
+        });
+        if (options[idx]) options[idx].scrollIntoView({ block: "nearest" });
+      }
+
+      trigger.addEventListener("click", () => {
+        if (isOpen) close(); else open();
+      });
+
+      options.forEach((opt, idx) => {
+        opt.addEventListener("click", (e) => {
+          e.stopPropagation();
+          selectOption(opt);
+        });
+        opt.addEventListener("mouseenter", () => {
+          updateFocus(idx);
+        });
+      });
+
+      trigger.addEventListener("keydown", (e) => {
+        if (!isOpen) {
+          if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            open();
+          }
+          return;
+        }
+
+        if (e.key === "Escape") {
+          e.preventDefault();
+          close();
+          trigger.focus();
+        } else if (e.key === "ArrowDown") {
+          e.preventDefault();
+          updateFocus(focusedIndex + 1);
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          updateFocus(focusedIndex - 1);
+        } else if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          if (focusedIndex >= 0 && focusedIndex < options.length) {
+            selectOption(options[focusedIndex]);
+          }
+        } else if (e.key === "Tab") {
+          close();
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!wrapper.contains(e.target)) {
+          close();
+        }
+      });
+
+      // Synchronize with native select change (e.g. from Playwright page.select_option)
+      selectEl.addEventListener("change", () => {
+        const val = selectEl.value;
+        hintEl.textContent = HINTS[val] || "";
+        const targetOpt = options.find(o => o.dataset.value === val);
+        if (targetOpt) {
+          options.forEach(o => {
+            const isSel = o === targetOpt;
+            o.classList.toggle("is-selected", isSel);
+            o.setAttribute("aria-selected", isSel ? "true" : "false");
+          });
+          labelEl.textContent = targetOpt.querySelector("span").textContent;
+        }
+      });
+    }
+    initCustomSelect();
 
     // DOM refs
     const form          = document.getElementById("scan-form");
@@ -2190,36 +2988,116 @@
     let totalFiles = 0, filesCompleted = 0;
 
     function updateGauge(total, passed, failed) {
-      const circumference = 2 * Math.PI * 35;
+      const circumference = 138.2;
       const pct = total > 0 ? Math.round((passed / total) * 100) : 0;
       gaugePct.textContent    = pct + "%";
       gaugeTotal.textContent  = total;
       gaugePassed.textContent = passed;
       gaugeFailed.textContent = failed;
-      gaugeFill.style.strokeDashoffset = circumference - (pct / 100) * circumference;
+      gaugeFill.style.strokeDashoffset = (circumference - (pct / 100) * circumference).toFixed(1);
       gaugeFill.style.strokeDasharray  = circumference;
-      gaugeFill.style.stroke = pct >= 80 ? "url(#gauge-gradient)" : pct >= 50 ? "#eab308" : "#ef4444";
-      gaugeBarFill.style.transform = `scaleX(${pct / 100})`;
-      gaugeBarMeta.textContent = `${passed} / ${total} passed`;
+      gaugeFill.style.stroke = pct >= 80 ? "var(--success)" : pct >= 50 ? "var(--warning)" : "var(--danger)";
+      if (gaugeBarFill) gaugeBarFill.style.transform = `scaleX(${pct / 100})`;
+      if (gaugeBarMeta) gaugeBarMeta.textContent = `${passed} / ${total} passed`;
     }
 
     const STEPS = ["init","discover","scan","analyze","report"];
+    const STEP_NUMBERS = { init: "1", discover: "2", scan: "3", analyze: "4", report: "5" };
+    const CHECK_SVG = `<svg class="check-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+    const FAIL_SVG = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+
+    function tweenNumber(el, targetVal, suffix = "") {
+      if (!el) return;
+      const startVal = parseInt(el.textContent) || 0;
+      if (startVal === targetVal) { el.textContent = targetVal + suffix; return; }
+      const startTime = performance.now();
+      const duration = 300;
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const curr = Math.round(startVal + (targetVal - startVal) * ease);
+        el.textContent = curr + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = targetVal + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+
+    function updateStepperConnector() {
+      const conn = document.getElementById("stepper-connector-fill");
+      if (!conn) return;
+      let highestDone = -1;
+      let runningIdx = -1;
+      STEPS.forEach((s, idx) => {
+        const el = document.getElementById("step-" + s);
+        if (el) {
+          if (el.classList.contains("done")) highestDone = idx;
+          else if (el.classList.contains("running") && runningIdx === -1) runningIdx = idx;
+        }
+      });
+      let pct = 0;
+      if (highestDone === 4) pct = 100;
+      else if (runningIdx !== -1) pct = (runningIdx * 25) + 12.5;
+      else if (highestDone !== -1) pct = (highestDone + 1) * 25;
+      conn.style.width = Math.min(100, Math.max(0, pct)) + "%";
+    }
+
     function setStepState(id, state, time) {
       const el = document.getElementById("step-" + id);
       if (!el) return;
       el.classList.remove("done","running","failed");
-      if (state) el.classList.add(state);
+      const circle = el.querySelector(".step-circle");
+      if (state) {
+        el.classList.add(state);
+        if (circle) {
+          if (state === "done") circle.innerHTML = CHECK_SVG;
+          else if (state === "failed") circle.innerHTML = FAIL_SVG;
+          else circle.textContent = STEP_NUMBERS[id] || "";
+        }
+      } else {
+        if (circle) circle.textContent = STEP_NUMBERS[id] || "";
+      }
       const t = document.getElementById("step-" + id + "-time");
       if (t && time !== undefined) t.textContent = time;
+
+      updateStepperConnector();
+
+      window.__stepper_history = window.__stepper_history || [];
+      const currentPattern = STEPS.map(s => {
+        const elS = document.getElementById("step-" + s);
+        if (!elS) return "idle";
+        if (elS.classList.contains("done")) return "done";
+        if (elS.classList.contains("running")) return "running";
+        if (elS.classList.contains("failed")) return "failed";
+        return "idle";
+      }).join(" -> ");
+      const last = window.__stepper_history[window.__stepper_history.length - 1];
+      if (!last || last.state !== currentPattern) {
+        window.__stepper_history.push({ time: Date.now(), state: currentPattern });
+      }
     }
     function resetSteps() {
       STEPS.forEach(s => setStepState(s, "", "—"));
+      const conn = document.getElementById("stepper-connector-fill");
+      if (conn) conn.style.width = "0%";
+      const fill = document.getElementById("exec-progress-fill");
+      if (fill) fill.style.width = "0%";
+      const pctEl = document.getElementById("exec-progress-pct");
+      if (pctEl) pctEl.textContent = "0%";
       document.getElementById("step-analyze-time").textContent = "Pending";
       document.getElementById("step-report-time").textContent  = "Pending";
     }
     function updateExecProgress(pct) {
-      document.getElementById("exec-progress-fill").style.transform = `scaleX(${pct / 100})`;
-      document.getElementById("exec-progress-pct").textContent = Math.round(pct) + "%";
+      const fill = document.getElementById("exec-progress-fill");
+      if (fill) {
+        fill.style.transform = "none";
+        fill.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+      }
+      const pctEl = document.getElementById("exec-progress-pct");
+      if (pctEl) {
+        tweenNumber(pctEl, Math.round(pct), "%");
+      }
     }
 
     function createProgressController(fillEl, textEl) {
@@ -2244,6 +3122,31 @@
       return { setTarget, getDisplayed:()=>displayed, getTarget:()=>target };
     }
     const completionProgress = createProgressController(document.getElementById("pass-rate-fill"),document.getElementById("pass-rate-pct"));
+
+
+    // Environment & Config Popover
+    (function initEnvConfigPopover() {
+      const btn = document.getElementById("env-config-info-btn");
+      const pop = document.getElementById("section-env-config");
+      const closeBtn = document.getElementById("env-config-close-btn");
+      if (!btn || !pop) return;
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isHidden = pop.style.display === "none" || !pop.style.display;
+        pop.style.display = isHidden ? "block" : "none";
+      });
+      if (closeBtn) {
+        closeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          pop.style.display = "none";
+        });
+      }
+      document.addEventListener("click", (e) => {
+        if (!pop.contains(e.target) && e.target !== btn) {
+          pop.style.display = "none";
+        }
+      });
+    })();
 
     // Directional glow
     (function initDirectionalGlows() {
@@ -2290,22 +3193,139 @@
     function setLoading(loading){
       submitBtn.disabled=loading;
       if(loading){
-        btnText.textContent="Testing...";submitBtn.classList.add("testing");runBtnShell.classList.add("testing");
+        btnText.textContent="Testing...";submitBtn.classList.add("testing"); submitBtn.disabled = true;runBtnShell.classList.add("testing");
         statusDot.className="status-dot running";footerDot.className="status-dot running";
         document.getElementById("exec-status-badge").className="exec-status-badge running";
       } else {
-        btnText.textContent="Start Scan";submitBtn.classList.remove("testing");runBtnShell.classList.remove("testing");
+        btnText.textContent="Start Scan";submitBtn.classList.remove("testing"); submitBtn.disabled = false;runBtnShell.classList.remove("testing");
       }
     }
 
+    const DEFAULT_DOC_TITLE = "QA Automation Engine — Dashboard & Reports";
+    let titleResetTimer = null;
+
+    function setPageTitleRunning(pct) {
+      if (titleResetTimer) { clearTimeout(titleResetTimer); titleResetTimer = null; }
+      document.title = `Running ${pct}% - QA Automation Engine`;
+    }
+
+    function setPageTitleComplete(passed, total, failed) {
+      if (titleResetTimer) clearTimeout(titleResetTimer);
+      if (failed === 0) {
+        document.title = `Passed ${passed}/${total} - QA Automation Engine`;
+      } else {
+        document.title = `Failed ${failed}/${total} - QA Automation Engine`;
+      }
+      function resetTitle() {
+        document.title = DEFAULT_DOC_TITLE;
+        window.removeEventListener("mousemove", resetTitle);
+        window.removeEventListener("keydown", resetTitle);
+        window.removeEventListener("click", resetTitle);
+        window.removeEventListener("touchstart", resetTitle);
+      }
+      titleResetTimer = setTimeout(resetTitle, 30000);
+      window.addEventListener("mousemove", resetTitle, { once: true });
+      window.addEventListener("keydown", resetTitle, { once: true });
+      window.addEventListener("click", resetTitle, { once: true });
+      window.addEventListener("touchstart", resetTitle, { once: true });
+    }
+
+    function showScanToast(passed, failed) {
+      const toast = document.getElementById("scan-toast");
+      if (!toast) return;
+      const allOk = (failed === 0);
+      const dot = toast.querySelector(".toast-dot");
+      const msg = toast.querySelector("#toast-message");
+      if (dot) dot.className = `toast-dot ${allOk ? "pass" : "fail"}`;
+      if (msg) msg.textContent = `Scan complete: ${passed} passed, ${failed} failed`;
+      
+      toast.classList.add("visible");
+      
+      if (window._scanToastTimer) clearTimeout(window._scanToastTimer);
+      window._scanToastTimer = setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 6000);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const toast = document.getElementById("scan-toast");
+      const closeBtn = document.getElementById("toast-close-btn");
+      if (closeBtn && toast) {
+        closeBtn.addEventListener("click", () => toast.classList.remove("visible"));
+      }
+      if (toast) {
+        toast.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
+            toast.classList.remove("visible");
+          }
+        });
+      }
+    });
+
+    const STEP_DESCS = {
+      1: { name: "Initialize", desc: "Preparing test environment and validating target parameters." },
+      2: { name: "Discover", desc: "Discovering test suites and setting up browser context." },
+      3: { name: "Scan", desc: "Executing automated test suites against target." },
+      4: { name: "Analyze", desc: "Analyzing execution assertions and test results." },
+      5: { name: "Report", desc: "Compiling test report and performance metrics." }
+    };
+
+    let activeScanTarget = "";
+    let activeTestTotal = 0;
+    let activeTestIndex = 0;
+    let scanFilesList = [];
+
+    function updateScanHeader(stepNum, customTarget) {
+      if (customTarget) activeScanTarget = customTarget;
+      const step = STEP_DESCS[stepNum] || STEP_DESCS[1];
+      const titleEl = document.getElementById("exec-header-title");
+      const descEl = document.getElementById("exec-header-desc");
+      const wrapperEl = document.getElementById("exec-timer-wrapper");
+      if (titleEl) {
+        titleEl.textContent = `Scanning ${activeScanTarget || "target"}, step ${stepNum} of 5: ${step.name}`;
+      }
+      if (descEl) {
+        descEl.textContent = step.desc;
+        descEl.style.display = "block";
+      }
+      if (wrapperEl) {
+        wrapperEl.style.display = "flex";
+      }
+    }
+
+    function setRunningTestName(label, index, total) {
+      const el = document.getElementById("exec-running-test");
+      if (!el) return;
+      if (label && total) {
+        el.textContent = `Running: ${label} (test ${index + 1} of ${total})`;
+        el.style.display = "block";
+      } else {
+        el.textContent = "";
+        el.style.display = "none";
+      }
+    }
+
+    const runTimerEl = document.getElementById("run-timer");
+    const execTimerWrapper = document.getElementById("exec-timer-wrapper");
+
     function startTimer(){
-      scanStartTime=Date.now();footerTimer.textContent="00:00";
+      scanStartTime=Date.now();
+      if(footerTimer) footerTimer.textContent="00:00";
+      if(runTimerEl) runTimerEl.textContent="00:00";
+      if(execTimerWrapper) execTimerWrapper.style.display="flex";
+      if(scanTimer) clearInterval(scanTimer);
       scanTimer=setInterval(()=>{
         const e=Math.floor((Date.now()-scanStartTime)/1000);
-        footerTimer.textContent=`${String(Math.floor(e/60)).padStart(2,"0")}:${String(e%60).padStart(2,"0")}`;
+        const mm = String(Math.floor(e/60)).padStart(2,"0");
+        const ss = String(e%60).padStart(2,"0");
+        const tStr = `${mm}:${ss}`;
+        if(footerTimer) footerTimer.textContent=tStr;
+        if(runTimerEl) runTimerEl.textContent=tStr;
       },1000);
     }
-    function stopTimer(){if(scanTimer)clearInterval(scanTimer);}
+    function stopTimer(){
+      if(scanTimer){clearInterval(scanTimer); scanTimer=null;}
+    }
 
     logBody.addEventListener("scroll",()=>{
       const{scrollTop,scrollHeight,clientHeight}=logBody;
@@ -2316,33 +3336,33 @@
       logLineCount=0;logCount.textContent="0";currentLogFile=null;
     });
 
-    function appendLogLine(timestamp,line,file){
-      if(!line||!line.startsWith("Status: ")) return;
-      if(file&&file!==currentLogFile){
-        currentLogFile=file;
-        const sep=document.createElement("div");sep.className="log-file-sep";
-        sep.textContent=file==="summary"?"Scan Completed":file;
-        logBody.appendChild(sep);
-      }
-      logEmpty.style.display="none";
-      let message=line.substring(8).trim(),levelLabel="INFO",level="info";
-      const em=message.match(/^([\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|✅|❌|⚠️)/u);
-      if(em){
-        const icon=em[1];message=message.substring(icon.length).trim();
-        if(message.startsWith(":")||message.startsWith("-"))message=message.substring(1).trim();
-        if(icon==="✅"){level="pass";levelLabel="PASS";}
-        else if(icon==="❌"){level="fail";levelLabel="FAIL";}
-        else if(icon==="⚠️"){level="warn";levelLabel="WARN";}
+    function appendLogLine(timestamp, line, label) {
+      if (!line) return;
+      logEmpty.style.display = "none";
+      let message = line.startsWith("Status: ") ? line.substring(8).trim() : line.trim();
+      let levelLabel = "INFO", level = "info";
+      const em = message.match(/^([\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|✅|❌|⚠️)/u);
+      if (em) {
+        const icon = em[1];
+        message = message.substring(icon.length).trim();
+        if (message.startsWith(":") || message.startsWith("-")) message = message.substring(1).trim();
+        if (icon === "✅") { level = "pass"; levelLabel = "PASS"; }
+        else if (icon === "❌") { level = "fail"; levelLabel = "FAIL"; }
+        else if (icon === "⚠️") { level = "warn"; levelLabel = "WARN"; }
       } else {
-        if(/pass/i.test(message)){level="pass";levelLabel="PASS";}
-        else if(/fail|error/i.test(message)){level="fail";levelLabel="FAIL";}
-        else if(/warn/i.test(message)){level="warn";levelLabel="WARN";}
+        if (/pass/i.test(message)) { level = "pass"; levelLabel = "PASS"; }
+        else if (/fail|error|timeout/i.test(message)) { level = "fail"; levelLabel = "FAIL"; }
+        else if (/warn/i.test(message)) { level = "warn"; levelLabel = "WARN"; }
       }
-      const div=document.createElement("div");div.className=`log-line level-${level}`;
-      div.innerHTML=`<span class="log-timestamp">${timestamp}</span><span class="log-level-dot"></span><span class="log-level-label">${levelLabel}</span><span class="log-text">${escapeHtml(message)}</span>`;
+      const div = document.createElement("div");
+      div.className = `log-line level-${level}`;
+      const ts = timestamp || new Date().toTimeString().slice(0, 8);
+      const displayLabel = label || (line.includes("System") ? "System" : "Scan");
+      div.innerHTML = `<span class="log-timestamp">${escapeHtml(ts)}</span><span class="log-source-label">${escapeHtml(displayLabel)}</span><span class="log-pill ${level}">${levelLabel}</span><span class="log-text">${escapeHtml(message)}</span>`;
       logBody.appendChild(div);
-      logLineCount++;logCount.textContent=logLineCount;
-      if(autoScroll)logBody.scrollTop=logBody.scrollHeight;
+      logLineCount++;
+      logCount.textContent = String(logLineCount);
+      if (autoScroll) logBody.scrollTop = logBody.scrollHeight;
     }
 
     function escapeHtml(str){const d=document.createElement("div");d.textContent=str;return d.innerHTML;}
@@ -2439,7 +3459,15 @@
       timeline.innerHTML="";timelineSec.classList.remove("visible");completionSec.classList.remove("visible");
       logBody.innerHTML="";logBody.appendChild(logEmpty);logEmpty.style.display="flex";
       logLineCount=0;logCount.textContent="0";currentLogFile=null;filesCompleted=0;
-      resetSteps();updateExecProgress(0);
+      resetSteps();updateExecProgress(10);
+      setStepState("init", "running", "");
+      updateScanHeader(1, url);
+      setRunningTestName(null);
+      setPageTitleRunning(10);
+
+      const resBanner = document.getElementById("exec-result-banner");
+      if (resBanner) resBanner.style.display = "none";
+
       gaugePct.textContent="—";gaugeTotal.textContent="—";gaugePassed.textContent="—";
       gaugeFailed.textContent="—";gaugeBarFill.style.transform="scaleX(0)";
       gaugeBarMeta.textContent="Scan in progress...";
@@ -2484,31 +3512,73 @@
           evtSrc.close();setLoading(false);stopTimer();
           setStatus("Error");statusDot.className="status-dot";footerDot.className="status-dot";
           document.getElementById("exec-status-badge").className="exec-status-badge";
+          setRunningTestName(null);
+          document.title = DEFAULT_DOC_TITLE;
           showError(data.message);return;
         }
 
         if(data.type==="start"){
           buildCircuitFlow(data.files);totalFiles=data.files.length;
+          activeTestTotal=data.files.length;
+          activeTestIndex=0;
+          scanFilesList=data.files;
           data.files.forEach(({file})=>pendingFiles.push(file));
           timelineSec.classList.add("visible");
           setStepState("init","done",new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"}));
           setStepState("discover","running","");
-          updateExecProgress(5);
-          if(pendingFiles.length>0){markTimelineRunning(pendingFiles[0]);setStatus(`Running: ${data.files[0].label}`);}
+          updateScanHeader(2);
+          updateExecProgress(25);
+          setPageTitleRunning(25);
+          if(pendingFiles.length>0){
+            markTimelineRunning(pendingFiles[0]);
+            setStatus(`Running: ${data.files[0].label}`);
+            setRunningTestName(data.files[0].label, 0, activeTestTotal);
+          }
+          appendLogLine(new Date().toTimeString().slice(0, 8), `Test suite initialized (${activeTestTotal} test(s) queued)`, "System");
           return;
         }
 
-        if(data.type==="log"){appendLogLine(data.timestamp,data.line,data.file);return;}
+        if(data.type==="log"){
+          appendLogLine(data.timestamp,data.line,data.label || data.file);
+          const disc = document.getElementById("step-discover");
+          if (disc && disc.classList.contains("running") && data.file && data.file !== "system") {
+            setStepState("discover", "done", "");
+            setStepState("scan", "running", "");
+            updateScanHeader(3);
+            updateExecProgress(40);
+            setPageTitleRunning(40);
+          }
+          if (data.label && activeTestTotal > 0) {
+            setRunningTestName(data.label, activeTestIndex, activeTestTotal);
+          }
+          return;
+        }
 
         if(data.type==="progress"){
           updateTimelineItem(data.file,data.status,data.passed,data.failed,data.elapsed_s);
           filesCompleted++;
+          appendLogLine(new Date().toTimeString().slice(0, 8), `Suite completed: ${data.label} (${data.passed} passed, ${data.failed} failed)`, data.label);
           const idx=pendingFiles.indexOf(data.file);
           if(idx!==-1){setCircuitTraceState(idx,data.status);setCircuitTraceState(idx+1,"running");}
-          const pct=Math.round((filesCompleted/totalFiles)*80)+10;
+          const pct = Math.min(85, Math.round((filesCompleted / totalFiles) * 45) + 40);
           updateExecProgress(pct);
+          setPageTitleRunning(pct);
           setStepState("discover","done","");
-          setStepState("scan",filesCompleted<totalFiles?"running":"done","");
+          activeTestIndex = filesCompleted;
+          if(filesCompleted < totalFiles){
+            setStepState("scan", "running", "");
+            updateScanHeader(3);
+            if (scanFilesList[activeTestIndex]) {
+              setRunningTestName(scanFilesList[activeTestIndex].label, activeTestIndex, activeTestTotal);
+            }
+          } else {
+            setStepState("scan", "done", "");
+            setStepState("analyze", "running", "");
+            updateScanHeader(4);
+            setRunningTestName(null);
+            updateExecProgress(90);
+            setPageTitleRunning(90);
+          }
           if(idx!==-1&&idx+1<pendingFiles.length){
             const nf=pendingFiles[idx+1];markTimelineRunning(nf);
             const ni=document.getElementById("tl-"+nf.replace(/[^a-z0-9]/gi,"_"));
@@ -2520,8 +3590,11 @@
         if(data.type==="done"){
           evtSrc.close();setLoading(false);stopTimer();
           const s=data.summary,allOk=s.failed===0&&s.error===0,finalState=allOk?"passed":"failed";
-          setStepState("scan","done","");setStepState("analyze","done","");
+          setStepState("scan","done","");
+          setStepState("analyze","done","");
           setStepState("report",allOk?"done":"failed","");
+          updateScanHeader(5);
+          setRunningTestName(null);
           updateExecProgress(100);
           setCircuitTraceState(pendingFiles.length,finalState);
           setCircuitNodeState("circuit-final",finalState,allOk?"Passed":"Failed");
@@ -2537,6 +3610,38 @@
           document.getElementById("stat-passed").textContent=s.passed;
           document.getElementById("stat-failed").textContent=s.failed;
           document.getElementById("stat-errors").textContent=s.error;
+
+          // Header line completion state
+          const titleEl = document.getElementById("exec-header-title");
+          const descEl = document.getElementById("exec-header-desc");
+          if (titleEl) titleEl.textContent = allOk ? "Scan Completed" : "Scan Completed with Failures";
+          if (descEl) { descEl.style.display = "none"; }
+
+          // Result banner
+          const banner = document.getElementById("exec-result-banner");
+          if (banner) {
+            banner.style.display = "flex";
+            if (allOk) {
+              banner.style.background = "rgba(47, 213, 154, 0.12)";
+              banner.style.color = "var(--text-success)";
+              banner.style.border = "1px solid rgba(47, 213, 154, 0.25)";
+              document.getElementById("exec-result-icon").textContent = "✓";
+              document.getElementById("exec-result-text").textContent = `Scan complete: ${s.passed} passed, ${s.failed} failed`;
+            } else {
+              banner.style.background = "rgba(255, 93, 108, 0.12)";
+              banner.style.color = "var(--text-danger)";
+              banner.style.border = "1px solid rgba(255, 93, 108, 0.25)";
+              document.getElementById("exec-result-icon").textContent = "✕";
+              document.getElementById("exec-result-text").textContent = `Scan complete: ${s.passed} passed, ${s.failed} failed`;
+            }
+          }
+
+          // Browser tab title update
+          setPageTitleComplete(s.passed, s.total, s.failed);
+
+          // Completion toast notification
+          showScanToast(s.passed, s.failed);
+
           const pct=s.total>0?Math.round((s.passed/s.total)*100):0;
           const fill=document.getElementById("pass-rate-fill");
           fill.className=`pass-rate-fill ${pct>=80?"good":"bad"}`;
@@ -2565,7 +3670,7 @@
           saveScanRecord(record);
 
           const ts = now.toTimeString().slice(0,8);
-          appendLogLine(ts,`Status: ✅ Scan complete — ${s.passed} passed, ${s.failed} failed, ${s.error} errors`,null);
+          appendLogLine(ts,`Status: ✅ Scan complete — ${s.passed} passed, ${s.failed} failed, ${s.error} errors`,"Summary");
         }
       };
 
