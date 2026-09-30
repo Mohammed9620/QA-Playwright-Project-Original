@@ -13,13 +13,13 @@
     /* ═══════════════════════════════════════════════════════════
        DASHBOARD & REPORTS LAYOUT SYSTEM (DARK PURPLE THEME)
        ═══════════════════════════════════════════════════════════ */
-    body { overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
+    body { overflow: hidden; height: 100vh; display: flex; flex-direction: row; background: var(--bg-primary); }
 
     /* View containers */
     .view-pane {
       flex: 1;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       height: calc(100vh - 48px);
       overflow: hidden;
       position: relative;
@@ -27,7 +27,7 @@
     .dash-shell {
       flex: 1;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       overflow: hidden;
       height: calc(100vh - 48px);
     }
@@ -179,7 +179,7 @@
     .sidebar-left {
       padding: 16px 14px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       gap: 14px;
     }
     .sidebar-section {
@@ -252,7 +252,7 @@
       border: 1px solid var(--border-default);
       border-radius: var(--radius-sm);
       padding: 9px; cursor: pointer;
-      display: flex; flex-direction: column; gap: 4px;
+      display: flex; flex-direction: row; background: var(--bg-primary); gap: 4px;
       overflow: hidden;
       transition: border-color var(--duration-fast) var(--ease-out),
                   background var(--duration-fast) var(--ease-out),
@@ -315,7 +315,7 @@
     .field-input-sm:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 2px rgba(155,106,196,0.18); }
 
     /* Env table */
-    .env-table { display: flex; flex-direction: column; gap: 2px; }
+    .env-table { display: flex; flex-direction: row; background: var(--bg-primary); gap: 2px; }
     .env-row {
       display: grid; grid-template-columns: 90px 1fr auto;
       align-items: center; gap: 8px;
@@ -399,12 +399,12 @@
 
     /* ═══ CENTER PANE ═══ */
     .center-pane {
-      display: flex; flex-direction: column; overflow: hidden;
+      display: flex; flex-direction: row; background: var(--bg-primary); overflow: hidden;
       background: var(--bg-primary);
     }
     .center-scroll {
       flex: 1; overflow-y: auto; overflow-x: hidden;
-      padding: 16px 18px; display: flex; flex-direction: column; gap: 14px;
+      padding: 16px 18px; display: flex; flex-direction: row; background: var(--bg-primary); gap: 14px;
       scrollbar-width: thin; scrollbar-color: var(--border-default) transparent;
     }
 
@@ -447,7 +447,7 @@
       height: 2px; background: var(--border-default); z-index: 0;
     }
     .step-item {
-      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      display: flex; flex-direction: row; background: var(--bg-primary); align-items: center; gap: 5px;
       position: relative; z-index: 1; flex: 1;
     }
     .step-circle {
@@ -527,7 +527,7 @@
       background: var(--bg-secondary);
       border: 1px solid var(--border-default);
       border-radius: var(--radius-lg);
-      display: flex; flex-direction: column;
+      display: flex; flex-direction: row; background: var(--bg-primary);
       flex: 1 1 auto;
       min-height: 240px;
       height: 380px;
@@ -579,7 +579,7 @@
       scrollbar-width: thin; scrollbar-color: var(--border-default) transparent;
     }
     .log-empty {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      display: flex; flex-direction: row; background: var(--bg-primary); align-items: center; justify-content: center;
       height: 120px; color: var(--text-tertiary); font-size: 12px; gap: 6px; text-align: center;
     }
     .log-empty svg { width: 24px; height: 24px; color: var(--border-default); }
@@ -674,7 +674,7 @@
 
     /* ═══ RIGHT SIDEBAR (CLEANED UP — Redundant cards removed) ═══ */
     .sidebar-right {
-      display: flex; flex-direction: column;
+      display: flex; flex-direction: row; background: var(--bg-primary);
       padding: 16px 14px; gap: 14px;
       overflow-y: auto;
       scrollbar-width: thin; scrollbar-color: var(--border-default) transparent;
@@ -739,7 +739,7 @@
     .reports-shell {
       flex: 1;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       height: calc(100vh - 48px);
       overflow: hidden;
       background: var(--bg-primary);
@@ -772,7 +772,7 @@
       background: var(--bg-secondary);
       border-right: 1px solid var(--border-default);
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       overflow: hidden;
     }
     .reports-drawer-header {
@@ -850,7 +850,7 @@
       overflow-y: auto;
       padding: 8px 10px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       gap: 5px;
       scrollbar-width: thin;
       scrollbar-color: var(--border-default) transparent;
@@ -862,7 +862,7 @@
       padding: 10px 12px;
       cursor: pointer;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       gap: 6px;
       transition: background var(--duration-fast) var(--ease-out),
                   border-color var(--duration-fast) var(--ease-out),
@@ -918,7 +918,7 @@
     /* Empty state */
     .history-empty-state {
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       align-items: center;
       justify-content: center;
       padding: 36px 16px;
@@ -940,7 +940,7 @@
     .reports-main {
       flex: 1;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       overflow: hidden;
       background: var(--bg-primary);
     }
@@ -949,7 +949,7 @@
       overflow-y: auto;
       padding: 18px 22px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       gap: 16px;
       scrollbar-width: thin;
       scrollbar-color: var(--border-default) transparent;
@@ -1042,7 +1042,7 @@
     }
     .report-gauge-meta {
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       gap: 2px;
       margin-left: 10px;
     }
@@ -1062,7 +1062,7 @@
       border: 1px solid var(--border-default);
       border-radius: var(--radius-lg);
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       flex: 1;
       min-height: 520px;
       overflow: hidden;
@@ -1110,7 +1110,7 @@
       position: absolute;
       inset: 0;
       display: flex;
-      flex-direction: column;
+      flex-direction: row; background: var(--bg-primary);
       align-items: center;
       justify-content: center;
       background: var(--bg-secondary);
@@ -1219,10 +1219,10 @@
   flex: 1 !important;
   height: calc(100vh - 32px) !important;
 }
-.reports-layout { flex-direction: column; overflow: auto; }
+.reports-layout { flex-direction: row; background: var(--bg-primary); overflow: auto; }
       #col-left, #col-right, .reports-drawer { width: 100% !important; max-width: none; border-right: none; border-bottom: 1px solid var(--border-default); }
       .gutter-col { display: none; }
-      .report-metrics-row { flex-direction: column; }
+      .report-metrics-row { flex-direction: row; background: var(--bg-primary); }
     }
     @media (prefers-reduced-motion:reduce) {
       .step-item.running .step-circle,.tl-row.running .tl-dot,.tl-shimmer-label,.tl-progress-bar { animation:none; }
@@ -1340,16 +1340,7 @@ body {
 }
 
 /* Run status pill in page header */
-#topbar-status {
-  position: absolute !important;
-  top: 32px !important;
-  right: 48px !important;
-  background: var(--bg-cards) !important;
-  border-radius: 999px !important;
-  padding: 8px 16px !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  z-index: 100 !important;
-}
+
 
 /* ── Grid Layout for Dashboard ── */
 
@@ -1477,37 +1468,62 @@ body {
 .topbar-nav-tab svg, .topbar-nav-link svg { font-size: 20px !important; }
 
 </style>
+
+<style>
+  #nav-tab-dashboard.active, #nav-tab-reports.active {
+    border-color: #2FD59A !important;
+    color: #2FD59A !important;
+    background: rgba(47,213,154,0.12) !important;
+  }
+</style>
 </head>
 <body>
-<!-- TOP BAR -->
-<header class="topbar">
+<nav id="left-rail" style="width:72px; background:#000; border-radius:24px; margin:16px 0 16px 16px; display:flex; flex-direction:column; align-items:center; padding:24px 0; gap:16px;">
+  <div style="width:40px; height:40px; border-radius:12px; background:#fff; display:flex; align-items:center; justify-content:center; color:#000; font-weight:700; margin-bottom:24px; flex-shrink:0;">
+    QA
+  </div>
+  
+  <button id="nav-tab-dashboard" title="Dashboard" class="active" onclick="switchView('dashboard')" style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); background:none; color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+  </button>
 
-<span class="topbar-version">v1.0</span>
+  <button id="nav-tab-reports" title="Reports" onclick="switchView('reports')" style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); background:none; color:rgba(255,255,255,0.56); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+  </button>
 
-<!-- CLIENT-SIDE TAB NAVIGATION -->
-<nav aria-label="Main navigation" class="topbar-center-nav">
-<button aria-controls="dashboard-view" aria-selected="true" class="topbar-nav-tab active" id="nav-tab-dashboard" role="tab" type="button"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="7" width="7" x="3" y="3"></rect><rect height="7" width="7" x="14" y="3"></rect><rect height="7" width="7" x="14" y="14"></rect><rect height="7" width="7" x="3" y="14"></rect></svg></button>
-<button aria-controls="reports-view" aria-selected="false" class="topbar-nav-tab" id="nav-tab-reports" role="tab" type="button"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><line x1="18" x2="18" y1="20" y2="10"></line><line x1="12" x2="12" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="14"></line></svg></button>
+  {% if session.get('role') == 'admin' %}
+  <a href="/admin/create_admin" title="Admin" style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); background:none; color:rgba(255,255,255,0.56); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; text-decoration:none; flex-shrink:0;">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+  </a>
+  {% endif %}
+
+  <div style="flex:1;"></div>
+
+  <button id="theme-toggle" title="Toggle theme" style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); background:none; color:rgba(255,255,255,0.56); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0;">
+    <span id="theme-icon">☀️</span>
+  </button>
+
+  {% if session.get('username') %}
+  <div style="position:relative; cursor:pointer; flex-shrink:0;">
+    <div style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; font-weight:600;">
+      {{ session.get('username', 'U')[0:2]|upper }}
+    </div>
+    <a href="/logout" title="Logout" style="position:absolute; bottom:0; right:-8px; width:20px; height:20px; border-radius:50%; background:#FF5D6C; color:#fff; display:flex; align-items:center; justify-content:center; text-decoration:none;">
+      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+    </a>
+  </div>
+  {% endif %}
 </nav>
 
-<div class="topbar-status" id="topbar-status">
-<span class="status-dot" id="status-dot"></span>
-<span id="status-text">Ready</span>
-</div>
-<span id="footer-timer"></span>
-<button aria-label="Toggle dark/light theme" class="theme-toggle" id="theme-toggle" title="Toggle theme"></button>
-    {% if session.get('role') == 'admin' %}
-      <a class="topbar-nav-link primary" href="/admin/create_admin"><svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></a>
-    {% endif %}
-    {% if session.get('username') %}
-    <div class="topbar-user">
-<div class="topbar-avatar">{{ session.get('username', 'U')[0:2]|upper }}</div>
-
-
-</div>
-<a class="topbar-nav-link secondary" href="/logout" style="margin-left:4px;"><svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg></a>
-    {% endif %}
+<main id="main-content" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+  <!-- PAGE HEADER -->
+  <header style="height:72px; padding:0 32px; display:flex; align-items:center; justify-content:flex-end; flex-shrink:0;">
+    <div class="topbar-status" id="topbar-status" style="background:rgba(255,255,255,0.08); border-radius:999px; padding:6px 16px; display:flex; align-items:center; gap:8px; font-size:13px; color:#fff;">
+      <span class="status-dot" id="status-dot" style="width:8px; height:8px; border-radius:50%; background:#2FD59A;"></span>
+      <span id="status-text">Ready</span>
+    </div>
   </header>
+
 <div aria-labelledby="nav-tab-dashboard" class="view-pane dash-shell" id="dashboard-view" role="tabpanel" style="display:flex;flex-direction:column;gap:24px;padding:32px;max-width:1440px;margin:0 auto;width:100%;box-sizing:border-box;">
   
   <!-- ROW 1 -->
@@ -1895,7 +1911,7 @@ body {
     </main>
   </div>
 </div>
-<script>
+</main>\n<script>
     // ═══════════════════════════════════════════════════════════
     // 1. THEME TOGGLE  (single source of truth — syncs iframe)
     // ═══════════════════════════════════════════════════════════
@@ -2232,7 +2248,6 @@ body {
     }
 
     renderChart();
-    }
 
     function renderRecentScans() {
       const list = document.getElementById("recent-scans-list");
