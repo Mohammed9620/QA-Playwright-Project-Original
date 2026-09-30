@@ -83,7 +83,7 @@
       top: 3px; bottom: 3px; left: 0;
       background: rgba(255, 255, 255, 0.18);
       border-radius: 999px;
-      transition: transform 200ms ease-out, width 200ms ease-out;
+      transition: transform var(--dur-fast) var(--ease), width var(--dur-fast) var(--ease);
       z-index: 1;
       pointer-events: none;
     }
@@ -103,7 +103,7 @@
       font-size: 14px;
       font-weight: 500;
       font-family: var(--font);
-      transition: color 200ms ease-out, transform 100ms ease-out;
+      transition: color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
       user-select: none;
       -webkit-user-select: none;
       outline: none;
@@ -142,7 +142,7 @@
       font-size: 14px;
       font-family: var(--font);
       outline: none;
-      transition: background 150ms ease-out;
+      transition: background var(--dur-fast) var(--ease);
     }
     .form-group input::placeholder { color: var(--text-tertiary); }
     .form-group input:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }

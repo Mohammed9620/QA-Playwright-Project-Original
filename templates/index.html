@@ -115,7 +115,7 @@
     .gutter-col:hover::before,
     .gutter-col.is-dragging::before {
       background: var(--accent-blue);
-      box-shadow: 0 0 8px rgba(155,106,196,0.65);
+      box-shadow: 0 0 8px rgba(47,213,154,0.65);
     }
 
     body.is-resizing {
@@ -204,8 +204,8 @@
     .sidebar-section-icon {
       width: 26px; height: 26px;
       border-radius: var(--radius-sm);
-      background: rgba(155,106,196,0.12);
-      border: 1px solid rgba(155,106,196,0.2);
+      background: rgba(47,213,154,0.12);
+      border: 1px solid rgba(47,213,154,0.2);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
@@ -238,7 +238,7 @@
     }
     .scan-select:focus {
       border-color: var(--text-accent);
-      box-shadow: 0 0 0 2px rgba(155,106,196,0.18);
+      box-shadow: 0 0 0 2px rgba(47,213,154,0.18);
     }
     .field-hint { font-size: 11px; color: var(--text-tertiary); margin-top: 5px; line-height: 1.4; }
 
@@ -267,8 +267,8 @@
     .strategy-card.selected {
       opacity: 1;
       border-color: var(--text-accent);
-      background: rgba(155,106,196,0.08);
-      box-shadow: 0 0 0 1px rgba(155,106,196,0.2);
+      background: rgba(47,213,154,0.08);
+      box-shadow: 0 0 0 1px rgba(47,213,154,0.2);
     }
     .strategy-card.selected .strategy-card-icon  { color: var(--text-accent); }
     .strategy-card.selected .strategy-card-title { color: var(--text-primary); }
@@ -312,7 +312,7 @@
       transition: border-color var(--duration-fast) var(--ease-out),
                   box-shadow var(--duration-fast) var(--ease-out);
     }
-    .field-input-sm:focus { border-color: var(--text-accent); box-shadow: 0 0 0 2px rgba(155,106,196,0.18); }
+    .field-input-sm:focus { border-color: var(--text-accent); box-shadow: 0 0 0 2px rgba(47,213,154,0.18); }
 
     /* Env table */
     .env-table { display: flex; flex-direction: row; background: var(--bg-primary); gap: 2px; }
@@ -324,7 +324,7 @@
     .env-row:last-child { border-bottom: none; }
     .env-key { font-size: 11px; color: var(--text-tertiary); }
     .env-val { font-size: 11px; font-family: var(--mono); color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .env-badge { font-size: 9px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: rgba(155,106,196,0.15); color: var(--text-accent); white-space: nowrap; }
+    .env-badge { font-size: 9px; font-weight: 600; padding: 1px 6px; border-radius: 8px; background: rgba(47,213,154,0.15); color: var(--text-accent); white-space: nowrap; }
     .env-note { font-size: 10px; color: var(--text-tertiary); margin-top: 10px; line-height: 1.5; display: flex; gap: 6px; align-items: flex-start; }
     .env-note svg { width: 11px; height: 11px; flex-shrink: 0; margin-top: 2px; }
 
@@ -339,29 +339,29 @@
       border-radius: calc(var(--radius-sm) + 4px);
       filter: blur(10px); opacity: 0; z-index: -2;
       will-change: transform, opacity;
-      transition: opacity 800ms var(--ease-out);
+      transition: opacity var(--dur-slow) var(--ease);
     }
     .run-button-shell.testing .run-shell-layer { opacity: 0.38; }
     .run-shell-layer.layer-one   { background: radial-gradient(circle at 30% 50%, var(--accent-blue), transparent 60%); }
-    .run-shell-layer.layer-two   { background: radial-gradient(circle at 70% 30%, #5b21b6, transparent 65%); }
-    .run-shell-layer.layer-three { background: radial-gradient(circle at 50% 80%, #7c3aed, transparent 70%); }
+    .run-shell-layer.layer-two   { background: radial-gradient(circle at 70% 30%, var(--success), transparent 65%); }
+    .run-shell-layer.layer-three { background: radial-gradient(circle at 50% 80%, #12A36F, transparent 70%); }
     .run-shell-edge {
       position: absolute; inset: -1px;
       border-radius: calc(var(--radius-sm) + 1px);
       padding: 1px; z-index: -1;
       background: conic-gradient(from var(--edge-angle), transparent 0deg 310deg,
-        rgba(155,106,196,0.1) 322deg, rgba(155,106,196,0.6) 338deg,
-        rgba(155,106,196,0.3) 352deg, transparent 360deg);
+        rgba(47,213,154,0.1) 322deg, rgba(47,213,154,0.6) 338deg,
+        rgba(47,213,154,0.3) 352deg, transparent 360deg);
       -webkit-mask: linear-gradient(var(--bg-cards) 0 0) content-box, linear-gradient(var(--bg-cards) 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude;
-      opacity: 0; transition: opacity 500ms var(--ease-out);
+      opacity: 0; transition: opacity var(--dur-slow) var(--ease);
     }
     .run-button-shell.testing .run-shell-edge { opacity: 1; }
     .run-shell-grain {
       position: absolute; inset: 0; border-radius: inherit;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       opacity: 0; mix-blend-mode: overlay; pointer-events: none; z-index: 1;
-      transition: opacity 800ms var(--ease-out);
+      transition: opacity var(--dur-slow) var(--ease);
     }
     .run-button-shell.testing .run-shell-grain { opacity: 0.12; }
     .btn-run {
@@ -378,14 +378,14 @@
     .btn-run .btn-idle-text {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center; gap: 7px;
-      transition: transform 260ms ease, opacity 260ms ease;
+      transition: transform var(--dur-base) var(--ease), opacity var(--dur-base) var(--ease);
     }
     .btn-run:not(:disabled):hover .btn-idle-text { transform: translateX(36px); opacity: 0; }
     .btn-run .btn-hover-text {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center; gap: 7px;
       transform: translateX(36px); opacity: 0;
-      transition: transform 260ms ease, opacity 260ms ease;
+      transition: transform var(--dur-base) var(--ease), opacity var(--dur-base) var(--ease);
       pointer-events: none; z-index: 2;
     }
     .btn-run:not(:disabled):hover .btn-hover-text { transform: translateX(0); opacity: 1; }
@@ -418,7 +418,7 @@
     .exec-card-title-group { display: flex; align-items: center; gap: 10px; }
     .exec-icon {
       width: 30px; height: 30px; border-radius: var(--radius-sm);
-      background: rgba(155,106,196,0.12); border: 1px solid rgba(155,106,196,0.2);
+      background: rgba(47,213,154,0.12); border: 1px solid rgba(47,213,154,0.2);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .exec-icon svg { width: 15px; height: 15px; color: var(--text-accent); }
@@ -429,7 +429,7 @@
       display: flex; align-items: center; gap: 5px;
       font-size: 11px; font-weight: 600;
       padding: 3px 8px; border-radius: 20px;
-      background: rgba(155,106,196,0.12); color: var(--text-accent);
+      background: rgba(47,213,154,0.12); color: var(--text-accent);
     }
     .exec-status-badge.running  { background: rgba(234,179,8,0.12); color: var(--text-warning); }
     .exec-status-badge.done-ok  { background: rgba(34,197,94,0.12); color: var(--text-success); }
@@ -463,16 +463,16 @@
     .step-item.done .step-circle    { border-color: var(--text-success); background: rgba(34,197,94,0.12); }
     .step-item.done .step-circle svg{ color: var(--text-success); }
     .step-item.running .step-circle {
-      border-color: var(--text-accent); background: rgba(155,106,196,0.12);
-      box-shadow: 0 0 0 4px rgba(155,106,196,0.15);
+      border-color: var(--text-accent); background: rgba(47,213,154,0.12);
+      box-shadow: 0 0 0 4px rgba(47,213,154,0.15);
       animation: step-pulse 28s ease-in-out infinite;
     }
     .step-item.running .step-circle svg { color: var(--text-accent); }
     .step-item.failed .step-circle     { border-color: var(--danger); background: rgba(239,68,68,0.12); }
     .step-item.failed .step-circle svg { color: var(--danger); }
     @keyframes step-pulse {
-      0%,100%{ box-shadow: 0 0 0 4px rgba(74,40,120,0.15); }
-      50%    { box-shadow: 0 0 0 8px rgba(74,40,120,0.06); }
+      0%,100%{ box-shadow: 0 0 0 4px rgba(47,213,154,0.15); }
+      50%    { box-shadow: 0 0 0 8px rgba(47,213,154,0.06); }
     }
     .step-label { font-size: 11px; font-weight: 500; color: var(--text-tertiary); text-align: center; transition: color var(--duration-normal) var(--ease-out); }
     .step-time  { font-size: 10px; font-family: var(--mono); color: var(--text-tertiary); text-align: center; }
@@ -483,7 +483,7 @@
     .exec-progress-track { flex: 1; height: 6px; background: var(--border-muted); border-radius: 3px; overflow: hidden; }
     .exec-progress-fill {
       height: 100%; border-radius: 3px;
-      background: linear-gradient(90deg, var(--accent-blue), #c084fc);
+      background: linear-gradient(90deg, var(--accent-blue), #12A36F);
       transform: scaleX(0); transform-origin: left;
       transition: transform 0.4s var(--ease-out); will-change: transform;
     }
@@ -520,7 +520,7 @@
       font-size: 11px; color: var(--text-accent); text-decoration: none;
       margin-top: 4px; cursor: pointer; transition: color var(--duration-fast) var(--ease-out);
     }
-    .completion-view-link:hover { color: #c084fc; text-decoration: underline; }
+    .completion-view-link:hover { color: #12A36F; text-decoration: underline; }
 
     /* ═══ ACTIVITY LOG WIDGET (VERTICALLY RESIZABLE & MAXIMIZABLE) ═══ */
     .activity-card {
@@ -563,13 +563,13 @@
     .activity-view-btn {
       display: flex; align-items: center; gap: 4px;
       font-size: 11px; font-weight: 500; color: var(--text-accent);
-      background: none; border: 1px solid rgba(155,106,196,0.25);
+      background: none; border: 1px solid rgba(47,213,154,0.25);
       border-radius: var(--radius-sm); padding: 3px 8px;
       cursor: pointer; text-decoration: none;
       transition: border-color var(--duration-fast) var(--ease-out),
                   background var(--duration-fast) var(--ease-out);
     }
-    .activity-view-btn:hover { background: rgba(155,106,196,0.08); border-color: var(--text-accent); }
+    .activity-view-btn:hover { background: rgba(47,213,154,0.08); border-color: var(--text-accent); }
     .activity-view-btn svg { width: 11px; height: 11px; }
 
     /* Log body */
@@ -619,22 +619,22 @@
       display: none; align-items: flex-start; gap: 10px;
       padding: 12px 14px; border-bottom: 1px solid var(--border-subtle);
       flex-wrap: wrap; row-gap: 0;
-      transition: background 200ms ease;
+      transition: background var(--dur-base) var(--ease);
     }
     .tl-row:last-child { border-bottom: none; }
     @keyframes row-slide-in { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
     .tl-row.visible { display: flex; animation: row-slide-in 0.28s ease forwards; }
-    .tl-row.running { background: rgba(155,106,196,0.05); }
+    .tl-row.running { background: rgba(47,213,154,0.05); }
     .tl-row.passed  { background: rgba(34,197,94,0.04); }
     .tl-row.failed  { background: rgba(239,68,68,0.04); }
     .circuit-trace  { display: none; }
-    .tl-dot { flex-shrink:0; width:7px; height:7px; border-radius:50%; background:var(--border-default); margin-top:5px; transition:background 260ms ease; }
+    .tl-dot { flex-shrink:0; width:7px; height:7px; border-radius:50%; background:var(--border-default); margin-top:5px; transition:background var(--dur-base) var(--ease); }
     .tl-row.running .tl-dot { background: var(--accent-blue); animation: tl-pulse 25s ease-in-out infinite; }
     .tl-row.passed  .tl-dot { background: var(--success); animation: none; }
     .tl-row.failed  .tl-dot { background: var(--danger);  animation: none; }
     @keyframes tl-pulse {
-      0%,100%{ box-shadow: 0 0 0 0 rgba(74,40,120,0.5); }
-      50%    { box-shadow: 0 0 0 4px rgba(74,40,120,0); }
+      0%,100%{ box-shadow: 0 0 0 0 rgba(47,213,154,0.5); }
+      50%    { box-shadow: 0 0 0 4px rgba(47,213,154,0); }
     }
     .tl-pixel-grid { display:none; grid-template-columns:repeat(3,4px); grid-template-rows:repeat(3,4px); gap:1.5px; flex-shrink:0; margin-top:5px; }
     .tl-row.running .tl-pixel-grid { display: grid; }
@@ -648,7 +648,7 @@
     .timeline-detail-stats { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .timeline-badge { flex-shrink:0; font-size:9px; font-weight:600; padding:2px 7px; border-radius:10px; text-transform:uppercase; letter-spacing:0.04em; white-space:nowrap; }
     .timeline-badge.waiting { background:var(--control-bg); color:var(--text-tertiary); }
-    .timeline-badge.running { background:rgba(155,106,196,0.15); color:var(--accent-blue); }
+    .timeline-badge.running { background:rgba(47,213,154,0.15); color:var(--accent-blue); }
     .timeline-badge.passed  { background:var(--success-muted);   color:var(--text-success); }
     .timeline-badge.failed  { background:var(--danger-muted);    color:var(--text-danger); }
     .timeline-badge.error   { background:var(--danger-muted);    color:var(--text-danger); }
@@ -658,19 +658,19 @@
     @keyframes shimmer-text { 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
     .tl-shimmer-label {
       font-weight:600; font-size:10px;
-      background: linear-gradient(90deg,rgba(155,106,196,0.3) 0%,var(--accent-blue) 25%,rgba(155,106,196,0.3) 50%,rgba(155,106,196,0.1) 100%);
+      background: linear-gradient(90deg,rgba(47,213,154,0.3) 0%,var(--accent-blue) 25%,rgba(47,213,154,0.3) 50%,rgba(47,213,154,0.1) 100%);
       background-size:200% 100%;
       -webkit-background-clip:text; -webkit-text-fill-color:transparent;
       background-clip:text; animation:shimmer-text 8s linear infinite;
     }
     .tl-elapsed { font-family:var(--mono); font-size:10px; color:var(--text-tertiary); min-width:32px; }
-    .tl-progress { position:relative; overflow:hidden; height:2px; width:100%; margin-top:8px; background:var(--control-bg); opacity:0; transition:opacity 200ms ease; }
+    .tl-progress { position:relative; overflow:hidden; height:2px; width:100%; margin-top:8px; background:var(--control-bg); opacity:0; transition:opacity var(--dur-base) var(--ease); }
     .tl-progress.running,.tl-progress.passed,.tl-progress.failed { opacity:1; }
     @keyframes progress-slide { 0%{transform:translateX(-100%);} 100%{transform:translateX(400%);} }
-    .tl-progress-bar { position:absolute; left:0; top:0; height:100%; width:25%; background:linear-gradient(90deg,transparent,var(--accent-blue),#c084fc,var(--accent-blue),transparent); animation:progress-slide 6s ease-in-out infinite; display:none; }
+    .tl-progress-bar { position:absolute; left:0; top:0; height:100%; width:25%; background:linear-gradient(90deg,transparent,var(--accent-blue),#12A36F,var(--accent-blue),transparent); animation:progress-slide 6s ease-in-out infinite; display:none; }
     .tl-progress.running .tl-progress-bar { display:block; }
-    .tl-progress.passed { background:var(--success); transition:background 0.3s ease,opacity 200ms ease; }
-    .tl-progress.failed { background:var(--danger);  transition:background 0.3s ease,opacity 200ms ease; }
+    .tl-progress.passed { background:var(--success); transition:background var(--dur-base) var(--ease),opacity var(--dur-base) var(--ease); }
+    .tl-progress.failed { background:var(--danger);  transition:background var(--dur-base) var(--ease),opacity var(--dur-base) var(--ease); }
 
     /* ═══ RIGHT SIDEBAR (CLEANED UP — Redundant cards removed) ═══ */
     .sidebar-right {
@@ -684,7 +684,7 @@
     .gauge-card { background:var(--bg-tertiary); border:1px solid var(--border-default); border-radius:var(--radius-lg); padding:14px; }
     .gauge-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
     .gauge-header-left { display:flex; align-items:center; gap:8px; }
-    .gauge-icon { width:26px; height:26px; border-radius:var(--radius-sm); background:rgba(155,106,196,0.12); border:1px solid rgba(155,106,196,0.2); display:flex; align-items:center; justify-content:center; }
+    .gauge-icon { width:26px; height:26px; border-radius:var(--radius-sm); background:rgba(47,213,154,0.12); border:1px solid rgba(47,213,154,0.2); display:flex; align-items:center; justify-content:center; }
     .gauge-icon svg { width:13px; height:13px; color:var(--accent-blue); }
     .gauge-title { font-size:12px; font-weight:600; color:var(--text-primary); }
     .gauge-sub   { font-size:10px; color:var(--text-tertiary); }
@@ -706,18 +706,18 @@
     .gauge-legend-dot.skipped { background:var(--warning); }
     .gauge-legend-val { font-weight:600; font-family:var(--mono); color:var(--text-primary); }
     .gauge-bar-track { height:4px; background:var(--border-muted); border-radius:2px; overflow:hidden; }
-    .gauge-bar-fill  { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--accent-blue),#c084fc); transform:scaleX(0); transform-origin:left; transition:transform 0.8s var(--ease-out) 0.2s; will-change:transform; }
+    .gauge-bar-fill  { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--accent-blue),#12A36F); transform:scaleX(0); transform-origin:left; transition:transform 0.8s var(--ease-out) 0.2s; will-change:transform; }
     .gauge-bar-meta  { font-size:10px; color:var(--text-tertiary); font-family:var(--mono); margin-top:5px; }
 
     /* Recent scans */
     .recent-card { background:var(--bg-tertiary); border:1px solid var(--border-default); border-radius:var(--radius-lg); padding:14px; }
     .recent-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
     .recent-header-left { display:flex; align-items:center; gap:8px; }
-    .recent-icon { width:24px; height:24px; border-radius:var(--radius-sm); background:rgba(155,106,196,0.1); border:1px solid rgba(155,106,196,0.18); display:flex; align-items:center; justify-content:center; }
+    .recent-icon { width:24px; height:24px; border-radius:var(--radius-sm); background:rgba(47,213,154,0.1); border:1px solid rgba(47,213,154,0.18); display:flex; align-items:center; justify-content:center; }
     .recent-icon svg { width:12px; height:12px; color:var(--accent-blue); }
     .recent-title { font-size:12px; font-weight:600; color:var(--text-primary); }
     .recent-view-all { font-size:11px; font-weight:500; color:var(--accent-blue); text-decoration:none; cursor:pointer; background:none; border:none; padding:0; transition:color var(--duration-fast) var(--ease-out); }
-    .recent-view-all:hover { color:#c084fc; }
+    .recent-view-all:hover { color:#12A36F; }
     .recent-list { display:flex; flex-direction:column; gap:3px; }
     .recent-item {
       display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:var(--radius-sm);
@@ -744,17 +744,7 @@
       overflow: hidden;
       background: var(--bg-primary);
     }
-    #dashboard-view {
-  flex: 1 !important;
-  flex-direction: column !important;
-  height: calc(100vh - 32px) !important;
-  overflow-y: auto !important;
-  scrollbar-width: none;
-}
-#reports-view {
-  flex: 1 !important;
-  height: calc(100vh - 32px) !important;
-}
+/* reports view base styles */
 .reports-layout {
       display: flex;
       flex-direction: row;
@@ -807,7 +797,7 @@
       font-family: var(--mono);
       font-weight: 600;
       color: var(--text-accent);
-      background: rgba(155,106,196,0.15);
+      background: rgba(47,213,154,0.15);
       padding: 1px 7px;
       border-radius: 10px;
     }
@@ -842,7 +832,7 @@
     }
     .history-search-input:focus {
       border-color: var(--text-accent);
-      box-shadow: 0 0 0 2px rgba(155,106,196,0.18);
+      box-shadow: 0 0 0 2px rgba(47,213,154,0.18);
     }
 
     .reports-history-list {
@@ -874,9 +864,9 @@
       border-color: var(--border-default);
     }
     .reports-history-item.is-active {
-      background: rgba(155,106,196,0.12);
+      background: rgba(47,213,154,0.12);
       border-color: var(--text-accent);
-      box-shadow: 0 0 0 1px rgba(155,106,196,0.3);
+      box-shadow: 0 0 0 1px rgba(47,213,154,0.3);
     }
     .reports-history-item-top {
       display: flex;
@@ -981,8 +971,8 @@
       width: 36px;
       height: 36px;
       border-radius: var(--radius-sm);
-      background: rgba(155,106,196,0.12);
-      border: 1px solid rgba(155,106,196,0.22);
+      background: rgba(47,213,154,0.12);
+      border: 1px solid rgba(47,213,154,0.22);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1104,7 +1094,7 @@
       width: 100%;
       height: 100%;
       border: none;
-      background: #0d0814;
+      background: var(--bg-cards);
       flex: 1;
     }
     .report-iframe-fallback {
@@ -1159,7 +1149,7 @@
       color: var(--text-primary);
       border-color: transparent;
     }
-    .btn-action.primary:hover { filter: brightness(1.1); box-shadow: 0 0 10px rgba(155,106,196,0.4); }
+    .btn-action.primary:hover { filter: brightness(1.1); box-shadow: 0 0 10px rgba(47,213,154,0.4); }
     .btn-action.secondary {
       background: var(--bg-tertiary);
       color: var(--text-primary);
@@ -1198,7 +1188,7 @@
     .topbar-user:hover { border-color:var(--border-muted); background:var(--bg-elevated); }
     .topbar-avatar {
       width:24px; height:24px; border-radius:50%;
-      background:linear-gradient(135deg,var(--accent-blue),#7c3aed);
+      background:linear-gradient(135deg,var(--accent-blue),#12A36F);
       display:flex; align-items:center; justify-content:center;
       font-size:10px; font-weight:700; color:var(--text-primary); flex-shrink:0;
     }
@@ -1209,27 +1199,20 @@
     /* Responsive */
     @media (max-width:960px) {
       body { overflow:auto; }
-      .dash-layout, #dashboard-view {
-  flex: 1 !important;
-  flex-direction: column !important;
-  height: calc(100vh - 32px) !important;
-  overflow-y: auto !important;
-  scrollbar-width: none;
-}
-#reports-view {
-  flex: 1 !important;
-  height: calc(100vh - 32px) !important;
-}
-.reports-layout { flex-direction: row; background: var(--bg-primary); overflow: auto; }
+      /* responsive layout handled below */
       #col-left, #col-right, .reports-drawer { width: 100% !important; max-width: none; border-right: none; border-bottom: 1px solid var(--border-default); }
       .gutter-col { display: none; }
       .report-metrics-row { flex-direction: row; background: var(--bg-primary); }
     }
     @media (prefers-reduced-motion:reduce) {
-      .step-item.running .step-circle,.tl-row.running .tl-dot,.tl-shimmer-label,.tl-progress-bar { animation:none; }
-      .gauge-fill,.gauge-bar-fill,.pass-rate-fill,.exec-progress-fill { transition-duration:0.01s; }
-      .strategy-card:active,.btn-action:active,.btn-run:active:not(:disabled) { transform:none; filter:brightness(0.94); }
+      *, *::before, *::after { animation-duration: 0.01s !important; animation-iteration-count: 1 !important; transition-duration: 0.01s !important; }
+      .step-item.running .step-circle,.tl-row.running .tl-dot,.tl-shimmer-label,.tl-progress-bar { animation:none !important; }
+      .gauge-fill,.gauge-bar-fill,.pass-rate-fill,.exec-progress-fill { transition-duration:0.01s !important; }
+      .strategy-card:active,.btn-action:active,.btn-run:active:not(:disabled) { transform:none !important; }
       .auth-fields,.auth-fields.visible,.auth-fields-inner { transition-duration:0.01s !important; transform:none !important; }
+      .log-line { animation:none !important; }
+      .tl-row.visible { animation:none !important; }
+      .segmented-thumb { transition-duration:0.01s !important; }
     }
   
 
@@ -1343,132 +1326,290 @@ body {
 /* Run status pill in page header */
 
 
-/* ── Grid Layout for Dashboard ── */
-
+/* ══════════════════════════════════════════════════════════════
+   RESTORED DASHBOARD WIREFRAME LAYOUT (SINGLE-SCREEN SYSTEM)
+   ══════════════════════════════════════════════════════════════ */
+#dashboard-view[style*="display: none"],
+#dashboard-view[style*="display:none"] {
+  display: none !important;
+}
+#reports-view[style*="display: none"],
+#reports-view[style*="display:none"] {
+  display: none !important;
+}
 
 #dashboard-view {
   flex: 1 !important;
-  flex-direction: column !important;
-  height: calc(100vh - 32px) !important;
-  overflow-y: auto !important;
-  scrollbar-width: none;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 14px !important;
+  padding: 8px 24px 10px !important;
+  max-width: 1440px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  min-height: 0 !important;
+  height: calc(100vh - 56px) !important;
+  overflow: hidden !important;
 }
+
 #reports-view {
   flex: 1 !important;
-  height: calc(100vh - 32px) !important;
-}
-.reports-layout {
   display: flex !important;
-  width: 100% !important;
-  gap: 24px !important;
-}
-.reports-drawer {
-  width: 320px !important;
-  background: var(--bg-cards) !important;
-  border-radius: 24px !important;
-  border: none !important;
-  padding: 24px !important;
-}
-.reports-main {
-  flex: 1 !important;
-  background: var(--bg-cards) !important;
-  border-radius: 24px !important;
-  border: none !important;
-  padding: 24px !important;
+  height: calc(100vh - 56px) !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
 }
 
-.dash-layout {
-  display: grid !important;
-  grid-template-columns: 1fr 2fr !important;
-  grid-auto-rows: min-content !important;
-  gap: 24px !important;
-  padding: 0 !important;
-  flex: 1 !important;
-}
-
-.gutter-col { display: none !important; }
-
-/* Grid Assignments */
-#section-config-scan { grid-column: 1 / 2 !important; grid-row: 1 / 2 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
-#trend-card { grid-column: 2 / 3 !important; grid-row: 1 / 2 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
-
-#section-recent-scans { grid-column: 1 / 2 !important; grid-row: 2 / 3 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
-#section-exec-overview { grid-column: 2 / 3 !important; grid-row: 2 / 3 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
-
-#activity-log-card { grid-column: 1 / 2 !important; grid-row: 3 / 4 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
-#section-env-config { grid-column: 2 / 3 !important; grid-row: 3 / 4 !important; width: 100% !important; max-width: none !important; margin: 0 !important;}
-
-/* Hide redundant elements */
-#kpi-row,
-#section-gauge-result,
-.sidebar-glow,
-{
-  display: none !important;
-}
-
-/* ── Base Card Styles ── */
-.sidebar-section,
-.trend-card,
-.recent-card,
-.exec-card,
-.activity-card,
-.gauge-card,
-.completion-card {
-  background: var(--bg-cards) !important;
-  border-radius: 24px !important;
-  padding: 24px !important;
-  border: none !important;
-}
-
-.exec-card-header, .recent-header, .activity-header, .gauge-header {
-  border-bottom: none !important;
-}
-
-/* Remove ugly card icons */
-.exec-icon,
-.recent-icon,
-.activity-icon,
-.gauge-icon,
-.sidebar-section-icon {
-  display: none !important;
-}
-
-/* ── "New Scan" Card Inputs ── */
-.field-input {
-  background: var(--bg-cards) !important;
-  border: none !important;
-  border-radius: 12px !important;
-  height: 48px !important;
-}
-.btn-run {
-  height: 44px !important;
-  border-radius: 22px !important;
-  background: #FFF !important;
-  color: var(--bg-cards) !important;
-  font-weight: 600 !important;
-}
-.strategy-cards {
+.dash-col-left {
+  width: 380px !important;
+  min-width: 380px !important;
+  max-width: 380px !important;
+  flex-shrink: 0 !important;
   display: flex !important;
-  background: var(--bg-cards) !important;
-  border-radius: 22px !important;
-  padding: 4px !important;
-  margin-bottom: 24px !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
 }
-.strategy-card {
-  border-radius: 18px !important;
+
+.dash-col-right {
   flex: 1 !important;
-  text-align: center !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
 }
-.strategy-card.selected {
-  background: #222 !important;
+
+#section-config-scan {
+  flex-shrink: 0 !important;
 }
-.strategy-card-desc, .strategy-card-icon { display: none !important; }
 
-.topbar-nav-tab, .topbar-nav-link { font-size: 0 !important; }
-.topbar-user { font-size: 0 !important; }
-.topbar-nav-tab svg, .topbar-nav-link svg { font-size: 20px !important; }
+#section-recent-scans {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-height: 100px !important;
+  overflow: hidden !important;
+}
 
-</style>
+#recent-scans-list {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+#section-exec-overview {
+  flex-shrink: 0 !important;
+}
+
+#section-scan-chart {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-height: 140px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+#activity-log-card {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-height: 140px !important;
+  overflow: hidden !important;
+}
+
+#log-body {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+/* Activity Log lines & pills */
+.log-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  line-height: 1.4;
+  animation: log-in var(--dur-fast) var(--ease);
+}
+@keyframes log-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.log-timestamp {
+  color: var(--text-tertiary);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.log-source-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+  flex-shrink: 0;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.log-pill {
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.log-pill.info { background: var(--control-icon-bg); color: var(--text-secondary); }
+.log-pill.pass { background: rgba(47, 213, 154, 0.16); color: var(--text-success); }
+.log-pill.fail { background: rgba(255, 93, 108, 0.16); color: var(--text-danger); }
+.log-pill.warn { background: rgba(245, 185, 66, 0.16); color: var(--text-warning); }
+.log-text {
+  color: var(--text-primary);
+  word-break: break-word;
+  flex: 1;
+}
+
+/* Toast Notification (Bottom Right) */
+.scan-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: var(--bg-cards);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+}
+.scan-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.scan-toast:focus-visible {
+  outline: 2px solid var(--success);
+  outline-offset: 2px;
+}
+.toast-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.toast-dot.pass { background: var(--success); }
+.toast-dot.fail { background: var(--danger); }
+#toast-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 0 0 8px;
+  line-height: 1;
+}
+#toast-close-btn:hover { color: var(--text-primary); }
+
+
+    /* Motion System & P4 Layout Specifics */
+    .step-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      position: relative; z-index: 2; background: transparent !important;
+    }
+    .step-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid var(--control-icon-bg);
+      background: var(--bg-cards);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600; color: var(--text-tertiary);
+      transition: transform var(--dur-base) var(--ease),
+                  border-color var(--dur-base) var(--ease),
+                  background var(--dur-base) var(--ease),
+                  color var(--dur-base) var(--ease),
+                  box-shadow var(--dur-base) var(--ease);
+    }
+    .step-item.running .step-circle {
+      border-color: var(--success);
+      background: rgba(47, 213, 154, 0.12);
+      color: var(--success);
+      box-shadow: 0 0 0 4px rgba(47, 213, 154, 0.15);
+      animation: step-soft-pulse 2s ease-in-out infinite;
+    }
+    @keyframes step-soft-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.72; }
+    }
+    .step-item.done .step-circle {
+      border-color: var(--success);
+      background: rgba(47, 213, 154, 0.12);
+      color: var(--success);
+    }
+    .step-item.failed .step-circle {
+      border-color: var(--danger);
+      background: rgba(255, 93, 108, 0.12);
+      color: var(--danger);
+    }
+    .step-label {
+      font-size: 11px; font-weight: 500; color: var(--text-tertiary); text-align: center; white-space: nowrap;
+    }
+    .step-item.done .step-label, .step-item.running .step-label {
+      color: var(--text-primary);
+    }
+    .check-svg polyline {
+      stroke-dasharray: 24; stroke-dashoffset: 0;
+      transition: stroke-dashoffset var(--dur-base) var(--ease);
+    }
+    .recent-item.highlight {
+      animation: highlight-fade 1.2s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+    }
+    @keyframes highlight-fade {
+      0% { background: rgba(47, 213, 154, 0.22); }
+      100% { background: transparent; }
+    }
+    .recent-item {
+      animation: recent-in var(--dur-base) var(--ease);
+    }
+    @keyframes recent-in {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .view-pane {
+      animation: view-fade-in var(--dur-base) var(--ease);
+    }
+    @keyframes view-fade-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 900px) {
+      #main-content { overflow: auto !important; }
+      #dashboard-view { flex-direction: column !important; height: auto !important; overflow: visible !important; }
+      .dash-col-left, .dash-col-right { width: 100% !important; min-width: 0 !important; height: auto !important; }
+      #reports-view { height: auto !important; overflow: visible !important; }
+      #reports-view > div { flex-direction: column !important; height: auto !important; }
+      #reports-view aside { width: 100% !important; min-width: 0 !important; height: 320px !important; }
+      #report-summary-strip { flex-wrap: wrap !important; max-height: none !important; }
+    }
+
+  </style>
 
 <style>
   #nav-tab-dashboard.active, #nav-tab-reports.active {
@@ -1515,40 +1656,75 @@ body {
 </nav>
 
 <main id="main-content" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
-  <!-- PAGE HEADER -->
-  <header style="height:72px; padding:0 32px; display:flex; align-items:center; justify-content:flex-end; flex-shrink:0;">
+  <!-- PAGE HEADER (Slim 56px Top Bar) -->
+  <header style="height:56px; padding:0 32px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
+    <h1 id="page-title" style="font-size:18px; font-weight:600; margin:0; color:var(--text-primary); letter-spacing:-0.01em;">Dashboard</h1>
     <div class="topbar-status" id="topbar-status" style="background:var(--control-icon-bg); border-radius:999px; padding:6px 16px; display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-primary);">
       <span class="status-dot" id="status-dot" style="width:8px; height:8px; border-radius:50%; background:var(--success);"></span>
       <span id="status-text">Ready</span>
     </div>
   </header>
 
-<div aria-labelledby="nav-tab-dashboard" class="view-pane dash-shell" id="dashboard-view" role="tabpanel" style="display:flex;flex-direction:column;gap:24px;padding:32px;max-width:1440px;margin:0 auto;width:100%;box-sizing:border-box;">
+<div aria-labelledby="nav-tab-dashboard" class="view-pane dash-shell" id="dashboard-view" role="tabpanel" style="display:flex; flex-direction:row; gap:20px; padding:16px 32px 24px; max-width:1440px; margin:0 auto; width:100%; box-sizing:border-box; flex:1; min-height:0; overflow:hidden;">
   
-  <!-- ROW 1 -->
-  <div style="display:grid;grid-template-columns:350px 1fr;gap:24px;width:100%;">
+  <!-- LEFT COLUMN (~380px) -->
+  <div class="dash-col-left" style="width:380px; min-width:380px; display:flex; flex-direction:column; gap:16px; min-height:0; height:100%;">
     <!-- NEW SCAN CARD -->
-    <div class="card-b" id="section-config-scan" style="background:var(--bg-cards);border-radius:24px;padding:24px;">
-      <div style="font-size:18px;font-weight:500;margin-bottom:24px;">New Scan</div>
+    <div class="card-b" id="section-config-scan" style="background:var(--bg-cards); border-radius:24px; padding:18px 20px; flex-shrink:0;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; position:relative;">
+        <div style="font-size:16px; font-weight:600; color:var(--text-primary);">New Scan</div>
+        <button type="button" id="env-config-info-btn" aria-label="Environment and configuration" title="Environment & Config" style="width:28px; height:28px; border-radius:50%; background:var(--control-bg); border:none; color:var(--text-secondary); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        </button>
+
+        <!-- Environment & Config Popover -->
+        <div class="card-b" id="section-env-config" style="display:none; position:absolute; top:36px; right:0; z-index:50; width:280px; background:var(--bg-card-hover, var(--bg-cards)); border:1px solid var(--border-subtle, var(--border-default)); box-shadow:0 12px 32px rgba(0,0,0,0.36); border-radius:16px; padding:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div style="font-size:13px; font-weight:600; color:var(--text-primary);">Environment &amp; Config</div>
+            <button type="button" class="card-collapse-btn" data-target="section-env-config" id="env-config-close-btn" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; padding:2px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+          <div class="card-collapsible-body" style="display:flex; flex-direction:column; gap:8px; font-size:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:6px; border-bottom:1px solid var(--control-icon-bg);">
+              <div style="color:var(--text-secondary);">Environment</div>
+              <div style="display:flex; align-items:center; gap:6px; color:var(--text-primary);">Production <span style="font-size:10px; background:var(--control-secondary-bg); padding:1px 6px; border-radius:999px;">Prod</span></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:6px; border-bottom:1px solid var(--control-icon-bg);">
+              <div style="color:var(--text-secondary);">Base URL</div>
+              <div id="env-base-url" style="color:var(--text-primary); max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">https://example.com</div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:6px; border-bottom:1px solid var(--control-icon-bg);">
+              <div style="color:var(--text-secondary);">Auth Type</div>
+              <div id="env-auth-type" style="color:var(--text-primary);">None</div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="color:var(--text-secondary);">Timeout</div>
+              <div style="color:var(--text-primary);">30 seconds</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <form id="scan-form" novalidate="">
         <!-- TARGET URL -->
-        <div class="field" style="margin-bottom:20px;">
-          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:var(--text-secondary);">
+        <div class="field" style="margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:var(--text-secondary);">
             <span>Target URL</span>
           </div>
           <div style="position:relative;">
-            <input autocomplete="off" id="url" name="url" placeholder="https://example.com" required="" spellcheck="false" type="text" style="width:100%;height:48px;border-radius:14px;background:var(--control-bg);border:none;color:var(--text-primary);padding:0 16px;font-size:14px;outline:none;box-sizing:border-box;" />
+            <input autocomplete="off" id="url" name="url" placeholder="https://example.com" required="" spellcheck="false" type="text" style="width:100%; height:40px; border-radius:12px; background:var(--control-bg); border:none; color:var(--text-primary); padding:0 14px; font-size:13px; outline:none; box-sizing:border-box;" />
           </div>
         </div>
 
         <!-- SCAN TYPE -->
-        <div class="field" style="margin-bottom:20px;">
-          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:var(--text-secondary);">
+        <div class="field" style="margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:var(--text-secondary);">
             <span>Scan Type</span>
           </div>
           <!-- Custom Dropdown Wrapper -->
           <div class="custom-select-wrapper" id="scan-type-custom-dropdown">
-            <button type="button" class="custom-select-trigger" id="scan-type-trigger" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-controls="scan-type-options" aria-label="Scan Type">
+            <button type="button" class="custom-select-trigger" id="scan-type-trigger" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-controls="scan-type-options" aria-label="Scan Type" style="height:40px;">
               <span id="scan-type-selected-label">Login Test</span>
               <svg class="custom-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -1589,16 +1765,16 @@ body {
         </div>
 
         <!-- SCAN STRATEGY SEGMENTED -->
-        <div class="field" style="margin-bottom:24px;">
-          <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:var(--text-secondary);">
+        <div class="field" style="margin-bottom:16px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:var(--text-secondary);">
             <span>Strategy</span>
           </div>
-          <div class="segmented-control" id="strategy-control" role="radiogroup" aria-label="Scan Strategy" style="margin-bottom: 24px;">
-            <label class="segmented-label active" role="radio" aria-checked="true" tabindex="0" data-value="external">
+          <div class="segmented-control" id="strategy-control" role="radiogroup" aria-label="Scan Strategy" style="height:36px;">
+            <label class="segmented-label active" role="radio" aria-checked="true" tabindex="0" data-value="external" style="padding:4px 10px; font-size:12px;">
               <input checked name="scan_strategy" type="radio" value="external" tabindex="-1"/>
               External
             </label>
-            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="authenticated">
+            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="authenticated" style="padding:4px 10px; font-size:12px;">
               <input name="scan_strategy" type="radio" value="authenticated" tabindex="-1"/>
               Authenticated
             </label>
@@ -1614,12 +1790,12 @@ body {
           <input id="login-locator" type="hidden" />
         </div>
 
-        <div class="error-banner" id="js-error" style="display:none;color:var(--text-danger);font-size:13px;margin-bottom:12px;">
+        <div class="error-banner" id="js-error" style="display:none; color:var(--text-danger); font-size:12px; margin-bottom:10px;">
           <span id="js-error-text"></span>
         </div>
         
         <div id="run-button-shell">
-           <button id="submit-btn" type="submit" style="width:100%;height:44px;border-radius:999px;background:var(--avatar-bg);color:var(--bg-cards);font-size:15px;font-weight:600;border:none;cursor:pointer;outline:none;box-sizing:border-box;">
+           <button id="submit-btn" type="submit" style="width:100%; height:42px; border-radius:999px; background:var(--avatar-bg); color:var(--bg-cards); font-size:14px; font-weight:600; border:none; cursor:pointer; outline:none; box-sizing:border-box;">
              <span id="btn-spinner" style="display:none;"></span>
              <span id="btn-text">Start scan</span>
            </button>
@@ -1627,80 +1803,45 @@ body {
       </form>
     </div>
 
-    <!-- SCAN RESULTS CHART CARD -->
-    <div class="card-b" style="background:var(--bg-cards);border-radius:24px;padding:32px;display:flex;flex-direction:column;position:relative;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div>
-          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:4px;">Average Pass Rate</div>
-          <div style="font-size:32px;font-weight:500;">98.5%</div>
-        </div>
-        <div class="segmented-control cols-3" id="chart-range-control" role="radiogroup" aria-label="Chart Range" style="width: 180px;">
-            <label class="segmented-label active" role="radio" aria-checked="true" tabindex="0" data-value="7d" style="font-size:12px; padding:6px 12px;">
-              <input checked name="chart_range" type="radio" value="7d" tabindex="-1"/>
-              7d
-            </label>
-            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="30d" style="font-size:12px; padding:6px 12px;">
-              <input name="chart_range" type="radio" value="30d" tabindex="-1"/>
-              30d
-            </label>
-            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="all" style="font-size:12px; padding:6px 12px;">
-              <input name="chart_range" type="radio" value="all" tabindex="-1"/>
-              All
-            </label>
-            <div class="segmented-thumb"></div>
-         </div>
+    <!-- RECENT SCANS CARD (Scrolls inside) -->
+    <div class="card-b" id="section-recent-scans" style="background:var(--bg-cards); border-radius:24px; padding:18px 20px; display:flex; flex-direction:column; flex:1; min-height:0; overflow:hidden;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-shrink:0;">
+        <div style="font-size:16px; font-weight:600; color:var(--text-primary);">Recent Scans</div>
+        <button type="button" onclick="switchView('reports')" style="background:none; border:none; color:var(--text-secondary); font-size:12px; cursor:pointer; padding:0;">See all</button>
       </div>
-      <!-- CHART AREA -->
-      <div id="scan-chart-container" style="flex:1;margin-top:48px;position:relative;border-bottom:1px dashed var(--border-default);">
-         <svg id="scan-chart-svg" width="100%" height="100%" style="min-height:160px;overflow:visible;">
-            <!-- Grid lines -->
-            <text x="-25" y="5" fill="var(--text-tertiary)" font-size="10">100</text>
-            <line x1="0" y1="0%" x2="100%" y2="0%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
-            
-            <text x="-20" y="53%" fill="var(--text-tertiary)" font-size="10">50</text>
-            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
-            
-            <text x="-15" y="100%" fill="var(--text-tertiary)" font-size="10">0</text>
-            <line x1="0" y1="100%" x2="100%" y2="100%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
-            
-            <!-- Bars will be inserted here by JS -->
-         </svg>
-      </div>
-      <!-- Chart X Axis -->
-      <div id="scan-chart-x-axis" style="display:flex;justify-content:space-between;margin-top:12px;font-size:11px;color:var(--text-tertiary);">
-         <span>Mon<br/>15</span>
-         <span>Tue<br/>16</span>
-         <span>Wed<br/>17</span>
-         <span>Thu<br/>18</span>
-         <span>Fri<br/>19</span>
-         <span>Sat<br/>20</span>
-         <span>Sun<br/>21</span>
+      <div id="recent-scans-list" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:10px; min-height:0; padding-right:4px;">
+        <!-- JS fills this -->
       </div>
     </div>
   </div>
 
-  <!-- ROW 2 -->
-  <div style="display:grid;grid-template-columns:350px 1fr;gap:24px;width:100%;">
-    <!-- RECENT SCANS CARD -->
-    <div class="card-b" id="section-recent-scans" style="background:var(--bg-cards);border-radius:24px;padding:24px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-        <div style="font-size:18px;font-weight:500;">Recent Scans</div>
-        <button onclick="switchView('reports')" style="background:none;border:none;color:var(--text-secondary);font-size:13px;cursor:pointer;padding:0;">See all</button>
+  <!-- RIGHT COLUMN (Flexible) -->
+  <div class="dash-col-right" style="flex:1; min-width:0; display:flex; flex-direction:column; gap:16px; min-height:0; height:100%;">
+    <!-- 1. RUN STATUS CARD (TOP) -->
+    <div class="card-b" id="section-exec-overview" style="background:var(--bg-cards); border-radius:20px; padding:10px 16px; flex-shrink:0;">
+      <!-- HEADER ROW: TITLE + ONE-SENTENCE STEP DESC + RUNNING TEST LINE + ELAPSED TIMER -->
+      <div id="exec-header-row" style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+        <div style="min-width:0; flex:1; padding-right:10px;">
+          <div id="exec-header-title" style="font-size:14px; font-weight:600; color:var(--text-primary); line-height:1.25;">Run Status</div>
+          <div id="exec-header-desc" style="font-size:11px; color:var(--text-secondary); margin-top:1px; display:none; line-height:1.3;"></div>
+          <div id="exec-running-test" style="font-size:11px; color:var(--text-success); margin-top:1px; display:none; line-height:1.3; font-weight:500;"></div>
+        </div>
+        <div id="exec-timer-wrapper" style="display:none; align-items:center; gap:6px; flex-shrink:0; background:var(--control-bg); padding:3px 8px; border-radius:999px;">
+          <span class="status-dot running" style="width:6px; height:6px; border-radius:50%; background:var(--success);"></span>
+          <span id="run-timer" style="font-family:var(--font-mono, monospace); font-size:12px; font-weight:600; color:var(--text-primary);">00:00</span>
+        </div>
       </div>
-      <div id="recent-scans-list" style="display:flex;flex-direction:column;gap:24px;">
-        <!-- JS fills this -->
-      </div>
-    </div>
 
-    <!-- RUN STATUS CARD -->
-    <div class="card-b" id="section-exec-overview" style="background:var(--bg-cards);border-radius:24px;padding:24px;">
-      <div style="font-size:18px;font-weight:500;margin-bottom:32px;">Run Status</div>
+      <!-- RESULT BANNER -->
+      <div id="exec-result-banner" class="exec-result-banner" style="display:none; padding:4px 10px; border-radius:8px; margin-bottom:6px; font-size:11px; font-weight:500; align-items:center; gap:6px;">
+        <span id="exec-result-icon"></span>
+        <span id="exec-result-text"></span>
+      </div>
       
-      <!-- 5-STEP PROGRESS -->
-      <div style="display:flex;justify-content:space-between;position:relative;margin-bottom:48px;padding:0 24px;">
-         <div style="position:absolute;top:12px;left:48px;right:48px;height:2px;background:var(--control-icon-bg);z-index:0;"></div>
-         <div id="exec-progress-fill" style="position:absolute;top:12px;left:48px;height:2px;background:var(--success);z-index:1;width:0%;transition:width 300ms ease;"></div>
-         <div id="exec-progress-pct" style="display:none;">0%</div>
+      <!-- 5-STEP PROGRESS WITH 2PX CONNECTOR TRACK + MINT FILL -->
+      <div style="display:flex; justify-content:space-between; position:relative; margin-bottom:6px; padding:0 10px;">
+         <div style="position:absolute; top:14px; left:32px; right:32px; height:2px; background:var(--control-icon-bg); z-index:0;"></div>
+         <div id="stepper-connector-fill" style="position:absolute; top:14px; left:32px; height:2px; background:var(--success); z-index:1; width:0%; max-width:calc(100% - 64px); transition:width var(--dur-slow) var(--ease);"></div>
          
          <div class="step-item" id="step-init">
             <div class="step-circle">1</div>
@@ -1720,7 +1861,7 @@ body {
          </div>
          <div class="step-item" id="step-report">
             <div class="step-circle">5</div>
-            <div class="step-label">Generate report</div>
+            <div class="step-label">Report</div>
          </div>
          
          <div id="step-init-time" style="display:none;"></div>
@@ -1729,38 +1870,45 @@ body {
          <div id="step-analyze-time" style="display:none;"></div>
          <div id="step-report-time" style="display:none;"></div>
       </div>
+
+      <!-- EXECUTION PROGRESS BAR -->
+      <div style="margin-bottom:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; font-size:11px; color:var(--text-secondary);">
+          <span>Execution Progress</span>
+          <span id="exec-progress-pct" style="font-weight:600; color:var(--text-primary);">0%</span>
+        </div>
+        <div style="height:3px; border-radius:999px; background:var(--control-icon-bg); overflow:hidden; position:relative;">
+          <div id="exec-progress-fill" style="height:100%; width:0%; background:var(--success); border-radius:999px; transition:width var(--dur-slow) var(--ease);"></div>
+        </div>
+      </div>
       
-      <!-- TILES -->
-      <div id="completion-section" style="display:flex;gap:16px;margin-top:24px;">
-         <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-            <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
-               <div style="width:24px;height:24px;border-radius:50%;background:var(--control-icon-bg);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg></div> Total
+      <!-- TILES & 56PX RING GAUGE -->
+      <div id="completion-section" style="display:flex; gap:10px; align-items:center;">
+         <div style="flex:1; background:var(--control-bg); border-radius:12px; padding:10px 12px; position:relative; overflow:hidden;">
+            <div style="font-size:11px; color:var(--text-secondary); margin-bottom:3px; display:flex; align-items:center; gap:6px;">
+               <div style="width:16px; height:16px; border-radius:50%; background:var(--control-icon-bg); display:flex; align-items:center; justify-content:center;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg></div> Total
             </div>
-            <div id="stat-total" style="font-size:24px;font-weight:500;">0</div>
-            <!-- sparkline placeholder -->
-            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 30 L20 35 L40 20 L60 25 L80 10 L100 15 L100 40 Z" fill="var(--overlay-fill)"></path></svg>
+            <div id="stat-total" style="font-size:18px; font-weight:600; color:var(--text-primary);">0</div>
          </div>
-         <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-            <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
-               <div style="width:24px;height:24px;border-radius:50%;background:rgba(47,213,154,0.12);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Passed
+         <div style="flex:1; background:var(--control-bg); border-radius:12px; padding:10px 12px; position:relative; overflow:hidden;">
+            <div style="font-size:11px; color:var(--text-secondary); margin-bottom:3px; display:flex; align-items:center; gap:6px;">
+               <div style="width:16px; height:16px; border-radius:50%; background:rgba(47,213,154,0.12); display:flex; align-items:center; justify-content:center;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Passed
             </div>
-            <div id="stat-passed" style="font-size:24px;font-weight:500;">0</div>
-            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 25 L20 20 L40 30 L60 15 L80 20 L100 5 L100 40 Z" fill="var(--success)"></path></svg>
+            <div id="stat-passed" style="font-size:18px; font-weight:600; color:var(--text-success);">0</div>
          </div>
-         <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-            <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
-               <div style="width:24px;height:24px;border-radius:50%;background:rgba(255,93,108,0.12);display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div> Failed
+         <div style="flex:1; background:var(--control-bg); border-radius:12px; padding:10px 12px; position:relative; overflow:hidden;">
+            <div style="font-size:11px; color:var(--text-secondary); margin-bottom:3px; display:flex; align-items:center; gap:6px;">
+               <div style="width:16px; height:16px; border-radius:50%; background:rgba(255,93,108,0.12); display:flex; align-items:center; justify-content:center;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div> Failed
             </div>
-            <div id="stat-failed" style="font-size:24px;font-weight:500;">0</div>
+            <div id="stat-failed" style="font-size:18px; font-weight:600; color:var(--text-danger);">0</div>
             <div id="stat-errors" style="display:none;">0</div>
-            <svg style="position:absolute;bottom:0;left:0;width:100%;height:40px;opacity:0.2;" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 40 L0 35 L20 38 L40 32 L60 36 L80 30 L100 35 L100 40 Z" fill="var(--danger)"></path></svg>
          </div>
-         <div style="width:120px;display:flex;align-items:center;justify-content:center;position:relative;" id="section-gauge-result">
-            <svg width="100" height="100" viewBox="0 0 100 100">
-               <circle cx="50" cy="50" r="40" fill="none" stroke="var(--control-icon-bg)" stroke-width="4"></circle>
-               <circle id="gauge-fill" cx="50" cy="50" r="40" fill="none" stroke="var(--success)" stroke-width="4" stroke-dasharray="251.2" stroke-dashoffset="251.2" style="transition:stroke-dashoffset 1s ease; transform:rotate(-90deg); transform-origin:50% 50%;"></circle>
+         <div id="section-gauge-result" style="width:56px; height:56px; display:flex; align-items:center; justify-content:center; position:relative; flex-shrink:0;">
+            <svg width="56" height="56" viewBox="0 0 56 56">
+               <circle cx="28" cy="28" r="22" fill="none" stroke="var(--control-icon-bg)" stroke-width="3.5"></circle>
+               <circle id="gauge-fill" cx="28" cy="28" r="22" fill="none" stroke="var(--success)" stroke-width="3.5" stroke-dasharray="138.2" stroke-dashoffset="138.2" style="transition:stroke-dashoffset var(--dur-slow) var(--ease); transform:rotate(-90deg); transform-origin:28px 28px;"></circle>
             </svg>
-            <div id="gauge-pct" style="position:absolute;font-size:18px;font-weight:500;">0%</div>
+            <div id="gauge-pct" style="position:absolute; font-size:11px; font-weight:600; color:var(--text-primary);">0%</div>
             
             <div style="display:none;">
               <span id="gauge-total"></span>
@@ -1776,67 +1924,82 @@ body {
       <div style="display:none;">
          <span id="exec-status-badge"></span>
          <span id="footer-dot"></span><span id="footer-text"></span>
-         <span id="status-dot"></span><span id="status-text"></span>
          <span id="footer-timer"></span>
          <span id="completion-status"></span>
          <span id="pass-rate-fill"></span><span id="pass-rate-pct"></span>
       </div>
-      
     </div>
-  </div>
 
-  <!-- ROW 3 -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;width:100%;">
-    <!-- ACTIVITY LOG -->
-    <div class="card-b" id="activity-log-card" style="background:var(--bg-cards);border-radius:24px;padding:24px;">
-       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-         <div style="font-size:18px;font-weight:500;">Activity Log</div>
+    <!-- 2. SCAN RESULTS CHART CARD (MIDDLE - can compress to min 140px) -->
+    <div class="card-b" id="section-scan-chart" style="background:var(--bg-cards); border-radius:24px; padding:16px 20px; display:flex; flex-direction:column; flex:1; min-height:140px; position:relative;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-shrink:0;">
+        <div>
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:2px;">Average Pass Rate</div>
+          <div style="font-size:22px; font-weight:600; color:var(--text-primary);">98.5%</div>
+        </div>
+        <div class="segmented-control cols-3" id="chart-range-control" role="radiogroup" aria-label="Chart Range" style="width:160px; height:32px;">
+            <label class="segmented-label active" role="radio" aria-checked="true" tabindex="0" data-value="7d" style="font-size:11px; padding:4px 8px;">
+              <input checked name="chart_range" type="radio" value="7d" tabindex="-1"/>
+              7d
+            </label>
+            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="30d" style="font-size:11px; padding:4px 8px;">
+              <input name="chart_range" type="radio" value="30d" tabindex="-1"/>
+              30d
+            </label>
+            <label class="segmented-label" role="radio" aria-checked="false" tabindex="0" data-value="all" style="font-size:11px; padding:4px 8px;">
+              <input name="chart_range" type="radio" value="all" tabindex="-1"/>
+              All
+            </label>
+            <div class="segmented-thumb"></div>
+         </div>
+      </div>
+      <!-- CHART AREA -->
+      <div id="scan-chart-container" style="flex:1; min-height:50px; margin-top:10px; position:relative; border-bottom:1px dashed var(--border-default);">
+         <svg id="scan-chart-svg" width="100%" height="100%" style="min-height:50px; overflow:visible;">
+            <text x="-25" y="5" fill="var(--text-tertiary)" font-size="9">100</text>
+            <line x1="0" y1="0%" x2="100%" y2="0%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
+            
+            <text x="-20" y="53%" fill="var(--text-tertiary)" font-size="9">50</text>
+            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
+            
+            <text x="-15" y="100%" fill="var(--text-tertiary)" font-size="9">0</text>
+            <line x1="0" y1="100%" x2="100%" y2="100%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
+         </svg>
+      </div>
+      <!-- Chart X Axis -->
+      <div id="scan-chart-x-axis" style="display:flex; justify-content:space-between; margin-top:6px; font-size:10px; color:var(--text-tertiary); flex-shrink:0;">
+         <span>Mon<br/>15</span>
+         <span>Tue<br/>16</span>
+         <span>Wed<br/>17</span>
+         <span>Thu<br/>18</span>
+         <span>Fri<br/>19</span>
+         <span>Sat<br/>20</span>
+         <span>Sun<br/>21</span>
+      </div>
+    </div>
+
+    <!-- 3. ACTIVITY LOG (BOTTOM - scrolls inside) -->
+    <div class="card-b" id="activity-log-card" style="background:var(--bg-cards); border-radius:24px; padding:16px 20px; display:flex; flex-direction:column; flex:1; min-height:140px; overflow:hidden;">
+       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-shrink:0;">
+         <div style="font-size:15px; font-weight:600; color:var(--text-primary);">Activity Log</div>
          <div>
-            <span id="log-count" style="font-size:12px;color:var(--text-secondary);margin-right:12px;">0</span>
-            <button id="log-clear-btn" style="background:none;border:none;color:var(--text-primary);font-size:13px;cursor:pointer;">Clear</button>
-            <button id="log-maximize-btn" style="background:none;border:none;color:var(--text-primary);cursor:pointer;margin-left:8px;padding:0;">
-               <svg class="icon-maximize" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
-               <svg class="icon-minimize" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            <span id="log-count" style="font-size:11px; color:var(--text-secondary); margin-right:10px;">0</span>
+            <button type="button" id="log-clear-btn" style="background:none; border:none; color:var(--text-primary); font-size:12px; cursor:pointer;">Clear</button>
+            <button type="button" id="log-maximize-btn" style="background:none; border:none; color:var(--text-primary); cursor:pointer; margin-left:8px; padding:0;">
+               <svg class="icon-maximize" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+               <svg class="icon-minimize" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
             </button>
          </div>
        </div>
-       <div id="log-body" style="background:var(--control-bg);border-radius:12px;padding:16px;height:240px;overflow-y:auto;font-family:monospace;font-size:12px;color:var(--text-primary);">
-          <div id="log-empty" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text-tertiary);">
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:8px;"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-             No logs yet.<br/>Run a scan to stream live test execution output.
-          </div>
-       </div>
-    </div>
-    
-    <!-- ENV & CONFIG -->
-    <div class="card-b" id="section-env-config" style="background:var(--bg-cards);border-radius:24px;padding:24px;">
-       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-         <div style="font-size:18px;font-weight:500;">Environment &amp; Config</div>
-         <button class="card-collapse-btn" data-target="section-env-config" style="background:none;border:none;color:var(--text-primary);cursor:pointer;padding:0;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-         </button>
-       </div>
-       <div class="card-collapsible-body" style="display:flex;flex-direction:column;gap:16px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--control-icon-bg);">
-             <div style="font-size:14px;color:var(--text-secondary);">Environment</div>
-             <div style="font-size:14px;display:flex;align-items:center;gap:8px;">Production <span style="font-size:11px;background:var(--control-secondary-bg);padding:2px 6px;border-radius:999px;">Prod</span></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--control-icon-bg);">
-             <div style="font-size:14px;color:var(--text-secondary);">Base URL</div>
-             <div id="env-base-url" style="font-size:14px;">https://example.com</div>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--control-icon-bg);">
-             <div style="font-size:14px;color:var(--text-secondary);">Auth Type</div>
-             <div id="env-auth-type" style="font-size:14px;">None</div>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--control-icon-bg);">
-             <div style="font-size:14px;color:var(--text-secondary);">Timeout</div>
-             <div style="font-size:14px;">30 seconds</div>
+       <div id="log-body" style="background:var(--control-bg); border-radius:12px; padding:12px; flex:1; overflow-y:auto; font-family:monospace; font-size:11px; color:var(--text-primary); min-height:0;">
+          <div id="log-empty" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--text-tertiary); text-align:center;">
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:6px;"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+             No logs yet. Start a scan to stream output.
           </div>
        </div>
     </div>
   </div>
-  
+
   <div id="timeline-section" style="display:none;">
      <div id="timeline"></div>
   </div>
@@ -1846,119 +2009,118 @@ body {
 <!-- ═══════════════════════════════════════════════════════════
        VIEW 2: DEDICATED REPORTS VIEW (#reports-view)
        ═══════════════════════════════════════════════════════════ -->
-<div aria-labelledby="nav-tab-reports" class="reports-shell view-pane" id="reports-view" role="tabpanel" style="display:none;width:100%;height:100vh;overflow:hidden;">
-  <div style="display:flex;height:100%;width:100%;">
+<div aria-labelledby="nav-tab-reports" class="reports-shell view-pane" id="reports-view" role="tabpanel" style="display:none; width:100%; flex:1; min-height:0; overflow:hidden;">
+  <div style="display:flex; height:100%; width:100%; overflow:hidden;">
     <!-- LEFT DRAWER: SCAN HISTORY -->
-    <aside aria-label="Scan history" style="width:350px;border-right:1px solid var(--control-icon-bg);background:var(--bg-primary);display:flex;flex-direction:column;height:100%;">
-      <div style="padding:24px;border-bottom:1px solid var(--control-icon-bg);">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-          <div style="font-size:18px;font-weight:500;">Scan History</div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span class="history-count-badge" id="history-count-badge" style="background:var(--control-secondary-bg);border-radius:999px;padding:2px 8px;font-size:12px;">0</span>
-            <button aria-label="Clear scan history" id="history-clear-btn" style="background:none;border:none;color:var(--text-secondary);cursor:pointer;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+    <aside aria-label="Scan history" style="width:350px; min-width:350px; border-right:1px solid var(--control-icon-bg); background:var(--bg-primary); display:flex; flex-direction:column; height:100%; min-height:0; overflow:hidden;">
+      <div style="padding:16px 20px; border-bottom:1px solid var(--control-icon-bg); flex-shrink:0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div style="font-size:16px; font-weight:600; color:var(--text-primary);">Scan History</div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="history-count-badge" id="history-count-badge" style="background:var(--control-secondary-bg); border-radius:999px; padding:2px 8px; font-size:11px;">0</span>
+            <button aria-label="Clear scan history" id="history-clear-btn" style="background:none; border:none; color:var(--text-secondary); cursor:pointer;"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
           </div>
         </div>
         <div style="position:relative;">
-          <svg width="16" height="16" fill="none" stroke="var(--text-secondary)" stroke-width="2" viewBox="0 0 24 24" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
-          <input id="history-search-input" placeholder="Search past runs..." type="text" style="width:100%;height:40px;background:var(--control-bg);border:none;border-radius:12px;padding-left:36px;color:var(--text-primary);font-size:13px;outline:none;" />
+          <svg width="14" height="14" fill="none" stroke="var(--text-secondary)" stroke-width="2" viewBox="0 0 24 24" style="position:absolute; left:12px; top:50%; transform:translateY(-50%);"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+          <input id="history-search-input" placeholder="Search past runs..." type="text" style="width:100%; height:36px; background:var(--control-bg); border:none; border-radius:10px; padding-left:34px; color:var(--text-primary); font-size:12px; outline:none;" />
         </div>
       </div>
-      <div id="reports-history-list" role="list" style="flex:1;overflow-y:auto;padding:16px;">
-        <div id="history-empty-state" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text-tertiary);text-align:center;font-size:13px;gap:8px;">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+      <div id="reports-history-list" role="list" style="flex:1; overflow-y:auto; padding:12px; min-height:0;">
+        <div id="history-empty-state" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--text-tertiary); text-align:center; font-size:12px; gap:8px;">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8"></line><line x1="12" x2="12.01" y1="16"></line></svg>
           No scan history recorded yet.
         </div>
       </div>
     </aside>
 
-    <!-- RIGHT AREA -->
-    <main style="flex:1;padding:32px;overflow-y:auto;display:flex;flex-direction:column;gap:24px;max-width:1440px;margin:0 auto;box-sizing:border-box;">
+    <!-- RIGHT AREA: SUMMARY STRIP + REPORT VIEWER -->
+    <main style="flex:1; min-width:0; padding:16px 28px 24px; display:flex; flex-direction:column; gap:16px; height:100%; min-height:0; box-sizing:border-box; overflow:hidden;">
       
-      <!-- TOP CARDS ROW -->
-      <div style="display:grid;grid-template-columns:1fr 350px;gap:24px;">
-        <!-- OVERVIEW CARD -->
-        <div class="card-b" style="background:var(--bg-cards);border-radius:24px;padding:32px;display:flex;flex-direction:column;justify-content:center;">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div>
-              <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
-                <h2 id="report-view-title" style="font-size:24px;font-weight:600;margin:0;">Test Execution Report</h2>
-                <span id="report-view-badge" class="recent-badge completed" style="background:rgba(47,213,154,0.1);color:var(--text-success);padding:4px 10px;border-radius:999px;font-size:12px;">Completed</span>
-              </div>
-              <div style="font-size:13px;color:var(--text-secondary);display:flex;align-items:center;gap:8px;">
-                <span id="report-view-url">https://example.com</span>
-                <span>&bull;</span>
-                <span id="report-view-time">&mdash;</span>
-                <span>&bull;</span>
-                <span id="report-view-strategy">External</span>
-              </div>
-            </div>
-            <div style="display:flex;gap:12px;">
-              <a href="/download_report" download id="report-download-btn" style="height:40px;padding:0 16px;border-radius:999px;background:var(--avatar-bg);color:var(--bg-cards);display:flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;font-weight:500;">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg> Download
-              </a>
-              <a href="/view_report" target="_blank" rel="noopener" id="report-external-btn" style="height:40px;padding:0 16px;border-radius:999px;background:var(--control-secondary-bg);color:var(--text-primary);display:flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;font-weight:500;">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> Open
-              </a>
-              <button id="report-refresh-btn" style="height:40px;width:40px;border-radius:50%;background:var(--control-bg);color:var(--text-primary);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-              </button>
-            </div>
+      <!-- SUMMARY STRIP (max 120px tall) -->
+      <div id="report-summary-strip" class="card-b" style="background:var(--bg-cards); border-radius:20px; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; max-height:120px; flex-shrink:0;">
+        <!-- Left: Title + Status Badge & Single-line Meta -->
+        <div style="min-width:0; flex-shrink:1;">
+          <div style="display:flex; align-items:center; gap:8px; line-height:24px;">
+            <h2 id="report-view-title" style="font-size:18px; font-weight:600; margin:0; line-height:24px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text-primary);">Test Execution Report</h2>
+            <span id="report-view-badge" class="recent-badge completed" style="background:rgba(47,213,154,0.1); color:var(--text-success); padding:2px 8px; border-radius:999px; font-size:11px; line-height:16px; white-space:nowrap;">Completed</span>
           </div>
-          
-          <div style="display:flex;gap:16px;margin-top:32px;">
-             <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-                <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Total Tests</div>
-                <div id="report-stat-total" style="font-size:24px;font-weight:500;">0</div>
-             </div>
-             <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-                <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Passed</div>
-                <div id="report-stat-passed" style="font-size:24px;font-weight:500;color:var(--text-success);">0</div>
-             </div>
-             <div style="flex:1;background:var(--control-bg);border-radius:16px;padding:20px;position:relative;overflow:hidden;">
-                <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Failed</div>
-                <div id="report-stat-failed" style="font-size:24px;font-weight:500;color:var(--text-danger);">0</div>
-             </div>
-             <div style="display:none;" id="report-stat-errors">0</div>
+          <div style="font-size:12px; color:var(--text-secondary); line-height:18px; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+            <span id="report-view-url">https://example.com</span> &bull; 
+            <span id="report-view-time">&mdash;</span> &bull; 
+            <span id="report-view-strategy">External</span>
           </div>
         </div>
 
-        <!-- GAUGE CARD -->
-        <div class="card-b" style="background:var(--bg-cards);border-radius:24px;padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
-           <svg width="120" height="120" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--control-icon-bg)" stroke-width="4"></circle>
-              <circle id="report-gauge-fill" cx="50" cy="50" r="40" fill="none" stroke="var(--success)" stroke-width="4" stroke-dasharray="251.2" stroke-dashoffset="251.2" style="transition:stroke-dashoffset 1s ease; transform:rotate(-90deg); transform-origin:50% 50%;"></circle>
-           </svg>
-           <div style="position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-             <span id="report-gauge-pct" style="font-size:24px;font-weight:500;">&mdash;</span>
-             <span style="font-size:10px;color:var(--text-secondary);">Pass Rate</span>
-           </div>
-           
-           <div style="display:none;">
-             <span id="report-gauge-headline"></span>
-             <span id="report-gauge-sub"></span>
-           </div>
+        <!-- Middle: Inline Chips + 56px Pass-Rate Ring -->
+        <div style="display:flex; align-items:center; gap:14px; flex-shrink:0;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:12px; padding:4px 10px; border-radius:8px; background:var(--control-bg); color:var(--text-secondary); display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
+              Total <b id="report-stat-total" style="color:var(--text-primary); font-weight:600;">0</b>
+            </span>
+            <span style="font-size:12px; padding:4px 10px; border-radius:8px; background:rgba(47,213,154,0.1); color:var(--text-success); display:inline-flex; align-items:center; gap:4px; white-space:nowrap;">
+              Passed <b id="report-stat-passed" style="font-weight:600;">0</b>
+            </span>
+            <span id="report-chip-failed" style="font-size:12px; padding:4px 10px; border-radius:8px; background:var(--control-bg); color:var(--text-secondary); display:inline-flex; align-items:center; gap:4px; white-space:nowrap; transition:background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);">
+              Failed <b id="report-stat-failed" style="font-weight:600;">0</b>
+            </span>
+            <span id="report-chip-errors" style="font-size:12px; padding:4px 10px; border-radius:8px; background:var(--control-bg); color:var(--text-secondary); display:inline-flex; align-items:center; gap:4px; white-space:nowrap; transition:background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);">
+              Errors <b id="report-stat-errors" style="font-weight:600;">0</b>
+            </span>
+          </div>
+
+          <!-- 56px Pass-Rate Ring -->
+          <div style="width:56px; height:56px; display:flex; align-items:center; justify-content:center; position:relative; flex-shrink:0;">
+            <svg width="56" height="56" viewBox="0 0 56 56">
+              <circle cx="28" cy="28" r="22" fill="none" stroke="var(--control-icon-bg)" stroke-width="4"></circle>
+              <circle id="report-gauge-fill" cx="28" cy="28" r="22" fill="none" stroke="var(--success)" stroke-width="4" stroke-dasharray="138.2" stroke-dashoffset="138.2" style="transition:stroke-dashoffset var(--dur-slow) var(--ease); transform:rotate(-90deg); transform-origin:28px 28px;"></circle>
+            </svg>
+            <span id="report-gauge-pct" style="position:absolute; font-size:11px; font-weight:600; color:var(--text-primary);">&mdash;</span>
+            <div style="display:none;">
+              <span id="report-gauge-headline"></span>
+              <span id="report-gauge-sub"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Action Buttons -->
+        <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+          <a href="/download_report" download id="report-download-btn" style="height:36px; padding:0 14px; border-radius:999px; background:var(--avatar-bg); color:var(--bg-cards); display:inline-flex; align-items:center; gap:6px; text-decoration:none; font-size:13px; font-weight:600; white-space:nowrap;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download
+          </a>
+          <a href="/view_report" target="_blank" rel="noopener" id="report-external-btn" style="height:36px; padding:0 14px; border-radius:999px; background:var(--control-secondary-bg); color:var(--text-primary); display:inline-flex; align-items:center; gap:6px; text-decoration:none; font-size:13px; font-weight:500; white-space:nowrap;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> Open
+          </a>
+          <button id="report-refresh-btn" type="button" aria-label="Refresh report" style="height:36px; width:36px; border-radius:50%; background:var(--control-bg); color:var(--text-primary); border:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          </button>
         </div>
       </div>
 
-      <!-- IFRAME CARD -->
-      <div class="card-b" style="flex:1;background:var(--bg-cards);border-radius:24px;display:flex;flex-direction:column;overflow:hidden;">
-        <div style="padding:16px 24px;border-bottom:1px solid var(--control-icon-bg);display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="3"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
+      <!-- REPORT VIEWER (fills the rest, >= 55% viewport height) -->
+      <div id="report-viewer-card" class="card-b" style="flex:1; min-height:55%; background:var(--bg-cards); border-radius:20px; display:flex; flex-direction:column; overflow:hidden;">
+        <div style="padding:12px 20px; border-bottom:1px solid var(--control-icon-bg); display:flex; align-items:center; gap:10px; font-size:13px; font-weight:500; flex-shrink:0; color:var(--text-primary);">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="3"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
           Interactive HTML Report Viewer
         </div>
-        <div style="flex:1;position:relative;">
-          <iframe id="report-iframe" src="/view_report" style="width:100%;height:100%;border:none;display:block;" title="Test Execution HTML Report"></iframe>
-          <div id="report-iframe-fallback" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:var(--bg-cards);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-secondary);gap:12px;">
+        <div style="flex:1; min-height:0; position:relative;">
+          <iframe id="report-iframe" src="/view_report" style="width:100%; height:100%; border:none; display:block;" title="Test Execution HTML Report"></iframe>
+          <div id="report-iframe-fallback" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:var(--bg-cards); display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--text-secondary); gap:12px;">
             <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-            <div style="font-size:14px;">No report generated yet. Run a scan to view results.</div>
-            <button onclick="switchView('dashboard')" style="background:var(--avatar-bg);color:var(--bg-cards);border:none;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;">Go to Dashboard</button>
+            <div style="font-size:13px;">No report generated yet. Run a scan to view results.</div>
+            <button type="button" onclick="switchView('dashboard')" style="background:var(--avatar-bg); color:var(--bg-cards); border:none; border-radius:999px; padding:7px 16px; font-size:12px; font-weight:600; cursor:pointer;">Go to Dashboard</button>
           </div>
         </div>
       </div>
-      
     </main>
   </div>
 </div>
+  <!-- Toast Notification (bottom right) -->
+  <div id="scan-toast" role="status" aria-live="polite" tabindex="0" class="scan-toast">
+    <span class="toast-dot"></span>
+    <span id="toast-message"></span>
+    <button id="toast-close-btn" type="button" aria-label="Close notification">&times;</button>
+  </div>
 </main>
 <script>
     // ═══════════════════════════════════════════════════════════
@@ -1971,9 +2133,53 @@ body {
         const iframe = document.getElementById("report-iframe");
         if (!iframe) return;
         const iDoc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
-        if (iDoc && iDoc.documentElement) {
-          iDoc.documentElement.setAttribute("data-theme", theme);
+        if (!iDoc || !iDoc.documentElement) return;
+        iDoc.documentElement.setAttribute("data-theme", theme);
+
+        // Inject design-token CSS into iframe for R2 report styling
+        let style = iDoc.getElementById("qa-theme-inject");
+        if (!style) {
+          style = iDoc.createElement("style");
+          style.id = "qa-theme-inject";
+          (iDoc.head || iDoc.documentElement).appendChild(style);
         }
+        style.textContent = `
+          :root, [data-theme="dark"] {
+            --r-bg: #0d0a08; --r-surface: #14100e; --r-card: #1a1614;
+            --r-text: #fff; --r-text2: rgba(255,255,255,.56); --r-text3: rgba(255,255,255,.32);
+            --r-border: rgba(255,255,255,.12); --r-success: #2FD59A; --r-danger: #FF5D6C;
+            --r-accent: #2FD59A; --r-warning: #F5B942;
+            color-scheme: dark;
+          }
+          [data-theme="light"] {
+            --r-bg: #f2f2f7; --r-surface: #fff; --r-card: #fff;
+            --r-text: #1c1c1e; --r-text2: rgba(28,28,30,.56); --r-text3: rgba(28,28,30,.32);
+            --r-border: rgba(0,0,0,.12); --r-success: #12A36F; --r-danger: #E03B4B;
+            --r-accent: #12A36F; --r-warning: #D97706;
+            color-scheme: light;
+          }
+          html, body {
+            background: var(--r-bg) !important;
+            color: var(--r-text) !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, system-ui, sans-serif !important;
+          }
+          h1, h2, h3, h4, h5, h6 { color: var(--r-text) !important; }
+          p, li, td, th, span, div, pre, code { color: var(--r-text2) !important; }
+          a { color: var(--r-accent) !important; }
+          table { border-collapse: collapse !important; width: 100% !important; border-radius: 16px !important; overflow: hidden !important; }
+          th { background: var(--r-surface) !important; color: var(--r-text) !important; padding: 10px 14px !important; font-size: 12px !important; font-weight: 600 !important; text-align: left !important; border-bottom: 1px solid var(--r-border) !important; }
+          td { background: var(--r-card) !important; padding: 10px 14px !important; font-size: 13px !important; border-bottom: 1px solid var(--r-border) !important; }
+          tr:last-child td { border-bottom: none !important; }
+          tr:hover td { background: var(--r-surface) !important; }
+          .passed, .pass, [class*="pass"] { color: var(--r-success) !important; }
+          .failed, .fail, [class*="fail"] { color: var(--r-danger) !important; }
+          .error, [class*="error"] { color: var(--r-danger) !important; }
+          .warning, .warn, [class*="warn"] { color: var(--r-warning) !important; }
+          pre, code { background: var(--r-surface) !important; border: 1px solid var(--r-border) !important; border-radius: 8px !important; padding: 8px !important; font-size: 12px !important; }
+          hr { border-color: var(--r-border) !important; }
+          img { border-radius: 8px !important; }
+          * { border-color: var(--r-border) !important; }
+        `;
       } catch (_) { /* cross-origin guard — silently skip */ }
     }
 
@@ -2012,7 +2218,9 @@ body {
     const viewReports   = document.getElementById("reports-view");
 
     function switchView(viewName, updateHash = true) {
+      const pageTitle = document.getElementById("page-title");
       if (viewName === "reports") {
+        if (pageTitle) pageTitle.textContent = "Reports";
         viewDashboard.style.display = "none";
         viewReports.style.display = "flex";
         tabDashboard.classList.remove("active");
@@ -2024,6 +2232,7 @@ body {
           history.replaceState(null, "", "#reports");
         }
       } else {
+        if (pageTitle) pageTitle.textContent = "Dashboard";
         viewReports.style.display = "none";
         viewDashboard.style.display = "flex";
         tabReports.classList.remove("active");
@@ -2189,7 +2398,7 @@ body {
           const isHl = highlightId && (s.id === highlightId || idx === 0);
           
           return `
-        <div class="recent-item ${isHl ? 'highlight' : ''}" onclick="openReportByIndex(${idx})" style="display:flex;align-items:center;gap:16px;cursor:pointer;padding:8px 12px;border-radius:14px;transition:background 150ms ease;">
+        <div class="recent-item ${isHl ? 'highlight' : ''}" onclick="openReportByIndex(${idx})" style="display:flex;align-items:center;gap:16px;cursor:pointer;padding:8px 12px;border-radius:14px;transition:background var(--dur-fast) var(--ease);">
           <div style="width:40px;height:40px;border-radius:50%;background:var(--control-icon-bg);display:flex;align-items:center;justify-content:center;">
              <svg width="20" height="20" viewBox="0 0 24 24">${icon}</svg>
           </div>
@@ -2381,18 +2590,20 @@ body {
 
       list.innerHTML = filtered.map(s => {
         const isActive = s.id === activeSelectedScanId;
-        const total = s.summary ? s.summary.total : 0;
-        const passed = s.summary ? s.summary.passed : 0;
+        const isOk = s.status === 'completed';
+        const labelText = s.label || 'Scan run';
+        const dateText = s.date || '';
+        const urlText = s.url || '';
+        const metaStr = urlText && dateText ? `${urlText}, ${dateText}` : (urlText || dateText);
+
         return `
-          <div class="reports-history-item ${isActive ? 'is-active' : ''}" data-id="${s.id}" onclick="selectScanInHistory('${s.id}')">
-            <div class="reports-history-item-top">
-              <span class="reports-history-title">${escapeHtml(s.label || 'Scan Run')}</span>
-              <span class="recent-badge ${s.status === 'completed' ? 'completed' : 'failed'}">${s.status === 'completed' ? 'Passed' : 'Failed'}</span>
+          <div class="reports-history-item ${isActive ? 'is-active' : ''}" data-id="${s.id}" onclick="selectScanInHistory('${s.id}')" style="padding:10px 12px; border-radius:12px; cursor:pointer; margin-bottom:6px; display:flex; flex-direction:column; gap:4px; transition:background var(--dur-fast) var(--ease);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="reports-history-title" style="font-size:13px; font-weight:500; color:var(--text-primary); text-transform:none;">${escapeHtml(labelText)}</span>
+              <span class="recent-badge ${isOk ? 'completed' : 'failed'}" style="font-size:11px; padding:2px 8px; border-radius:999px;">${isOk ? 'Passed' : 'Failed'}</span>
             </div>
-            <div class="reports-history-url">${escapeHtml(s.url || '')}</div>
-            <div class="reports-history-footer">
-              <span>${s.date || ''}</span>
-              ${total > 0 ? `<span class="reports-history-stats-pill">${passed}/${total} passed</span>` : ''}
+            <div class="reports-history-url" style="font-size:11px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-transform:none; font-family:var(--font-sans, inherit);">
+              ${escapeHtml(metaStr)}
             </div>
           </div>
         `;
@@ -2427,16 +2638,42 @@ body {
       document.getElementById("report-stat-failed").textContent = failed;
       document.getElementById("report-stat-errors").textContent = errors;
 
-      // Circular gauge in report view
+      const chipFailed = document.getElementById("report-chip-failed");
+      if (chipFailed) {
+        if (failed > 0) {
+          chipFailed.style.background = "rgba(255,93,108,0.12)";
+          chipFailed.style.color = "var(--danger)";
+        } else {
+          chipFailed.style.background = "var(--control-bg)";
+          chipFailed.style.color = "var(--text-secondary)";
+        }
+      }
+      const chipErrors = document.getElementById("report-chip-errors");
+      if (chipErrors) {
+        if (errors > 0) {
+          chipErrors.style.background = "rgba(255,93,108,0.12)";
+          chipErrors.style.color = "var(--danger)";
+        } else {
+          chipErrors.style.background = "var(--control-bg)";
+          chipErrors.style.color = "var(--text-secondary)";
+        }
+      }
+
+      // Circular 56px ring in summary strip (r=22, circumference=138.2)
       const pct = total > 0 ? Math.round((passed / total) * 100) : 0;
-      const circumference = 2 * Math.PI * 35;
+      const circumference = 138.2;
       const gaugeFillEl = document.getElementById("report-gauge-fill");
-      gaugeFillEl.style.strokeDasharray = circumference;
-      gaugeFillEl.style.strokeDashoffset = circumference - (pct / 100) * circumference;
-      gaugeFillEl.style.stroke = pct >= 80 ? "url(#gauge-gradient)" : pct >= 50 ? "var(--warning)" : "var(--danger)";
-      document.getElementById("report-gauge-pct").textContent = pct + "%";
-      document.getElementById("report-gauge-headline").textContent = pct === 100 ? "100% Pass Rate" : `${pct}% Pass Rate`;
-      document.getElementById("report-gauge-sub").textContent = `${passed} of ${total} tests passed`;
+      if (gaugeFillEl) {
+        gaugeFillEl.style.strokeDasharray = circumference;
+        gaugeFillEl.style.strokeDashoffset = (circumference - (pct / 100) * circumference).toFixed(1);
+        gaugeFillEl.style.stroke = pct >= 80 ? "var(--success)" : pct >= 50 ? "var(--warning)" : "var(--danger)";
+      }
+      const pctEl = document.getElementById("report-gauge-pct");
+      if (pctEl) pctEl.textContent = total > 0 ? pct + "%" : "—";
+      const headEl = document.getElementById("report-gauge-headline");
+      if (headEl) headEl.textContent = pct === 100 ? "100% Pass Rate" : `${pct}% Pass Rate`;
+      const subEl = document.getElementById("report-gauge-sub");
+      if (subEl) subEl.textContent = `${passed} of ${total} tests passed`;
 
       // Embedded Iframe loading
       const iframe = document.getElementById("report-iframe");
@@ -2751,23 +2988,60 @@ body {
     let totalFiles = 0, filesCompleted = 0;
 
     function updateGauge(total, passed, failed) {
-      const circumference = 2 * Math.PI * 35;
+      const circumference = 138.2;
       const pct = total > 0 ? Math.round((passed / total) * 100) : 0;
       gaugePct.textContent    = pct + "%";
       gaugeTotal.textContent  = total;
       gaugePassed.textContent = passed;
       gaugeFailed.textContent = failed;
-      gaugeFill.style.strokeDashoffset = circumference - (pct / 100) * circumference;
+      gaugeFill.style.strokeDashoffset = (circumference - (pct / 100) * circumference).toFixed(1);
       gaugeFill.style.strokeDasharray  = circumference;
-      gaugeFill.style.stroke = pct >= 80 ? "url(#gauge-gradient)" : pct >= 50 ? "var(--warning)" : "var(--danger)";
-      gaugeBarFill.style.transform = `scaleX(${pct / 100})`;
-      gaugeBarMeta.textContent = `${passed} / ${total} passed`;
+      gaugeFill.style.stroke = pct >= 80 ? "var(--success)" : pct >= 50 ? "var(--warning)" : "var(--danger)";
+      if (gaugeBarFill) gaugeBarFill.style.transform = `scaleX(${pct / 100})`;
+      if (gaugeBarMeta) gaugeBarMeta.textContent = `${passed} / ${total} passed`;
     }
 
     const STEPS = ["init","discover","scan","analyze","report"];
     const STEP_NUMBERS = { init: "1", discover: "2", scan: "3", analyze: "4", report: "5" };
-    const CHECK_SVG = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+    const CHECK_SVG = `<svg class="check-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
     const FAIL_SVG = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+
+    function tweenNumber(el, targetVal, suffix = "") {
+      if (!el) return;
+      const startVal = parseInt(el.textContent) || 0;
+      if (startVal === targetVal) { el.textContent = targetVal + suffix; return; }
+      const startTime = performance.now();
+      const duration = 300;
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const curr = Math.round(startVal + (targetVal - startVal) * ease);
+        el.textContent = curr + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = targetVal + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+
+    function updateStepperConnector() {
+      const conn = document.getElementById("stepper-connector-fill");
+      if (!conn) return;
+      let highestDone = -1;
+      let runningIdx = -1;
+      STEPS.forEach((s, idx) => {
+        const el = document.getElementById("step-" + s);
+        if (el) {
+          if (el.classList.contains("done")) highestDone = idx;
+          else if (el.classList.contains("running") && runningIdx === -1) runningIdx = idx;
+        }
+      });
+      let pct = 0;
+      if (highestDone === 4) pct = 100;
+      else if (runningIdx !== -1) pct = (runningIdx * 25) + 12.5;
+      else if (highestDone !== -1) pct = (highestDone + 1) * 25;
+      conn.style.width = Math.min(100, Math.max(0, pct)) + "%";
+    }
 
     function setStepState(id, state, time) {
       const el = document.getElementById("step-" + id);
@@ -2787,6 +3061,8 @@ body {
       const t = document.getElementById("step-" + id + "-time");
       if (t && time !== undefined) t.textContent = time;
 
+      updateStepperConnector();
+
       window.__stepper_history = window.__stepper_history || [];
       const currentPattern = STEPS.map(s => {
         const elS = document.getElementById("step-" + s);
@@ -2803,6 +3079,12 @@ body {
     }
     function resetSteps() {
       STEPS.forEach(s => setStepState(s, "", "—"));
+      const conn = document.getElementById("stepper-connector-fill");
+      if (conn) conn.style.width = "0%";
+      const fill = document.getElementById("exec-progress-fill");
+      if (fill) fill.style.width = "0%";
+      const pctEl = document.getElementById("exec-progress-pct");
+      if (pctEl) pctEl.textContent = "0%";
       document.getElementById("step-analyze-time").textContent = "Pending";
       document.getElementById("step-report-time").textContent  = "Pending";
     }
@@ -2810,10 +3092,12 @@ body {
       const fill = document.getElementById("exec-progress-fill");
       if (fill) {
         fill.style.transform = "none";
-        fill.style.width = `calc((100% - 96px) * ${Math.max(0, Math.min(100, pct)) / 100})`;
+        fill.style.width = `${Math.max(0, Math.min(100, pct))}%`;
       }
       const pctEl = document.getElementById("exec-progress-pct");
-      if (pctEl) pctEl.textContent = Math.round(pct) + "%";
+      if (pctEl) {
+        tweenNumber(pctEl, Math.round(pct), "%");
+      }
     }
 
     function createProgressController(fillEl, textEl) {
@@ -2838,6 +3122,31 @@ body {
       return { setTarget, getDisplayed:()=>displayed, getTarget:()=>target };
     }
     const completionProgress = createProgressController(document.getElementById("pass-rate-fill"),document.getElementById("pass-rate-pct"));
+
+
+    // Environment & Config Popover
+    (function initEnvConfigPopover() {
+      const btn = document.getElementById("env-config-info-btn");
+      const pop = document.getElementById("section-env-config");
+      const closeBtn = document.getElementById("env-config-close-btn");
+      if (!btn || !pop) return;
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isHidden = pop.style.display === "none" || !pop.style.display;
+        pop.style.display = isHidden ? "block" : "none";
+      });
+      if (closeBtn) {
+        closeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          pop.style.display = "none";
+        });
+      }
+      document.addEventListener("click", (e) => {
+        if (!pop.contains(e.target) && e.target !== btn) {
+          pop.style.display = "none";
+        }
+      });
+    })();
 
     // Directional glow
     (function initDirectionalGlows() {
@@ -2892,14 +3201,131 @@ body {
       }
     }
 
+    const DEFAULT_DOC_TITLE = "QA Automation Engine — Dashboard & Reports";
+    let titleResetTimer = null;
+
+    function setPageTitleRunning(pct) {
+      if (titleResetTimer) { clearTimeout(titleResetTimer); titleResetTimer = null; }
+      document.title = `Running ${pct}% - QA Automation Engine`;
+    }
+
+    function setPageTitleComplete(passed, total, failed) {
+      if (titleResetTimer) clearTimeout(titleResetTimer);
+      if (failed === 0) {
+        document.title = `Passed ${passed}/${total} - QA Automation Engine`;
+      } else {
+        document.title = `Failed ${failed}/${total} - QA Automation Engine`;
+      }
+      function resetTitle() {
+        document.title = DEFAULT_DOC_TITLE;
+        window.removeEventListener("mousemove", resetTitle);
+        window.removeEventListener("keydown", resetTitle);
+        window.removeEventListener("click", resetTitle);
+        window.removeEventListener("touchstart", resetTitle);
+      }
+      titleResetTimer = setTimeout(resetTitle, 30000);
+      window.addEventListener("mousemove", resetTitle, { once: true });
+      window.addEventListener("keydown", resetTitle, { once: true });
+      window.addEventListener("click", resetTitle, { once: true });
+      window.addEventListener("touchstart", resetTitle, { once: true });
+    }
+
+    function showScanToast(passed, failed) {
+      const toast = document.getElementById("scan-toast");
+      if (!toast) return;
+      const allOk = (failed === 0);
+      const dot = toast.querySelector(".toast-dot");
+      const msg = toast.querySelector("#toast-message");
+      if (dot) dot.className = `toast-dot ${allOk ? "pass" : "fail"}`;
+      if (msg) msg.textContent = `Scan complete: ${passed} passed, ${failed} failed`;
+      
+      toast.classList.add("visible");
+      
+      if (window._scanToastTimer) clearTimeout(window._scanToastTimer);
+      window._scanToastTimer = setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 6000);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const toast = document.getElementById("scan-toast");
+      const closeBtn = document.getElementById("toast-close-btn");
+      if (closeBtn && toast) {
+        closeBtn.addEventListener("click", () => toast.classList.remove("visible"));
+      }
+      if (toast) {
+        toast.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
+            toast.classList.remove("visible");
+          }
+        });
+      }
+    });
+
+    const STEP_DESCS = {
+      1: { name: "Initialize", desc: "Preparing test environment and validating target parameters." },
+      2: { name: "Discover", desc: "Discovering test suites and setting up browser context." },
+      3: { name: "Scan", desc: "Executing automated test suites against target." },
+      4: { name: "Analyze", desc: "Analyzing execution assertions and test results." },
+      5: { name: "Report", desc: "Compiling test report and performance metrics." }
+    };
+
+    let activeScanTarget = "";
+    let activeTestTotal = 0;
+    let activeTestIndex = 0;
+    let scanFilesList = [];
+
+    function updateScanHeader(stepNum, customTarget) {
+      if (customTarget) activeScanTarget = customTarget;
+      const step = STEP_DESCS[stepNum] || STEP_DESCS[1];
+      const titleEl = document.getElementById("exec-header-title");
+      const descEl = document.getElementById("exec-header-desc");
+      const wrapperEl = document.getElementById("exec-timer-wrapper");
+      if (titleEl) {
+        titleEl.textContent = `Scanning ${activeScanTarget || "target"}, step ${stepNum} of 5: ${step.name}`;
+      }
+      if (descEl) {
+        descEl.textContent = step.desc;
+        descEl.style.display = "block";
+      }
+      if (wrapperEl) {
+        wrapperEl.style.display = "flex";
+      }
+    }
+
+    function setRunningTestName(label, index, total) {
+      const el = document.getElementById("exec-running-test");
+      if (!el) return;
+      if (label && total) {
+        el.textContent = `Running: ${label} (test ${index + 1} of ${total})`;
+        el.style.display = "block";
+      } else {
+        el.textContent = "";
+        el.style.display = "none";
+      }
+    }
+
+    const runTimerEl = document.getElementById("run-timer");
+    const execTimerWrapper = document.getElementById("exec-timer-wrapper");
+
     function startTimer(){
-      scanStartTime=Date.now();footerTimer.textContent="00:00";
+      scanStartTime=Date.now();
+      if(footerTimer) footerTimer.textContent="00:00";
+      if(runTimerEl) runTimerEl.textContent="00:00";
+      if(execTimerWrapper) execTimerWrapper.style.display="flex";
+      if(scanTimer) clearInterval(scanTimer);
       scanTimer=setInterval(()=>{
         const e=Math.floor((Date.now()-scanStartTime)/1000);
-        footerTimer.textContent=`${String(Math.floor(e/60)).padStart(2,"0")}:${String(e%60).padStart(2,"0")}`;
+        const mm = String(Math.floor(e/60)).padStart(2,"0");
+        const ss = String(e%60).padStart(2,"0");
+        const tStr = `${mm}:${ss}`;
+        if(footerTimer) footerTimer.textContent=tStr;
+        if(runTimerEl) runTimerEl.textContent=tStr;
       },1000);
     }
-    function stopTimer(){if(scanTimer)clearInterval(scanTimer);}
+    function stopTimer(){
+      if(scanTimer){clearInterval(scanTimer); scanTimer=null;}
+    }
 
     logBody.addEventListener("scroll",()=>{
       const{scrollTop,scrollHeight,clientHeight}=logBody;
@@ -2910,15 +3336,8 @@ body {
       logLineCount=0;logCount.textContent="0";currentLogFile=null;
     });
 
-    function appendLogLine(timestamp, line, file) {
+    function appendLogLine(timestamp, line, label) {
       if (!line) return;
-      if (file && file !== currentLogFile) {
-        currentLogFile = file;
-        const sep = document.createElement("div");
-        sep.className = "log-file-sep";
-        sep.textContent = file === "summary" ? "Scan Completed" : file;
-        logBody.appendChild(sep);
-      }
       logEmpty.style.display = "none";
       let message = line.startsWith("Status: ") ? line.substring(8).trim() : line.trim();
       let levelLabel = "INFO", level = "info";
@@ -2932,16 +3351,17 @@ body {
         else if (icon === "⚠️") { level = "warn"; levelLabel = "WARN"; }
       } else {
         if (/pass/i.test(message)) { level = "pass"; levelLabel = "PASS"; }
-        else if (/fail|error/i.test(message)) { level = "fail"; levelLabel = "FAIL"; }
+        else if (/fail|error|timeout/i.test(message)) { level = "fail"; levelLabel = "FAIL"; }
         else if (/warn/i.test(message)) { level = "warn"; levelLabel = "WARN"; }
       }
       const div = document.createElement("div");
       div.className = `log-line level-${level}`;
       const ts = timestamp || new Date().toTimeString().slice(0, 8);
-      div.innerHTML = `<span class="log-timestamp">${ts}</span><span class="log-level-dot"></span><span class="log-level-label">${levelLabel}</span><span class="log-text">${escapeHtml(message)}</span>`;
+      const displayLabel = label || (line.includes("System") ? "System" : "Scan");
+      div.innerHTML = `<span class="log-timestamp">${escapeHtml(ts)}</span><span class="log-source-label">${escapeHtml(displayLabel)}</span><span class="log-pill ${level}">${levelLabel}</span><span class="log-text">${escapeHtml(message)}</span>`;
       logBody.appendChild(div);
       logLineCount++;
-      logCount.textContent = logLineCount;
+      logCount.textContent = String(logLineCount);
       if (autoScroll) logBody.scrollTop = logBody.scrollHeight;
     }
 
@@ -3041,12 +3461,12 @@ body {
       logLineCount=0;logCount.textContent="0";currentLogFile=null;filesCompleted=0;
       resetSteps();updateExecProgress(10);
       setStepState("init", "running", "");
+      updateScanHeader(1, url);
+      setRunningTestName(null);
+      setPageTitleRunning(10);
 
-      // Smooth scroll execution overview into view
-      const execSection = document.getElementById("section-exec-overview");
-      if (execSection) {
-        execSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      }
+      const resBanner = document.getElementById("exec-result-banner");
+      if (resBanner) resBanner.style.display = "none";
 
       gaugePct.textContent="—";gaugeTotal.textContent="—";gaugePassed.textContent="—";
       gaugeFailed.textContent="—";gaugeBarFill.style.transform="scaleX(0)";
@@ -3092,27 +3512,44 @@ body {
           evtSrc.close();setLoading(false);stopTimer();
           setStatus("Error");statusDot.className="status-dot";footerDot.className="status-dot";
           document.getElementById("exec-status-badge").className="exec-status-badge";
+          setRunningTestName(null);
+          document.title = DEFAULT_DOC_TITLE;
           showError(data.message);return;
         }
 
         if(data.type==="start"){
           buildCircuitFlow(data.files);totalFiles=data.files.length;
+          activeTestTotal=data.files.length;
+          activeTestIndex=0;
+          scanFilesList=data.files;
           data.files.forEach(({file})=>pendingFiles.push(file));
           timelineSec.classList.add("visible");
           setStepState("init","done",new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"}));
           setStepState("discover","running","");
+          updateScanHeader(2);
           updateExecProgress(25);
-          if(pendingFiles.length>0){markTimelineRunning(pendingFiles[0]);setStatus(`Running: ${data.files[0].label}`);}
+          setPageTitleRunning(25);
+          if(pendingFiles.length>0){
+            markTimelineRunning(pendingFiles[0]);
+            setStatus(`Running: ${data.files[0].label}`);
+            setRunningTestName(data.files[0].label, 0, activeTestTotal);
+          }
+          appendLogLine(new Date().toTimeString().slice(0, 8), `Test suite initialized (${activeTestTotal} test(s) queued)`, "System");
           return;
         }
 
         if(data.type==="log"){
-          appendLogLine(data.timestamp,data.line,data.file);
+          appendLogLine(data.timestamp,data.line,data.label || data.file);
           const disc = document.getElementById("step-discover");
           if (disc && disc.classList.contains("running") && data.file && data.file !== "system") {
             setStepState("discover", "done", "");
             setStepState("scan", "running", "");
+            updateScanHeader(3);
             updateExecProgress(40);
+            setPageTitleRunning(40);
+          }
+          if (data.label && activeTestTotal > 0) {
+            setRunningTestName(data.label, activeTestIndex, activeTestTotal);
           }
           return;
         }
@@ -3120,17 +3557,27 @@ body {
         if(data.type==="progress"){
           updateTimelineItem(data.file,data.status,data.passed,data.failed,data.elapsed_s);
           filesCompleted++;
+          appendLogLine(new Date().toTimeString().slice(0, 8), `Suite completed: ${data.label} (${data.passed} passed, ${data.failed} failed)`, data.label);
           const idx=pendingFiles.indexOf(data.file);
           if(idx!==-1){setCircuitTraceState(idx,data.status);setCircuitTraceState(idx+1,"running");}
           const pct = Math.min(85, Math.round((filesCompleted / totalFiles) * 45) + 40);
           updateExecProgress(pct);
+          setPageTitleRunning(pct);
           setStepState("discover","done","");
+          activeTestIndex = filesCompleted;
           if(filesCompleted < totalFiles){
             setStepState("scan", "running", "");
+            updateScanHeader(3);
+            if (scanFilesList[activeTestIndex]) {
+              setRunningTestName(scanFilesList[activeTestIndex].label, activeTestIndex, activeTestTotal);
+            }
           } else {
             setStepState("scan", "done", "");
             setStepState("analyze", "running", "");
+            updateScanHeader(4);
+            setRunningTestName(null);
             updateExecProgress(90);
+            setPageTitleRunning(90);
           }
           if(idx!==-1&&idx+1<pendingFiles.length){
             const nf=pendingFiles[idx+1];markTimelineRunning(nf);
@@ -3146,6 +3593,8 @@ body {
           setStepState("scan","done","");
           setStepState("analyze","done","");
           setStepState("report",allOk?"done":"failed","");
+          updateScanHeader(5);
+          setRunningTestName(null);
           updateExecProgress(100);
           setCircuitTraceState(pendingFiles.length,finalState);
           setCircuitNodeState("circuit-final",finalState,allOk?"Passed":"Failed");
@@ -3161,6 +3610,38 @@ body {
           document.getElementById("stat-passed").textContent=s.passed;
           document.getElementById("stat-failed").textContent=s.failed;
           document.getElementById("stat-errors").textContent=s.error;
+
+          // Header line completion state
+          const titleEl = document.getElementById("exec-header-title");
+          const descEl = document.getElementById("exec-header-desc");
+          if (titleEl) titleEl.textContent = allOk ? "Scan Completed" : "Scan Completed with Failures";
+          if (descEl) { descEl.style.display = "none"; }
+
+          // Result banner
+          const banner = document.getElementById("exec-result-banner");
+          if (banner) {
+            banner.style.display = "flex";
+            if (allOk) {
+              banner.style.background = "rgba(47, 213, 154, 0.12)";
+              banner.style.color = "var(--text-success)";
+              banner.style.border = "1px solid rgba(47, 213, 154, 0.25)";
+              document.getElementById("exec-result-icon").textContent = "✓";
+              document.getElementById("exec-result-text").textContent = `Scan complete: ${s.passed} passed, ${s.failed} failed`;
+            } else {
+              banner.style.background = "rgba(255, 93, 108, 0.12)";
+              banner.style.color = "var(--text-danger)";
+              banner.style.border = "1px solid rgba(255, 93, 108, 0.25)";
+              document.getElementById("exec-result-icon").textContent = "✕";
+              document.getElementById("exec-result-text").textContent = `Scan complete: ${s.passed} passed, ${s.failed} failed`;
+            }
+          }
+
+          // Browser tab title update
+          setPageTitleComplete(s.passed, s.total, s.failed);
+
+          // Completion toast notification
+          showScanToast(s.passed, s.failed);
+
           const pct=s.total>0?Math.round((s.passed/s.total)*100):0;
           const fill=document.getElementById("pass-rate-fill");
           fill.className=`pass-rate-fill ${pct>=80?"good":"bad"}`;
@@ -3189,7 +3670,7 @@ body {
           saveScanRecord(record);
 
           const ts = now.toTimeString().slice(0,8);
-          appendLogLine(ts,`Status: ✅ Scan complete — ${s.passed} passed, ${s.failed} failed, ${s.error} errors`,null);
+          appendLogLine(ts,`Status: ✅ Scan complete — ${s.passed} passed, ${s.failed} failed, ${s.error} errors`,"Summary");
         }
       };
 
