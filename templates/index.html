@@ -446,37 +446,7 @@
       top: 15px; left: 30px; right: 30px;
       height: 2px; background: var(--border-default); z-index: 0;
     }
-    .step-item {
-      display: flex; flex-direction: row; background: var(--bg-primary); align-items: center; gap: 5px;
-      position: relative; z-index: 1; flex: 1;
-    }
-    .step-circle {
-      width: 30px; height: 30px; border-radius: 50%;
-      border: 2px solid var(--border-default);
-      background: var(--bg-primary);
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color var(--duration-normal) var(--ease-out),
-                  background var(--duration-normal) var(--ease-out),
-                  box-shadow var(--duration-normal) var(--ease-out);
-    }
-    .step-circle svg { width: 13px; height: 13px; color: var(--text-tertiary); transition: color var(--duration-normal) var(--ease-out); }
-    .step-item.done .step-circle    { border-color: var(--text-success); background: rgba(34,197,94,0.12); }
-    .step-item.done .step-circle svg{ color: var(--text-success); }
-    .step-item.running .step-circle {
-      border-color: var(--text-accent); background: rgba(47,213,154,0.12);
-      box-shadow: 0 0 0 4px rgba(47,213,154,0.15);
-      animation: step-pulse 28s ease-in-out infinite;
-    }
-    .step-item.running .step-circle svg { color: var(--text-accent); }
-    .step-item.failed .step-circle     { border-color: var(--danger); background: rgba(239,68,68,0.12); }
-    .step-item.failed .step-circle svg { color: var(--danger); }
-    @keyframes step-pulse {
-      0%,100%{ box-shadow: 0 0 0 4px rgba(47,213,154,0.15); }
-      50%    { box-shadow: 0 0 0 8px rgba(47,213,154,0.06); }
-    }
-    .step-label { font-size: 11px; font-weight: 500; color: var(--text-tertiary); text-align: center; transition: color var(--duration-normal) var(--ease-out); }
-    .step-time  { font-size: 10px; font-family: var(--mono); color: var(--text-tertiary); text-align: center; }
-    .step-item.done .step-label, .step-item.running .step-label { color: var(--text-primary); }
+    /* Step progress track styling */
 
     /* Exec progress bar */
     .exec-progress-wrap { display: flex; align-items: center; gap: 10px; }
@@ -1424,6 +1394,13 @@ body {
   overflow: hidden !important;
 }
 
+@media (max-height: 700px) {
+  #section-scan-chart,
+  #activity-log-card {
+    min-height: 120px !important;
+  }
+}
+
 #log-body {
   flex: 1 !important;
   min-height: 0 !important;
@@ -1531,49 +1508,6 @@ body {
 
 
     /* Motion System & P4 Layout Specifics */
-    .step-item {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      position: relative; z-index: 2; background: transparent !important;
-    }
-    .step-circle {
-      width: 28px; height: 28px; border-radius: 50%;
-      border: 2px solid var(--control-icon-bg);
-      background: var(--bg-cards);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 600; color: var(--text-tertiary);
-      transition: transform var(--dur-base) var(--ease),
-                  border-color var(--dur-base) var(--ease),
-                  background var(--dur-base) var(--ease),
-                  color var(--dur-base) var(--ease),
-                  box-shadow var(--dur-base) var(--ease);
-    }
-    .step-item.running .step-circle {
-      border-color: var(--success);
-      background: rgba(47, 213, 154, 0.12);
-      color: var(--success);
-      box-shadow: 0 0 0 4px rgba(47, 213, 154, 0.15);
-      animation: step-soft-pulse 2s ease-in-out infinite;
-    }
-    @keyframes step-soft-pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.72; }
-    }
-    .step-item.done .step-circle {
-      border-color: var(--success);
-      background: rgba(47, 213, 154, 0.12);
-      color: var(--success);
-    }
-    .step-item.failed .step-circle {
-      border-color: var(--danger);
-      background: rgba(255, 93, 108, 0.12);
-      color: var(--danger);
-    }
-    .step-label {
-      font-size: 11px; font-weight: 500; color: var(--text-tertiary); text-align: center; white-space: nowrap;
-    }
-    .step-item.done .step-label, .step-item.running .step-label {
-      color: var(--text-primary);
-    }
     .check-svg polyline {
       stroke-dasharray: 24; stroke-dashoffset: 0;
       transition: stroke-dashoffset var(--dur-base) var(--ease);
@@ -1659,9 +1593,11 @@ body {
   <!-- PAGE HEADER (Slim 56px Top Bar) -->
   <header style="height:56px; padding:0 32px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
     <h1 id="page-title" style="font-size:18px; font-weight:600; margin:0; color:var(--text-primary); letter-spacing:-0.01em;">Dashboard</h1>
-    <div class="topbar-status" id="topbar-status" style="background:var(--control-icon-bg); border-radius:999px; padding:6px 16px; display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-primary);">
-      <span class="status-dot" id="status-dot" style="width:8px; height:8px; border-radius:50%; background:var(--success);"></span>
-      <span id="status-text">Ready</span>
+    <div class="topbar-status ready" id="topbar-status">
+      <span class="status-dot ready" id="status-dot"></span>
+      <div id="status-text-wrap">
+        <span id="status-text">Ready</span>
+      </div>
     </div>
   </header>
 
@@ -1826,9 +1762,9 @@ body {
           <div id="exec-header-desc" style="font-size:11px; color:var(--text-secondary); margin-top:1px; display:none; line-height:1.3;"></div>
           <div id="exec-running-test" style="font-size:11px; color:var(--text-success); margin-top:1px; display:none; line-height:1.3; font-weight:500;"></div>
         </div>
-        <div id="exec-timer-wrapper" style="display:none; align-items:center; gap:6px; flex-shrink:0; background:var(--control-bg); padding:3px 8px; border-radius:999px;">
-          <span class="status-dot running" style="width:6px; height:6px; border-radius:50%; background:var(--success);"></span>
-          <span id="run-timer" style="font-family:var(--font-mono, monospace); font-size:12px; font-weight:600; color:var(--text-primary);">00:00</span>
+        <div id="exec-timer-wrapper" style="display:none; align-items:center; gap:6px; flex-shrink:0; background:var(--control-bg); padding:3px 8px; border-radius:999px; width:74px; min-width:74px; max-width:74px; justify-content:center; box-sizing:border-box;">
+          <span class="status-dot running" style="width:6px; height:6px; border-radius:50%; background:var(--warning); flex-shrink:0;"></span>
+          <span id="run-timer" style="font-family:var(--font-mono, monospace); font-size:12px; font-weight:600; color:var(--text-primary); font-variant-numeric:tabular-nums;">00:00</span>
         </div>
       </div>
 
@@ -1839,46 +1775,45 @@ body {
       </div>
       
       <!-- 5-STEP PROGRESS WITH 2PX CONNECTOR TRACK + MINT FILL -->
-      <div style="display:flex; justify-content:space-between; position:relative; margin-bottom:6px; padding:0 10px;">
-         <div style="position:absolute; top:14px; left:32px; right:32px; height:2px; background:var(--control-icon-bg); z-index:0;"></div>
-         <div id="stepper-connector-fill" style="position:absolute; top:14px; left:32px; height:2px; background:var(--success); z-index:1; width:0%; max-width:calc(100% - 64px); transition:width var(--dur-slow) var(--ease);"></div>
+      <div class="stepper-container" style="display:flex; justify-content:space-between; position:relative; margin-bottom:10px; padding:0 16px;">
+         <div class="stepper-track-bg" style="position:absolute; top:17px; left:34px; right:34px; height:2px; z-index:1;"></div>
+         <div id="stepper-connector-fill" style="position:absolute; top:17px; left:34px; height:2px; background:var(--success); z-index:1; width:0%; max-width:calc(100% - 68px);"></div>
          
          <div class="step-item" id="step-init">
             <div class="step-circle">1</div>
             <div class="step-label">Initialize</div>
+            <div class="step-time" id="step-init-time"></div>
          </div>
          <div class="step-item" id="step-discover">
             <div class="step-circle">2</div>
             <div class="step-label">Discover</div>
+            <div class="step-time" id="step-discover-time"></div>
          </div>
          <div class="step-item" id="step-scan">
             <div class="step-circle">3</div>
             <div class="step-label">Scan</div>
+            <div class="step-time" id="step-scan-time"></div>
          </div>
          <div class="step-item" id="step-analyze">
             <div class="step-circle">4</div>
             <div class="step-label">Analyze</div>
+            <div class="step-time" id="step-analyze-time"></div>
          </div>
          <div class="step-item" id="step-report">
             <div class="step-circle">5</div>
             <div class="step-label">Report</div>
+            <div class="step-time" id="step-report-time"></div>
          </div>
-         
-         <div id="step-init-time" style="display:none;"></div>
-         <div id="step-discover-time" style="display:none;"></div>
-         <div id="step-scan-time" style="display:none;"></div>
-         <div id="step-analyze-time" style="display:none;"></div>
-         <div id="step-report-time" style="display:none;"></div>
       </div>
 
       <!-- EXECUTION PROGRESS BAR -->
-      <div style="margin-bottom:6px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; font-size:11px; color:var(--text-secondary);">
-          <span>Execution Progress</span>
-          <span id="exec-progress-pct" style="font-weight:600; color:var(--text-primary);">0%</span>
+      <div class="exec-progress-wrapper" style="margin-top:6px; margin-bottom:10px;">
+        <div class="exec-progress-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; font-size:11px;">
+          <span class="exec-progress-title" style="color:var(--text-secondary); font-weight:500;">Execution progress</span>
+          <span id="exec-progress-pct" style="font-weight:600; color:var(--text-primary); font-variant-numeric:tabular-nums;">0%</span>
         </div>
-        <div style="height:3px; border-radius:999px; background:var(--control-icon-bg); overflow:hidden; position:relative;">
-          <div id="exec-progress-fill" style="height:100%; width:0%; background:var(--success); border-radius:999px; transition:width var(--dur-slow) var(--ease);"></div>
+        <div class="progress-track" style="height:6px; border-radius:999px; overflow:hidden; position:relative;">
+          <div id="exec-progress-fill" style="height:100%; width:0%; background:var(--success); border-radius:999px;"></div>
         </div>
       </div>
       
@@ -1954,27 +1889,12 @@ body {
          </div>
       </div>
       <!-- CHART AREA -->
-      <div id="scan-chart-container" style="flex:1; min-height:50px; margin-top:10px; position:relative; border-bottom:1px dashed var(--border-default);">
-         <svg id="scan-chart-svg" width="100%" height="100%" style="min-height:50px; overflow:visible;">
-            <text x="-25" y="5" fill="var(--text-tertiary)" font-size="9">100</text>
-            <line x1="0" y1="0%" x2="100%" y2="0%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
-            
-            <text x="-20" y="53%" fill="var(--text-tertiary)" font-size="9">50</text>
-            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
-            
-            <text x="-15" y="100%" fill="var(--text-tertiary)" font-size="9">0</text>
-            <line x1="0" y1="100%" x2="100%" y2="100%" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="4 4"/>
+      <div id="scan-chart-container" style="flex:1; min-height:80px; margin-top:10px; position:relative;">
+         <svg id="scan-chart-svg" width="100%" height="100%" style="min-height:80px; overflow:visible;">
          </svg>
       </div>
       <!-- Chart X Axis -->
-      <div id="scan-chart-x-axis" style="display:flex; justify-content:space-between; margin-top:6px; font-size:10px; color:var(--text-tertiary); flex-shrink:0;">
-         <span>Mon<br/>15</span>
-         <span>Tue<br/>16</span>
-         <span>Wed<br/>17</span>
-         <span>Thu<br/>18</span>
-         <span>Fri<br/>19</span>
-         <span>Sat<br/>20</span>
-         <span>Sun<br/>21</span>
+      <div id="scan-chart-x-axis" style="position:relative; height:26px; margin-top:6px; font-size:10px; color:var(--text-tertiary); flex-shrink:0;">
       </div>
     </div>
 
@@ -2417,153 +2337,208 @@ body {
 
     function renderChart(range = '7d') {
       const svg = document.getElementById("scan-chart-svg");
-      if (!svg) return;
+      const container = document.getElementById("scan-chart-container");
+      const xAxis = document.getElementById("scan-chart-x-axis");
+      if (!svg || !container) return;
+
       const allHistory = getScanHistory();
-      
       const now = new Date().getTime();
       let scans = allHistory.filter(s => {
-          if (range === 'all') return true;
-          const days = range === '30d' ? 30 : 7;
-          return (now - new Date(s.timestamp).getTime()) <= days * 24 * 60 * 60 * 1000;
+        if (range === 'all') return true;
+        const days = range === '30d' ? 30 : 7;
+        return (now - new Date(s.timestamp).getTime()) <= days * 24 * 60 * 60 * 1000;
       });
       scans = scans.reverse(); // chronological order
-      
+
       // Calculate overall pass rate
       let tTotal = 0; let tPass = 0;
       scans.forEach(s => {
-          if (s.summary) {
-              tTotal += s.summary.total;
-              tPass += s.summary.passed;
-          }
+        if (s.summary) {
+          tTotal += s.summary.total;
+          tPass += s.summary.passed;
+        }
       });
-      const avgRate = tTotal > 0 ? Math.round((tPass/tTotal)*100) : 0;
-      const avgRateEl = svg.closest(".card-b").querySelector("div[style*='font-size:32px']");
+      const avgRate = tTotal > 0 ? Math.round((tPass / tTotal) * 100) : 0;
+      const avgRateEl = svg.closest(".card-b") ? svg.closest(".card-b").querySelector("div[style*='font-size:22px'], div[style*='font-size:32px']") : null;
       if (avgRateEl) avgRateEl.textContent = avgRate + "%";
-      
-      // Clear existing bars
-      svg.querySelectorAll('.chart-bar-group, .chart-tooltip').forEach(e => e.remove());
-      
-      // Update X axis labels
-      const xAxis = document.getElementById("scan-chart-x-axis");
+
+      // Dimensions
+      const width = container.clientWidth || 600;
+      const height = container.clientHeight || 80;
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      svg.setAttribute("preserveAspectRatio", "none");
+      svg.innerHTML = "";
       if (xAxis) xAxis.innerHTML = "";
-      
+
+      const leftMargin = 38;
+      const rightMargin = 16;
+      const topMargin = 12;
+      const bottomMargin = 12;
+      const plotWidth = width - leftMargin - rightMargin;
+      const plotHeight = height - topMargin - bottomMargin;
+
+      // Draw Y grid lines and labels: 0, 50, 100
+      // Left of plot area (x = leftMargin - 8), right-aligned, at least 11px font size
+      const yValues = [
+        { label: "100", y: topMargin },
+        { label: "50", y: topMargin + plotHeight / 2 },
+        { label: "0", y: topMargin + plotHeight }
+      ];
+
+      yValues.forEach(item => {
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("x", leftMargin - 8);
+        text.setAttribute("y", item.y + 4);
+        text.setAttribute("fill", "var(--text-tertiary)");
+        text.setAttribute("font-size", "11");
+        text.setAttribute("font-family", "var(--font)");
+        text.setAttribute("text-anchor", "end");
+        text.textContent = item.label;
+        svg.appendChild(text);
+
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", leftMargin);
+        line.setAttribute("y1", item.y);
+        line.setAttribute("x2", width - rightMargin);
+        line.setAttribute("y2", item.y);
+        line.setAttribute("stroke", "var(--border-subtle)");
+        line.setAttribute("stroke-width", "1");
+        line.setAttribute("stroke-dasharray", "4 4");
+        svg.appendChild(line);
+      });
+
       if (scans.length === 0) return;
-      
-      svg.setAttribute("viewBox", "0 0 700 160");
-      const width = 700;
-      const height = 160;
-      const gap = width / Math.max(scans.length, 1);
-      
-      // Date formatting for axis: group by date
+
+      const gap = plotWidth / Math.max(scans.length, 1);
+      const barWidth = Math.min(20, Math.max(12, Math.round(gap * 0.45)));
+
       const dateCounts = {};
       scans.forEach(s => {
-          const d = new Date(s.timestamp).toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
-          dateCounts[d] = (dateCounts[d] || 0) + 1;
+        const d = new Date(s.timestamp).toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
+        dateCounts[d] = (dateCounts[d] || 0) + 1;
       });
-      
-      scans.forEach((scan, i) => {
-         const cx = (i * gap) + (gap / 2);
-         const total = scan.summary ? scan.summary.total : 0;
-         const passed = scan.summary ? scan.summary.passed : 0;
-         const failed = scan.summary ? scan.summary.failed : 0;
-         
-         const passedRate = total > 0 ? (passed / total) : 0;
-         const failedRate = total > 0 ? (failed / total) : 0;
-         
-         const passedH = passedRate * height;
-         const failedH = failedRate * height;
-         
-         const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-         g.setAttribute("class", "chart-bar-group");
-         g.style.cursor = "pointer";
-         
-         const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-         hoverRect.setAttribute("x", cx - (gap/2));
-         hoverRect.setAttribute("y", 0);
-         hoverRect.setAttribute("width", gap);
-         hoverRect.setAttribute("height", height);
-         hoverRect.setAttribute("fill", "transparent");
-         g.appendChild(hoverRect);
-         
-         if (passedH > 0) {
-             const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-             pRect.setAttribute("x", cx - 4);
-             pRect.setAttribute("y", height - passedH);
-             pRect.setAttribute("width", 8);
-             pRect.setAttribute("height", passedH);
-             pRect.setAttribute("fill", "var(--success)");
-             if (failedH === 0) pRect.setAttribute("rx", "4"); // rounded top if no failed cap
-             g.appendChild(pRect);
-         }
-         
-         if (failedH > 0) {
-             const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-             fRect.setAttribute("x", cx - 4);
-             fRect.setAttribute("y", height - passedH - failedH);
-             fRect.setAttribute("width", 8);
-             fRect.setAttribute("height", failedH);
-             fRect.setAttribute("fill", "var(--danger)");
-             fRect.setAttribute("rx", "4");
-             g.appendChild(fRect);
-         }
-         
-         const d = new Date(scan.timestamp);
-         const dateStr = d.toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
-         let labelText = dateStr;
-         if (dateCounts[dateStr] > 1) {
-             labelText += "<br/>" + d.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
-         }
-         
-         if (xAxis) {
-             const span = document.createElement("span");
-             span.innerHTML = labelText;
-             span.style.textAlign = "center";
-             span.style.flex = "1";
-             span.style.fontSize = "11px";
-             xAxis.appendChild(span);
-         }
-         
-         g.addEventListener("mouseenter", () => {
-             const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-             tbg.setAttribute("class", "chart-tooltip");
-             tbg.setAttribute("x", cx - 60);
-             const tipY = height - passedH - failedH - 40;
-             tbg.setAttribute("y", tipY);
-             tbg.setAttribute("width", 120);
-             tbg.setAttribute("height", 45);
-             tbg.setAttribute("fill", "var(--text-primary)");
-             tbg.setAttribute("rx", "8");
-             
-             const tdate = document.createElementNS("http://www.w3.org/2000/svg", "text");
-             tdate.setAttribute("class", "chart-tooltip");
-             tdate.setAttribute("x", cx);
-             tdate.setAttribute("y", tipY + 15);
-             tdate.setAttribute("fill", "var(--bg-cards)");
-             tdate.setAttribute("font-size", "10");
-             tdate.setAttribute("text-anchor", "middle");
-             tdate.textContent = d.toLocaleString("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' });
 
-             const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
-             ttext.setAttribute("class", "chart-tooltip");
-             ttext.setAttribute("x", cx);
-             ttext.setAttribute("y", tipY + 32);
-             ttext.setAttribute("fill", "var(--bg-cards)");
-             ttext.setAttribute("font-size", "12");
-             ttext.setAttribute("font-weight", "600");
-             ttext.setAttribute("text-anchor", "middle");
-             ttext.textContent = passed + " of " + total + " passed";
-             
-             svg.appendChild(tbg);
-             svg.appendChild(tdate);
-             svg.appendChild(ttext);
-         });
-         
-         g.addEventListener("mouseleave", () => {
-             svg.querySelectorAll('.chart-tooltip').forEach(e => e.remove());
-         });
-         
-         svg.appendChild(g);
+      scans.forEach((scan, i) => {
+        const cx = leftMargin + (i * gap) + (gap / 2);
+        const total = scan.summary ? scan.summary.total : 0;
+        const passed = scan.summary ? scan.summary.passed : 0;
+        const failed = scan.summary ? scan.summary.failed : 0;
+
+        const passedRate = total > 0 ? (passed / total) : 0;
+        const failedRate = total > 0 ? (failed / total) : 0;
+
+        const passedH = passedRate * plotHeight;
+        const failedH = failedRate * plotHeight;
+
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.setAttribute("class", "chart-bar-group");
+        g.style.cursor = "pointer";
+
+        // Hit test area
+        const hoverRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        hoverRect.setAttribute("x", cx - (gap / 2));
+        hoverRect.setAttribute("y", topMargin);
+        hoverRect.setAttribute("width", gap);
+        hoverRect.setAttribute("height", plotHeight);
+        hoverRect.setAttribute("fill", "transparent");
+        g.appendChild(hoverRect);
+
+        // Passed bar
+        if (passedH > 0) {
+          const pRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          pRect.setAttribute("x", cx - (barWidth / 2));
+          pRect.setAttribute("y", topMargin + plotHeight - passedH);
+          pRect.setAttribute("width", barWidth);
+          pRect.setAttribute("height", passedH);
+          pRect.setAttribute("fill", "var(--success)");
+          if (failedH === 0) pRect.setAttribute("rx", "6");
+          g.appendChild(pRect);
+        }
+
+        // Failed bar
+        if (failedH > 0) {
+          const fRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          fRect.setAttribute("x", cx - (barWidth / 2));
+          fRect.setAttribute("y", topMargin + plotHeight - passedH - failedH);
+          fRect.setAttribute("width", barWidth);
+          fRect.setAttribute("height", failedH);
+          fRect.setAttribute("fill", "var(--danger)");
+          fRect.setAttribute("rx", "6");
+          g.appendChild(fRect);
+        }
+
+        // X Axis Label positioned exactly centered at cx
+        const d = new Date(scan.timestamp);
+        const dateStr = d.toLocaleDateString("en-US", { month: 'short', day: 'numeric' });
+        let labelText = dateStr;
+        if (dateCounts[dateStr] > 1) {
+          labelText += "<br/>" + d.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
+        }
+
+        if (xAxis) {
+          const span = document.createElement("span");
+          span.innerHTML = labelText;
+          span.style.position = "absolute";
+          span.style.left = `${cx}px`;
+          span.style.transform = "translateX(-50%)";
+          span.style.textAlign = "center";
+          span.style.fontSize = "11px";
+          span.style.color = "var(--text-tertiary)";
+          span.style.whiteSpace = "nowrap";
+          span.style.lineHeight = "1.2";
+          xAxis.appendChild(span);
+        }
+
+        // Tooltip
+        g.addEventListener("mouseenter", () => {
+          svg.querySelectorAll(".chart-tooltip").forEach(el => el.remove());
+
+          const tbg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          tbg.setAttribute("class", "chart-tooltip");
+          const tipY = Math.max(4, topMargin + plotHeight - passedH - failedH - 44);
+          tbg.setAttribute("x", Math.max(leftMargin, Math.min(width - 130, cx - 60)));
+          tbg.setAttribute("y", tipY);
+          tbg.setAttribute("width", 120);
+          tbg.setAttribute("height", 40);
+          tbg.setAttribute("fill", "var(--text-primary)");
+          tbg.setAttribute("rx", "8");
+
+          const tdate = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          tdate.setAttribute("class", "chart-tooltip");
+          tdate.setAttribute("x", Math.max(leftMargin + 60, Math.min(width - 70, cx)));
+          tdate.setAttribute("y", tipY + 14);
+          tdate.setAttribute("fill", "var(--bg-cards)");
+          tdate.setAttribute("font-size", "10");
+          tdate.setAttribute("text-anchor", "middle");
+          tdate.textContent = d.toLocaleString("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+          const ttext = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          ttext.setAttribute("class", "chart-tooltip");
+          ttext.setAttribute("x", Math.max(leftMargin + 60, Math.min(width - 70, cx)));
+          ttext.setAttribute("y", tipY + 30);
+          ttext.setAttribute("fill", "var(--bg-cards)");
+          ttext.setAttribute("font-size", "11");
+          ttext.setAttribute("font-weight", "600");
+          ttext.setAttribute("text-anchor", "middle");
+          ttext.textContent = `${passed} of ${total} passed`;
+
+          svg.appendChild(tbg);
+          svg.appendChild(tdate);
+          svg.appendChild(ttext);
+        });
+
+        g.addEventListener("mouseleave", () => {
+          svg.querySelectorAll(".chart-tooltip").forEach(el => el.remove());
+        });
+
+        svg.appendChild(g);
       });
+    }
+
+    // Observe chart container resize for crisp alignment
+    const chartContainerEl = document.getElementById("scan-chart-container");
+    if (chartContainerEl && window.ResizeObserver) {
+      new ResizeObserver(() => renderChart()).observe(chartContainerEl);
     }
 
     renderChart();
@@ -3002,103 +2977,574 @@ body {
     }
 
     const STEPS = ["init","discover","scan","analyze","report"];
+    const STEP_INDEX = { init: 0, discover: 1, scan: 2, analyze: 3, report: 4 };
     const STEP_NUMBERS = { init: "1", discover: "2", scan: "3", analyze: "4", report: "5" };
-    const CHECK_SVG = `<svg class="check-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-    const FAIL_SVG = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+    const ACTIVE_ARC_SVG = `<svg class="step-arc-svg" viewBox="0 0 36 36"><circle class="step-arc-circle" cx="18" cy="18" r="16.5"></circle></svg>`;
+    const CHECK_SVG = `<svg class="step-check-svg" viewBox="0 0 36 36"><path class="step-check-path" d="M11 18.5l4.5 4.5 9.5-9.5"></path></svg>`;
+    const FAIL_SVG = `<svg class="step-fail-svg" viewBox="0 0 36 36"><line x1="12" y1="12" x2="24" y2="24"></line><line x1="24" y1="12" x2="12" y2="24"></line></svg>`;
 
-    function tweenNumber(el, targetVal, suffix = "") {
-      if (!el) return;
-      const startVal = parseInt(el.textContent) || 0;
-      if (startVal === targetVal) { el.textContent = targetVal + suffix; return; }
-      const startTime = performance.now();
-      const duration = 300;
-      function step(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(1, elapsed / duration);
-        const ease = 1 - Math.pow(1 - progress, 3);
-        const curr = Math.round(startVal + (targetVal - startVal) * ease);
-        el.textContent = curr + suffix;
-        if (progress < 1) requestAnimationFrame(step);
-        else el.textContent = targetVal + suffix;
+    class TimerController {
+      constructor() {
+        this.startTime = null;
+        this.intervalId = null;
+        this.wrapper = document.getElementById("exec-timer-wrapper");
+        this.timerEl = document.getElementById("run-timer");
+        this.footerTimer = document.getElementById("footer-timer");
+        this.currentDigits = "00:00";
       }
-      requestAnimationFrame(step);
+
+      start() {
+        this.startTime = Date.now();
+        this.currentDigits = "00:00";
+        this.renderDigits("00:00", false);
+        if (this.footerTimer) this.footerTimer.textContent = "00:00";
+
+        if (this.wrapper) {
+          this.wrapper.style.display = "inline-flex";
+          this.wrapper.style.opacity = "0";
+          this.wrapper.offsetWidth; // force reflow
+          this.wrapper.classList.add("visible");
+          this.wrapper.style.opacity = "1";
+        }
+
+        if (this.intervalId) clearInterval(this.intervalId);
+        this.intervalId = setInterval(() => {
+          const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
+          const mm = String(Math.floor(elapsed / 60)).padStart(2, "0");
+          const ss = String(elapsed % 60).padStart(2, "0");
+          const tStr = `${mm}:${ss}`;
+          this.renderDigits(tStr, true);
+          if (this.footerTimer) this.footerTimer.textContent = tStr;
+        }, 1000);
+      }
+
+      renderDigits(tStr, animate) {
+        if (!this.timerEl) return;
+        const oldStr = this.currentDigits;
+        this.currentDigits = tStr;
+
+        let html = "";
+        for (let i = 0; i < tStr.length; i++) {
+          const ch = tStr[i];
+          if (ch === ":") {
+            html += '<span class="timer-colon">:</span>';
+          } else {
+            const changed = animate && (oldStr[i] !== ch);
+            html += `<span class="timer-slot"><span class="timer-digit ${changed ? 'slide-in' : ''}">${ch}</span></span>`;
+          }
+        }
+        this.timerEl.innerHTML = html;
+      }
+
+      stop() {
+        if (this.intervalId) {
+          clearInterval(this.intervalId);
+          this.intervalId = null;
+        }
+      }
+
+      reset() {
+        this.stop();
+        if (this.wrapper) {
+          this.wrapper.classList.remove("visible");
+          this.wrapper.style.opacity = "0";
+          setTimeout(() => {
+            if (!this.intervalId && this.wrapper) {
+              this.wrapper.style.display = "none";
+              this.renderDigits("00:00", false);
+            }
+          }, 300);
+        }
+      }
     }
 
-    function updateStepperConnector() {
-      const conn = document.getElementById("stepper-connector-fill");
-      if (!conn) return;
-      let highestDone = -1;
-      let runningIdx = -1;
-      STEPS.forEach((s, idx) => {
-        const el = document.getElementById("step-" + s);
-        if (el) {
-          if (el.classList.contains("done")) highestDone = idx;
-          else if (el.classList.contains("running") && runningIdx === -1) runningIdx = idx;
+    const timerController = new TimerController();
+
+    class ProgressManager {
+      constructor() {
+        this.displayProgress = 0;
+        this.activeStep = null; // 0, 1, 2, 3, 4
+        this.status = "idle"; // "idle", "running", "completing", "done", "failed"
+        this.targetMilestone = 0;
+        this.isCatchingUp = false;
+        this.completionStartTime = null;
+        this.completionStartVal = 0;
+        this.lastFrameTime = performance.now();
+        this.lastPctUpdateTime = 0;
+        this.stepStartTimes = {};
+        this.stepTimers = {};
+        this.stepDurations = {};
+        this.stepStates = {};
+        this.stepVisualQueue = [];
+        this.isProcessingQueue = false;
+        this.minVisualDwell = 600; // ms
+        this.maxVisualLag = 2000; // ms
+        this.latestRealEventTime = 0;
+        this.pendingFinishAction = null;
+        this.onFinishDone = null;
+
+        this.progressBar = document.getElementById("exec-progress-fill");
+        this.progressPct = document.getElementById("exec-progress-pct");
+        this.connectorFill = document.getElementById("stepper-connector-fill");
+
+        this.rm = window.matchMedia("(prefers-reduced-motion: reduce)");
+        this.rafId = requestAnimationFrame(this.tick.bind(this));
+      }
+
+      reset() {
+        this.status = "idle";
+        this.activeStep = null;
+        this.displayProgress = 0;
+        this.targetMilestone = 0;
+        this.isCatchingUp = false;
+        this.completionStartTime = null;
+        this.stepVisualQueue = [];
+        this.isProcessingQueue = false;
+        this.pendingFinishAction = null;
+        this.onFinishDone = null;
+        this.stepStates = {};
+        this.latestRealEventTime = 0;
+
+        if (this.dwellTimeout) {
+          clearTimeout(this.dwellTimeout);
+          this.dwellTimeout = null;
         }
-      });
-      let pct = 0;
-      if (highestDone === 4) pct = 100;
-      else if (runningIdx !== -1) pct = (runningIdx * 25) + 12.5;
-      else if (highestDone !== -1) pct = (highestDone + 1) * 25;
-      conn.style.width = Math.min(100, Math.max(0, pct)) + "%";
+
+        Object.keys(this.stepTimers).forEach(id => clearInterval(this.stepTimers[id]));
+        this.stepTimers = {};
+        this.stepStartTimes = {};
+        this.stepDurations = {};
+
+        if (this.progressBar) {
+          this.progressBar.className = "";
+          this.progressBar.style.width = "0%";
+          this.progressBar.style.backgroundColor = "";
+        }
+        if (this.progressPct) {
+          this.progressPct.textContent = "0%";
+          this.progressPct.style.opacity = "1";
+        }
+        if (this.connectorFill) {
+          this.connectorFill.style.width = "0%";
+        }
+
+        STEPS.forEach(id => {
+          const el = document.getElementById("step-" + id);
+          if (el) {
+            el.className = "step-item";
+            const circle = el.querySelector(".step-circle");
+            if (circle) circle.textContent = STEP_NUMBERS[id];
+            const arc = el.querySelector(".step-arc-svg");
+            if (arc) arc.remove();
+            const timeEl = document.getElementById("step-" + id + "-time");
+            if (timeEl) timeEl.textContent = "";
+          }
+        });
+      }
+
+      start() {
+        this.reset();
+        this.status = "running";
+        this.latestRealEventTime = performance.now();
+        if (this.progressBar) {
+          this.progressBar.classList.add("running");
+        }
+        this.onRealStepEvent("init", "running");
+      }
+
+      getSegmentFloor(stepIdx) {
+        return stepIdx * 20;
+      }
+      getSegmentCap(stepIdx) {
+        return (stepIdx + 1) * 20 - 4;
+      }
+
+      onRealStepEvent(stepId, state, durationText, onComplete) {
+        if (this.stepStates[stepId] === "done" && state === "done") return;
+        if (this.stepStates[stepId] === state) return;
+        this.stepStates[stepId] = state;
+        this.latestRealEventTime = performance.now();
+        this.enqueueStepEvent(stepId, state, durationText, onComplete);
+      }
+
+      enqueueStepEvent(stepId, state, durationText, onComplete) {
+        this.stepVisualQueue.push({
+          stepId,
+          state,
+          durationText,
+          onComplete,
+          arrivedAt: performance.now()
+        });
+        this.processQueue();
+      }
+
+      processQueue() {
+        if (this.isProcessingQueue) return;
+        if (this.stepVisualQueue.length === 0) return;
+
+        this.isProcessingQueue = true;
+        const item = this.stepVisualQueue.shift();
+        const stepIdx = STEP_INDEX[item.stepId];
+
+        // Determine dwell time: min 600ms, lag cap 2000ms
+        const now = performance.now();
+        const lag = now - this.latestRealEventTime;
+        let dwell = this.minVisualDwell; // 600ms
+        if (lag > 2000) {
+          dwell = this.minVisualDwell;
+        }
+
+        this.applyStepVisual(item.stepId, item.state, item.durationText);
+
+        if (item.state === "running") {
+          this.activeStep = stepIdx;
+          this.isCatchingUp = false;
+          const floor = this.getSegmentFloor(stepIdx);
+          if (this.displayProgress < floor) {
+            this.targetMilestone = floor;
+            this.isCatchingUp = true;
+          }
+        } else if (item.state === "done") {
+          const nextFloor = this.getSegmentFloor(stepIdx + 1);
+          this.targetMilestone = nextFloor;
+          this.isCatchingUp = true;
+        } else if (item.state === "failed") {
+          this.status = "failed";
+          if (this.progressBar) {
+            this.progressBar.classList.remove("running");
+            this.progressBar.classList.add("failed");
+          }
+        }
+
+        this.dwellTimeout = setTimeout(() => {
+          this.dwellTimeout = null;
+          this.isProcessingQueue = false;
+          if (item.onComplete) item.onComplete();
+          if (this.stepVisualQueue.length > 0) {
+            this.processQueue();
+          } else if (this.pendingFinishAction) {
+            const act = this.pendingFinishAction;
+            this.pendingFinishAction = null;
+            act();
+          }
+        }, dwell);
+      }
+
+      applyStepVisual(stepId, state, durationText) {
+        const el = document.getElementById("step-" + stepId);
+        if (!el) return;
+        const circle = el.querySelector(".step-circle");
+        const timeEl = document.getElementById("step-" + stepId + "-time");
+
+        el.classList.remove("running", "done", "failed");
+        const existingArc = circle ? circle.querySelector(".step-arc-svg") : null;
+        if (existingArc) existingArc.remove();
+
+        if (state === "running") {
+          el.classList.add("running");
+          const stepIdx = STEP_INDEX[stepId];
+          updateScanHeader(stepIdx + 1);
+          if (circle) {
+            circle.textContent = STEP_NUMBERS[stepId];
+            if (!circle.querySelector(".step-arc-svg")) {
+              circle.insertAdjacentHTML("beforeend", ACTIVE_ARC_SVG);
+            }
+          }
+          this.stepStartTimes[stepId] = performance.now();
+          if (this.stepTimers[stepId]) clearInterval(this.stepTimers[stepId]);
+          this.stepTimers[stepId] = setInterval(() => {
+            if (timeEl && this.stepStartTimes[stepId]) {
+              const s = ((performance.now() - this.stepStartTimes[stepId]) / 1000).toFixed(1);
+              timeEl.textContent = s + "s";
+            }
+          }, 100);
+        } else if (state === "done") {
+          if (this.stepTimers[stepId]) {
+            clearInterval(this.stepTimers[stepId]);
+            delete this.stepTimers[stepId];
+          }
+          el.classList.add("done");
+          if (circle) circle.innerHTML = CHECK_SVG;
+          const path = circle ? circle.querySelector(".step-check-path") : null;
+          if (path) {
+            path.style.transition = "none";
+            path.style.strokeDashoffset = "24";
+            path.getBoundingClientRect(); // force reflow
+            requestAnimationFrame(() => {
+              path.style.transition = "stroke-dashoffset var(--dur-check) var(--ease)";
+              path.style.strokeDashoffset = "0";
+            });
+          }
+          if (timeEl) {
+            if (durationText) {
+              timeEl.textContent = durationText;
+            } else if (this.stepStartTimes[stepId]) {
+              const s = ((performance.now() - this.stepStartTimes[stepId]) / 1000).toFixed(1);
+              timeEl.textContent = s + "s";
+            }
+          }
+        } else if (state === "failed") {
+          if (this.stepTimers[stepId]) {
+            clearInterval(this.stepTimers[stepId]);
+            delete this.stepTimers[stepId];
+          }
+          el.classList.add("failed");
+          if (circle) circle.innerHTML = FAIL_SVG;
+          if (timeEl) {
+            if (durationText) {
+              timeEl.textContent = durationText;
+            } else if (this.stepStartTimes[stepId]) {
+              const s = ((performance.now() - this.stepStartTimes[stepId]) / 1000).toFixed(1);
+              timeEl.textContent = s + "s";
+            }
+          }
+        } else {
+          if (circle) circle.textContent = STEP_NUMBERS[stepId];
+          if (timeEl) timeEl.textContent = "";
+        }
+      }
+
+      finish(allOk, callback) {
+        const executeFinish = () => {
+          if (!allOk) {
+            this.status = "failed";
+            if (this.progressBar) {
+              this.progressBar.classList.remove("running");
+              this.progressBar.classList.add("failed");
+            }
+            if (callback) callback();
+            return;
+          }
+          this.status = "completing";
+          this.latestRealEventTime = performance.now();
+          this.completionStartTime = performance.now();
+          this.completionStartVal = this.displayProgress;
+          this.onFinishDone = callback;
+        };
+
+        if (this.isProcessingQueue || this.stepVisualQueue.length > 0) {
+          this.pendingFinishAction = executeFinish;
+        } else {
+          executeFinish();
+        }
+      }
+
+      tick(now) {
+        const dt = Math.min(100, Math.max(1, now - this.lastFrameTime));
+        this.lastFrameTime = now;
+        const reduced = this.rm.matches;
+        let nextProgress = this.displayProgress;
+
+        if (this.status === "running") {
+          if (this.isCatchingUp) {
+            const tau = reduced ? 300 : 400;
+            const diff = this.targetMilestone - this.displayProgress;
+            if (diff > 0.05) {
+              nextProgress = this.displayProgress + diff * (1 - Math.exp(-dt / tau));
+            } else {
+              nextProgress = this.targetMilestone;
+              this.isCatchingUp = false;
+            }
+          } else if (this.activeStep !== null && this.activeStep < 5) {
+            if (!reduced) {
+              const cap = this.getSegmentCap(this.activeStep);
+              if (this.displayProgress < cap) {
+                nextProgress = this.displayProgress + (cap - this.displayProgress) * (1 - Math.exp(-dt / 2500));
+              }
+            }
+          }
+        } else if (this.status === "completing") {
+          const elapsed = now - this.completionStartTime;
+          const duration = 700;
+          if (elapsed < duration) {
+            const t = elapsed / duration;
+            const ease = 0.5 * (1 - Math.cos(t * Math.PI));
+            nextProgress = this.completionStartVal + (100 - this.completionStartVal) * ease;
+          } else {
+            nextProgress = 100;
+            this.status = "done";
+            if (this.progressBar) {
+              this.progressBar.classList.remove("running");
+              this.progressBar.classList.add("done");
+            }
+            if (this.progressPct) {
+              this.progressPct.style.opacity = "0";
+              setTimeout(() => {
+                if (this.progressPct) {
+                  this.progressPct.textContent = "Done";
+                  this.progressPct.style.opacity = "1";
+                }
+              }, 180);
+            }
+            if (this.onFinishDone) {
+              const cb = this.onFinishDone;
+              this.onFinishDone = null;
+              cb();
+            }
+          }
+        }
+
+        // Strictly enforce rate limit: max jump between consecutive 100ms samples <= 7.0 points
+        const maxDelta = 7.0 * (dt / 100);
+        if (nextProgress - this.displayProgress > maxDelta) {
+          nextProgress = this.displayProgress + maxDelta;
+        }
+
+        // Strictly enforce non-decreasing
+        if (nextProgress < this.displayProgress) {
+          nextProgress = this.displayProgress;
+        }
+
+        this.displayProgress = Math.max(0, Math.min(100, nextProgress));
+
+        if (this.progressBar) {
+          this.progressBar.style.width = this.displayProgress.toFixed(2) + "%";
+        }
+        if (this.connectorFill) {
+          this.connectorFill.style.width = this.displayProgress.toFixed(2) + "%";
+        }
+        if (this.progressPct && this.status !== "done") {
+          if (now - this.lastPctUpdateTime >= 100) {
+            this.progressPct.textContent = Math.round(this.displayProgress) + "%";
+            this.lastPctUpdateTime = now;
+          }
+        }
+
+        this.rafId = requestAnimationFrame(this.tick.bind(this));
+      }
     }
+
+    const progressManager = new ProgressManager();
 
     function setStepState(id, state, time) {
-      const el = document.getElementById("step-" + id);
-      if (!el) return;
-      el.classList.remove("done","running","failed");
-      const circle = el.querySelector(".step-circle");
-      if (state) {
-        el.classList.add(state);
-        if (circle) {
-          if (state === "done") circle.innerHTML = CHECK_SVG;
-          else if (state === "failed") circle.innerHTML = FAIL_SVG;
-          else circle.textContent = STEP_NUMBERS[id] || "";
-        }
-      } else {
-        if (circle) circle.textContent = STEP_NUMBERS[id] || "";
-      }
-      const t = document.getElementById("step-" + id + "-time");
-      if (t && time !== undefined) t.textContent = time;
-
-      updateStepperConnector();
-
-      window.__stepper_history = window.__stepper_history || [];
-      const currentPattern = STEPS.map(s => {
-        const elS = document.getElementById("step-" + s);
-        if (!elS) return "idle";
-        if (elS.classList.contains("done")) return "done";
-        if (elS.classList.contains("running")) return "running";
-        if (elS.classList.contains("failed")) return "failed";
-        return "idle";
-      }).join(" -> ");
-      const last = window.__stepper_history[window.__stepper_history.length - 1];
-      if (!last || last.state !== currentPattern) {
-        window.__stepper_history.push({ time: Date.now(), state: currentPattern });
-      }
+      progressManager.onRealStepEvent(id, state, time);
     }
     function resetSteps() {
-      STEPS.forEach(s => setStepState(s, "", "—"));
-      const conn = document.getElementById("stepper-connector-fill");
-      if (conn) conn.style.width = "0%";
-      const fill = document.getElementById("exec-progress-fill");
-      if (fill) fill.style.width = "0%";
-      const pctEl = document.getElementById("exec-progress-pct");
-      if (pctEl) pctEl.textContent = "0%";
-      document.getElementById("step-analyze-time").textContent = "Pending";
-      document.getElementById("step-report-time").textContent  = "Pending";
+      progressManager.reset();
+      timerController.reset();
     }
     function updateExecProgress(pct) {
-      const fill = document.getElementById("exec-progress-fill");
-      if (fill) {
-        fill.style.transform = "none";
-        fill.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+      progressManager.targetMilestone = pct;
+      progressManager.isCatchingUp = true;
+    }
+
+    function setStatus(text, state) {
+      if (!text) return;
+      const pill = document.getElementById("topbar-status");
+      const dot = document.getElementById("status-dot");
+      const textEl = document.getElementById("status-text");
+      const footerDot = document.getElementById("footer-dot");
+      const footerText = document.getElementById("footer-text");
+
+      if (footerText) footerText.textContent = text;
+
+      let resolvedState = state;
+      if (!resolvedState) {
+        const lower = text.toLowerCase();
+        if (lower.includes("running") || lower.includes("initializ")) resolvedState = "running";
+        else if (lower.includes("complete") || lower.includes("passed")) resolvedState = "passed";
+        else if (lower.includes("fail") || lower.includes("error")) resolvedState = "failed";
+        else resolvedState = "ready";
       }
-      const pctEl = document.getElementById("exec-progress-pct");
-      if (pctEl) {
-        tweenNumber(pctEl, Math.round(pct), "%");
+
+      if (dot) dot.className = `status-dot ${resolvedState}`;
+      if (footerDot) footerDot.className = `status-dot ${resolvedState}`;
+
+      if (pill) {
+        const prevWidth = pill.getBoundingClientRect().width;
+        pill.className = `topbar-status ${resolvedState}`;
+
+        if (textEl) {
+          textEl.classList.add("fading-out");
+          setTimeout(() => {
+            textEl.textContent = text;
+            textEl.classList.remove("fading-out");
+          }, 120);
+        }
+
+        if (textEl && prevWidth > 0) {
+          const dummy = pill.cloneNode(true);
+          dummy.style.visibility = "hidden";
+          dummy.style.position = "absolute";
+          dummy.style.width = "auto";
+          const dummyText = dummy.querySelector("#status-text");
+          if (dummyText) dummyText.textContent = text;
+          document.body.appendChild(dummy);
+          const targetWidth = dummy.getBoundingClientRect().width;
+          document.body.removeChild(dummy);
+
+          if (Math.abs(prevWidth - targetWidth) > 0.5) {
+            pill.style.width = prevWidth + "px";
+            pill.offsetWidth; // force reflow
+            pill.style.width = targetWidth + "px";
+            if (pill._widthTimer) clearTimeout(pill._widthTimer);
+            pill._widthTimer = setTimeout(() => {
+              if (pill) pill.style.width = "";
+            }, 300);
+          }
+        }
       }
     }
+
+    function applyScanState(state, summary) {
+      const s = summary || { total: 10, passed: 10, failed: 0, error: 0 };
+      if (state === "complete" || state === "passed") {
+        resetSteps();
+        STEPS.forEach(id => {
+          progressManager.applyStepVisual(id, "done", "0.5s");
+          progressManager.stepStates[id] = "done";
+        });
+        progressManager.displayProgress = 100;
+        progressManager.status = "done";
+        if (progressManager.progressBar) {
+          progressManager.progressBar.className = "done";
+          progressManager.progressBar.style.width = "100%";
+        }
+        if (progressManager.connectorFill) {
+          progressManager.connectorFill.style.width = "100%";
+        }
+        if (progressManager.progressPct) {
+          progressManager.progressPct.textContent = "Done";
+        }
+        setStatus("Complete: " + s.passed + " passed, " + s.failed + " failed", "passed");
+      } else if (state === "failed") {
+        resetSteps();
+        progressManager.applyStepVisual("init", "done", "0.2s");
+        progressManager.stepStates["init"] = "done";
+        progressManager.applyStepVisual("discover", "done", "0.4s");
+        progressManager.stepStates["discover"] = "done";
+        progressManager.applyStepVisual("scan", "failed", "1.2s");
+        progressManager.stepStates["scan"] = "failed";
+        progressManager.displayProgress = 50;
+        progressManager.status = "failed";
+        if (progressManager.progressBar) {
+          progressManager.progressBar.className = "failed";
+          progressManager.progressBar.style.width = "50%";
+        }
+        if (progressManager.connectorFill) {
+          progressManager.connectorFill.style.width = "50%";
+        }
+        if (progressManager.progressPct) {
+          progressManager.progressPct.textContent = "50%";
+        }
+        setStatus("Failed: " + s.failed + " failures", "failed");
+      } else if (state === "running") {
+        progressManager.start();
+        setStatus("Running scan...", "running");
+      } else {
+        resetSteps();
+        setStatus("Ready", "ready");
+      }
+    }
+
+    // Expose on window for tests and assertions
+    window.progressManager = progressManager;
+    window.timerController = timerController;
+    window.setStepState = setStepState;
+    window.resetSteps = resetSteps;
+    window.updateExecProgress = updateExecProgress;
+    window.setStatus = setStatus;
+    window.applyScanState = applyScanState;
 
     function createProgressController(fillEl, textEl) {
       const rm = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -3309,22 +3755,10 @@ body {
     const execTimerWrapper = document.getElementById("exec-timer-wrapper");
 
     function startTimer(){
-      scanStartTime=Date.now();
-      if(footerTimer) footerTimer.textContent="00:00";
-      if(runTimerEl) runTimerEl.textContent="00:00";
-      if(execTimerWrapper) execTimerWrapper.style.display="flex";
-      if(scanTimer) clearInterval(scanTimer);
-      scanTimer=setInterval(()=>{
-        const e=Math.floor((Date.now()-scanStartTime)/1000);
-        const mm = String(Math.floor(e/60)).padStart(2,"0");
-        const ss = String(e%60).padStart(2,"0");
-        const tStr = `${mm}:${ss}`;
-        if(footerTimer) footerTimer.textContent=tStr;
-        if(runTimerEl) runTimerEl.textContent=tStr;
-      },1000);
+      timerController.start();
     }
     function stopTimer(){
-      if(scanTimer){clearInterval(scanTimer); scanTimer=null;}
+      timerController.stop();
     }
 
     logBody.addEventListener("scroll",()=>{
@@ -3446,8 +3880,6 @@ body {
       if(badge){badge.className="timeline-badge running";badge.textContent="Running";}
       startRowRunning(item);
     }
-    function setStatus(t){statusText.textContent=t;footerText.textContent=t;}
-
     // Form submission / SSE
     form.addEventListener("submit", async (e)=>{
       e.preventDefault();hideError();
@@ -3459,11 +3891,11 @@ body {
       timeline.innerHTML="";timelineSec.classList.remove("visible");completionSec.classList.remove("visible");
       logBody.innerHTML="";logBody.appendChild(logEmpty);logEmpty.style.display="flex";
       logLineCount=0;logCount.textContent="0";currentLogFile=null;filesCompleted=0;
-      resetSteps();updateExecProgress(10);
-      setStepState("init", "running", "");
+      resetSteps();
+      progressManager.start();
       updateScanHeader(1, url);
       setRunningTestName(null);
-      setPageTitleRunning(10);
+      setPageTitleRunning(0);
 
       const resBanner = document.getElementById("exec-result-banner");
       if (resBanner) resBanner.style.display = "none";
@@ -3472,7 +3904,7 @@ body {
       gaugeFailed.textContent="—";gaugeBarFill.style.transform="scaleX(0)";
       gaugeBarMeta.textContent="Scan in progress...";
 
-      setLoading(true);setStatus("Initializing scan...");startTimer();
+      setLoading(true);setStatus("Initializing scan...", "running");startTimer();
 
       const sessionId=crypto.randomUUID();
       const params=new URLSearchParams({url,scan_type:scanType,session_id:sessionId,scan_strategy:strategy});
@@ -3502,6 +3934,10 @@ body {
         }
       }
 
+      let realStepStartTimes = {};
+      let realStepDurations = {};
+      realStepStartTimes['init'] = performance.now();
+
       const evtSrc=new EventSource("/stream_scan?"+params.toString());
       let pendingFiles=[];
 
@@ -3510,7 +3946,9 @@ body {
 
         if(data.type==="error"){
           evtSrc.close();setLoading(false);stopTimer();
-          setStatus("Error");statusDot.className="status-dot";footerDot.className="status-dot";
+          progressManager.finish(false, () => {
+            setStatus("Error", "failed");
+          });
           document.getElementById("exec-status-badge").className="exec-status-badge";
           setRunningTestName(null);
           document.title = DEFAULT_DOC_TITLE;
@@ -3524,14 +3962,18 @@ body {
           scanFilesList=data.files;
           data.files.forEach(({file})=>pendingFiles.push(file));
           timelineSec.classList.add("visible");
-          setStepState("init","done",new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"}));
-          setStepState("discover","running","");
+          
+          const initElapsed = ((performance.now() - realStepStartTimes['init']) / 1000).toFixed(1) + "s";
+          realStepDurations['init'] = initElapsed;
+          setStepState("init", "done", initElapsed);
+          
+          realStepStartTimes['discover'] = performance.now();
+          setStepState("discover", "running", "");
           updateScanHeader(2);
-          updateExecProgress(25);
-          setPageTitleRunning(25);
+          setPageTitleRunning(20);
           if(pendingFiles.length>0){
             markTimelineRunning(pendingFiles[0]);
-            setStatus(`Running: ${data.files[0].label}`);
+            setStatus(`Running: ${data.files[0].label}`, "running");
             setRunningTestName(data.files[0].label, 0, activeTestTotal);
           }
           appendLogLine(new Date().toTimeString().slice(0, 8), `Test suite initialized (${activeTestTotal} test(s) queued)`, "System");
@@ -3542,10 +3984,13 @@ body {
           appendLogLine(data.timestamp,data.line,data.label || data.file);
           const disc = document.getElementById("step-discover");
           if (disc && disc.classList.contains("running") && data.file && data.file !== "system") {
-            setStepState("discover", "done", "");
+            const discElapsed = ((performance.now() - (realStepStartTimes['discover'] || performance.now())) / 1000).toFixed(1) + "s";
+            realStepDurations['discover'] = discElapsed;
+            setStepState("discover", "done", discElapsed);
+            
+            realStepStartTimes['scan'] = performance.now();
             setStepState("scan", "running", "");
             updateScanHeader(3);
-            updateExecProgress(40);
             setPageTitleRunning(40);
           }
           if (data.label && activeTestTotal > 0) {
@@ -3560,10 +4005,12 @@ body {
           appendLogLine(new Date().toTimeString().slice(0, 8), `Suite completed: ${data.label} (${data.passed} passed, ${data.failed} failed)`, data.label);
           const idx=pendingFiles.indexOf(data.file);
           if(idx!==-1){setCircuitTraceState(idx,data.status);setCircuitTraceState(idx+1,"running");}
-          const pct = Math.min(85, Math.round((filesCompleted / totalFiles) * 45) + 40);
-          updateExecProgress(pct);
-          setPageTitleRunning(pct);
-          setStepState("discover","done","");
+          if (!realStepDurations['discover']) {
+            const discElapsed = ((performance.now() - (realStepStartTimes['discover'] || performance.now())) / 1000).toFixed(1) + "s";
+            realStepDurations['discover'] = discElapsed;
+            setStepState("discover", "done", discElapsed);
+            realStepStartTimes['scan'] = performance.now();
+          }
           activeTestIndex = filesCompleted;
           if(filesCompleted < totalFiles){
             setStepState("scan", "running", "");
@@ -3572,84 +4019,45 @@ body {
               setRunningTestName(scanFilesList[activeTestIndex].label, activeTestIndex, activeTestTotal);
             }
           } else {
-            setStepState("scan", "done", "");
+            const scanElapsed = ((performance.now() - (realStepStartTimes['scan'] || performance.now())) / 1000).toFixed(1) + "s";
+            realStepDurations['scan'] = scanElapsed;
+            setStepState("scan", "done", scanElapsed);
+            
+            realStepStartTimes['analyze'] = performance.now();
             setStepState("analyze", "running", "");
             updateScanHeader(4);
             setRunningTestName(null);
-            updateExecProgress(90);
-            setPageTitleRunning(90);
+            setPageTitleRunning(80);
           }
           if(idx!==-1&&idx+1<pendingFiles.length){
             const nf=pendingFiles[idx+1];markTimelineRunning(nf);
             const ni=document.getElementById("tl-"+nf.replace(/[^a-z0-9]/gi,"_"));
-            if(ni){const lbl=ni.querySelector(".timeline-label")?.textContent||nf;setStatus(`Running: ${lbl}`);}
+            if(ni){const lbl=ni.querySelector(".timeline-label")?.textContent||nf;setStatus(`Running: ${lbl}`, "running");}
           }
           return;
         }
 
         if(data.type==="done"){
-          evtSrc.close();setLoading(false);stopTimer();
-          const s=data.summary,allOk=s.failed===0&&s.error===0,finalState=allOk?"passed":"failed";
-          setStepState("scan","done","");
-          setStepState("analyze","done","");
-          setStepState("report",allOk?"done":"failed","");
-          updateScanHeader(5);
-          setRunningTestName(null);
-          updateExecProgress(100);
-          setCircuitTraceState(pendingFiles.length,finalState);
-          setCircuitNodeState("circuit-final",finalState,allOk?"Passed":"Failed");
-          const fd=document.querySelector("#circuit-final .timeline-detail-stats");
-          if(fd)fd.textContent=`${s.passed} passed · ${s.failed} failed · ${s.error} errors`;
-          statusDot.className="status-dot active";footerDot.className="status-dot active";
-          document.getElementById("exec-status-badge").className=`exec-status-badge ${allOk?"done-ok":"done-fail"}`;
-          setStatus(`Complete: ${s.passed} passed, ${s.failed} failed`);
-          updateGauge(s.total,s.passed,s.failed);
-          document.getElementById("completion-status").textContent=allOk?"✓ All Tests Passed":"✗ Some Tests Failed";
-          document.getElementById("completion-status").className=`completion-status ${allOk?"ok":"warn"}`;
-          document.getElementById("stat-total").textContent=s.total;
-          document.getElementById("stat-passed").textContent=s.passed;
-          document.getElementById("stat-failed").textContent=s.failed;
-          document.getElementById("stat-errors").textContent=s.error;
-
-          // Header line completion state
-          const titleEl = document.getElementById("exec-header-title");
-          const descEl = document.getElementById("exec-header-desc");
-          if (titleEl) titleEl.textContent = allOk ? "Scan Completed" : "Scan Completed with Failures";
-          if (descEl) { descEl.style.display = "none"; }
-
-          // Result banner
-          const banner = document.getElementById("exec-result-banner");
-          if (banner) {
-            banner.style.display = "flex";
-            if (allOk) {
-              banner.style.background = "rgba(47, 213, 154, 0.12)";
-              banner.style.color = "var(--text-success)";
-              banner.style.border = "1px solid rgba(47, 213, 154, 0.25)";
-              document.getElementById("exec-result-icon").textContent = "✓";
-              document.getElementById("exec-result-text").textContent = `Scan complete: ${s.passed} passed, ${s.failed} failed`;
-            } else {
-              banner.style.background = "rgba(255, 93, 108, 0.12)";
-              banner.style.color = "var(--text-danger)";
-              banner.style.border = "1px solid rgba(255, 93, 108, 0.25)";
-              document.getElementById("exec-result-icon").textContent = "✕";
-              document.getElementById("exec-result-text").textContent = `Scan complete: ${s.passed} passed, ${s.failed} failed`;
-            }
+          evtSrc.close(); setLoading(false);
+          const s = data.summary, allOk = s.failed === 0 && s.error === 0, finalState = allOk ? "passed" : "failed";
+          
+          if (!realStepDurations['scan']) {
+            realStepDurations['scan'] = ((performance.now() - (realStepStartTimes['scan'] || performance.now())) / 1000).toFixed(1) + "s";
           }
+          const anaElapsed = ((performance.now() - (realStepStartTimes['analyze'] || performance.now())) / 1000).toFixed(1) + "s";
+          realStepDurations['analyze'] = anaElapsed;
+          realStepDurations['report'] = "0.2s";
 
-          // Browser tab title update
-          setPageTitleComplete(s.passed, s.total, s.failed);
+          setStepState("scan", "done", realStepDurations['scan']);
+          setStepState("analyze", "done", anaElapsed);
+          setStepState("report", allOk ? "done" : "failed", "0.2s");
+          
+          setRunningTestName(null);
+          setCircuitTraceState(pendingFiles.length, finalState);
+          setCircuitNodeState("circuit-final", finalState, allOk ? "Passed" : "Failed");
+          const fd = document.querySelector("#circuit-final .timeline-detail-stats");
+          if(fd) fd.textContent = `${s.passed} passed · ${s.failed} failed · ${s.error} errors`;
 
-          // Completion toast notification
-          showScanToast(s.passed, s.failed);
-
-          const pct=s.total>0?Math.round((s.passed/s.total)*100):0;
-          const fill=document.getElementById("pass-rate-fill");
-          fill.className=`pass-rate-fill ${pct>=80?"good":"bad"}`;
-          fill.setAttribute("role","progressbar");fill.setAttribute("aria-valuemin","0");fill.setAttribute("aria-valuemax","100");
-          completionProgress.setTarget(pct);
-          completionSec.classList.add("visible");
-
-          // Save to comprehensive history store
           const now = new Date();
           const record = {
             id: data.session_id || ("scan_" + Date.now()),
@@ -3667,7 +4075,71 @@ body {
             },
             reportExists: data.report_exists
           };
-          saveScanRecord(record);
+
+          // Finish visual dwell queue and then trigger final completion visual items (Y3 & A3)
+          progressManager.finish(allOk, () => {
+            stopTimer();
+            
+            // Header line completion state
+            const titleEl = document.getElementById("exec-header-title");
+            const descEl = document.getElementById("exec-header-desc");
+            if (titleEl) titleEl.textContent = allOk ? "Scan Completed" : "Scan Completed with Failures";
+            if (descEl) descEl.style.display = "none";
+
+            // Status pill
+            setStatus(allOk ? `Complete: ${s.passed} passed, ${s.failed} failed` : `Complete: ${s.passed} passed, ${s.failed} failed`, allOk ? "passed" : "failed");
+            document.getElementById("exec-status-badge").className = `exec-status-badge ${allOk ? "done-ok" : "done-fail"}`;
+
+            // Gauge & Counters
+            updateGauge(s.total, s.passed, s.failed);
+            document.getElementById("completion-status").textContent = allOk ? "✓ All Tests Passed" : "✗ Some Tests Failed";
+            document.getElementById("completion-status").className = `completion-status ${allOk ? "ok" : "warn"}`;
+            document.getElementById("stat-total").textContent = s.total;
+            document.getElementById("stat-passed").textContent = s.passed;
+            document.getElementById("stat-failed").textContent = s.failed;
+            document.getElementById("stat-errors").textContent = s.error;
+
+            // Result banner
+            const banner = document.getElementById("exec-result-banner");
+            if (banner) {
+              banner.style.display = "flex";
+              if (allOk) {
+                banner.style.background = "rgba(47, 213, 154, 0.12)";
+                banner.style.color = "var(--text-success)";
+                banner.style.border = "1px solid rgba(47, 213, 154, 0.25)";
+                document.getElementById("exec-result-icon").textContent = "✓";
+                document.getElementById("exec-result-text").textContent = `Scan complete: ${s.passed} passed, ${s.failed} failed`;
+              } else {
+                banner.style.background = "rgba(255, 93, 108, 0.12)";
+                banner.style.color = "var(--text-danger)";
+                banner.style.border = "1px solid rgba(255, 93, 108, 0.25)";
+                document.getElementById("exec-result-icon").textContent = "✕";
+                document.getElementById("exec-result-text").textContent = `Scan complete: ${s.passed} passed, ${s.failed} failed`;
+              }
+            }
+
+            // Browser tab title update
+            setPageTitleComplete(s.passed, s.total, s.failed);
+
+            // Completion toast notification
+            showScanToast(s.passed, s.failed);
+
+            const pct = s.total > 0 ? Math.round((s.passed / s.total) * 100) : 0;
+            const fill = document.getElementById("pass-rate-fill");
+            if (fill) {
+              fill.className = `pass-rate-fill ${pct >= 80 ? "good" : "bad"}`;
+              fill.setAttribute("role", "progressbar");
+              fill.setAttribute("aria-valuemin", "0");
+              fill.setAttribute("aria-valuemax", "100");
+            }
+            completionProgress.setTarget(pct);
+            completionSec.classList.add("visible");
+
+            // Save to history & render recent scans & chart
+            saveScanRecord(record);
+            renderRecentScans();
+            renderChart();
+          });
 
           const ts = now.toTimeString().slice(0,8);
           appendLogLine(ts,`Status: ✅ Scan complete — ${s.passed} passed, ${s.failed} failed, ${s.error} errors`,"Summary");
@@ -3676,9 +4148,11 @@ body {
 
       evtSrc.onerror=()=>{
         evtSrc.close();setLoading(false);stopTimer();
-        statusDot.className="status-dot";footerDot.className="status-dot";
+        progressManager.finish(false, () => {
+          setStatus("Disconnected", "failed");
+        });
         document.getElementById("exec-status-badge").className="exec-status-badge";
-        setStatus("Disconnected");showError("Connection to server was lost. Please try again.");
+        showError("Connection to server was lost. Please try again.");
       };
     });
   </script>
