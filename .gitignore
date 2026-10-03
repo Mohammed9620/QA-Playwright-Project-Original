@@ -4,6 +4,8 @@ __pycache__/
 .pytest_cache/
 *.pyc
 users.db
+qa_platform.db
+*.db
 report.html
 reports/
 skills-lock.json
